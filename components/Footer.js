@@ -6,7 +6,7 @@ export default function Footer() {
 			<footer className={styles.footer}>
 				front end developer{' '}
 				<img src="/netliheart.svg" alt="Netlify Logo" className={styles.logo} />{' '}
-				for ever
+				for ever (esmaeil jafari)
 			</footer>
 		</>
 	);
