@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Header({ title }) {
 	return (
@@ -15,7 +16,11 @@ export default function Header({ title }) {
 					<li>Education</li>
 				</ul>
 			</nav>
-			<button type="button">Download CV</button>
+			<Link href="/Esmaeil_jafari-Resume.pdf">
+				<a className="px-3 py-2 rounded-md bg-secondary" download>
+					Download CV
+				</a>
+			</Link>
 		</header>
 	);
 }
