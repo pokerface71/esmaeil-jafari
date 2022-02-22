@@ -1,0 +1,20 @@
+$header-height: 48px;
+$sidebar-width: 208px;
+$main-content-padding: 32px;
+// @footer-height: 69px;
+html {
+	scroll-behavior: smooth;
+	direction: rtl;
+}
+body {
+	font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+		Arial, 'Noto Sans', 'Liberation Sans', sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	direction: ltr;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	color: $base-text;
+	background-color: $base-bg;
+	overflow-x: hidden;
+}
