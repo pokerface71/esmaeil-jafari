@@ -30,7 +30,7 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="w-full pt-24">
+			<main className="w-11/12 pt-24 mx-auto">
 				<Header />
 				<h2 className="text-lg text-center">About Me</h2>
 				<div className="flex flex-wrap items-center w-full p-3 sm:m-auto">
@@ -188,6 +188,23 @@ export default function Home() {
 								style={{ width: '50%' }}
 							></div>
 						</div>
+					</div>
+				</div>
+
+				<div className="flex flex-wrap items-center justify-center w-full mt-28">
+					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
+						<img
+							height="180em"
+							className="md:mx-auto"
+							src="https://github-readme-stats-eight-theta.vercel.app/api?username=pokerface71&show_icons=true&theme=algolia&include_all_commits=true&count_private=true"
+						/>
+					</div>
+					<div className="mx-3 mb-3 text-center md:w-5/12 sm:w-full ">
+						<img
+							height="180em"
+							className="md:mx-auto"
+							src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=pokerface71&layout=compact&langs_count=8&theme=algolia"
+						/>
 					</div>
 				</div>
 				<h2 className="text-lg text-center mt-28">Experience</h2>

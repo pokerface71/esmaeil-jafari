@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Header({ title }) {
+export default function Header() {
 	return (
-		<header className="fixed top-0 left-0 z-50 flex items-center justify-between w-full header-main md:px-2 md:py-3 base-bg">
+		<header className="fixed top-0 left-0 z-50 flex items-center justify-between w-full px-2 py-1 header-main base-bg">
 			<div className="header-main--logo ">
 				<Image src="/netliheart.svg" width={25} height={25} />
 			</div>
