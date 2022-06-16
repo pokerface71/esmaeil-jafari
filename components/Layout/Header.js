@@ -9,11 +9,10 @@ export default function Header() {
 			</div>
 			<nav className="header-main--nav">
 				<ul className="flex items-center justify-center header-main--nav--ul">
-					<li>Home</li>
-					<li>About</li>
-					<li>Skills</li>
-					<li>Experience</li>
-					<li>Education</li>
+					<li><Link href='/?scroll=home'>Home</Link></li>
+					<li><Link href='/?scroll=aboutUs'>About</Link></li>
+					<li><Link href='/?scroll=skills'>Skills</Link></li>
+					<li><Link href='/?scroll=exprience'>Experience</Link></li>
 				</ul>
 			</nav>
 			<Link href="/Esmaeil_jafari-Resume.pdf">

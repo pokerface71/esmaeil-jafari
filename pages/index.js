@@ -22,15 +22,50 @@ import {
 	DiReact,
 	DiSass,
 } from 'react-icons/di';
+import { useEffect, useRef } from 'react/cjs/react.development';
+import { useRouter } from 'next/router';
 export default function Home() {
+	const router = useRouter()
+	const scroll = router.query.scroll
+	console.log(scroll)
+	const home = useRef()
+	const aboutUs = useRef()
+	const skills = useRef()
+	const exprience = useRef()
+	useEffect(() => {
+		if (scroll === 'exprience') {
+			exprience.current.scrollIntoView({
+				behavior: "smooth",
+				block: 'center', inline: "center"
+			})
+		} else if (scroll === 'aboutUs') {
+			aboutUs.current.scrollIntoView({
+				behavior: "smooth",
+				block: 'center', inline: "center"
+			})
+		} else if (scroll === 'skills') {
+			skills.current.scrollIntoView({
+				behavior: "smooth",
+				block: 'center', inline: "center"
+			})
+		} else {
+			home.current.scrollIntoView({
+				behavior: "smooth",
+				block: 'center', inline: "center"
+			})
+		}
+
+
+
+	}, [scroll, exprience])
 	return (
-		<div className="container">
+		<div className="container" ref={home}>
 			<Head>
 				<title>Esmaeil jafari Resume!</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="w-11/12 pt-24 mx-auto">
+			<main className="w-11/12 pt-24 mx-auto" ref={aboutUs}>
 				<Header />
 				<h2 className="text-lg text-center">About Me</h2>
 				<div className="flex flex-wrap items-center w-full p-3 sm:m-auto">
@@ -58,7 +93,7 @@ export default function Home() {
 						</p>
 					</div>
 				</div>
-				<h2 className="text-lg text-center">Skills</h2>
+				<h2 className="text-lg text-center" ref={skills}>Skills</h2>
 				<div className="flex items-center justify-center w-full p-3">
 					<DiHtml5 className="icon-skill html" />
 					<DiCss3 className="icon-skill css" />
@@ -207,13 +242,27 @@ export default function Home() {
 						/>
 					</div>
 				</div>
-				<h2 className="text-lg text-center mt-28">Experience</h2>
+				<h2 className="text-lg text-center mt-28" ref={exprience}>Experience</h2>
 				<div className="flex flex-wrap items-center w-full p-3 sm:m-auto">
 					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
 						<p className="text-secondary">Frontend Developer</p>
 						<p className="flex items-center justify-between">
+							<span>Dinawin · Full-time</span>
+							<span>Jan 2022 - Present </span>
+						</p>
+						<p className="text-justify">
+							Dinawin is a company in the field of car spare parts that has several different applications. My responsibility is to move the old application forward and refactor it from the ground up.
+							technology’s
+						</p>
+						<p>
+							React | Nextjs | TypeScript | Sass | Text-to-Speech | signalR | JavaScript | micro frontend
+						</p>
+					</div>
+					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
+						<p className="text-secondary">Frontend Developer</p>
+						<p className="flex items-center justify-between">
 							<span>ketabplus · Full-time</span>
-							<span>Mar 2021 - Present · 1 yr</span>
+							<span>Mar 2021 - Fen 2022 · 1 yr</span>
 						</p>
 						<p className="text-justify">
 							𝘒𝘦𝘵𝘢𝘣𝘗𝘭𝘶𝘴 𝘪𝘴 𝘢 𝘚𝘵𝘢𝘳𝘵-𝘜𝘱 𝘪𝘯 𝘵𝘩𝘦 𝘍𝘪𝘦𝘭𝘥 𝘖𝘧 𝘉𝘰𝘰𝘬𝘴 𝘞𝘩𝘰𝘴𝘦 𝘛𝘢𝘳𝘨𝘦𝘵 𝘐𝘴 𝘛𝘰
