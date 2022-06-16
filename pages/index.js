@@ -22,8 +22,8 @@ import {
 	DiReact,
 	DiSass,
 } from 'react-icons/di';
-import { useEffect, useRef } from 'react/cjs/react.development';
 import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react/cjs/react.production.min';
 export default function Home() {
 	const router = useRouter()
 	const scroll = router.query.scroll
