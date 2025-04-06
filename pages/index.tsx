@@ -1,35 +1,38 @@
-import Head from 'next/head';
-import Header from '@components/Layout/Header';
-import Footer from '@components/Layout/Footer';
-import Image from 'next/image';
+import Head from "next/head";
+import Header from "@components/Layout/Header";
+import Footer from "@components/Layout/Footer";
+import Image from "next/image";
 import {
   FaLinkedin,
-  FaCalendarDay,
-  FaInstagram,
+  FaGithub,
+  FaTwitter,
   FaWhatsapp,
-  FaPhoneVolume,
-  FaMailBulk,
-} from 'react-icons/fa';
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaInstagram,
+} from "react-icons/fa";
 import {
-  DiBootstrap,
-  DiCss3,
-  DiPhp,
+  DiReact,
+  DiJavascript1,
+  DiNodejs,
+  DiMongodb,
   DiGit,
   DiHtml5,
-  DiJavascript,
-  DiJqueryLogo,
-  DiPhotoshop,
-  DiReact,
+  DiCss3,
   DiSass,
-} from 'react-icons/di';
-import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+  DiBootstrap,
+  DiPhotoshop,
+} from "react-icons/di";
+import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
 
 interface ScrollRefs {
   home: React.RefObject<HTMLDivElement>;
-  aboutUs: React.RefObject<HTMLDivElement>;
+  about: React.RefObject<HTMLDivElement>;
   skills: React.RefObject<HTMLDivElement>;
-  exprience: React.RefObject<HTMLDivElement>;
+  experience: React.RefObject<HTMLDivElement>;
+  contact: React.RefObject<HTMLDivElement>;
 }
 
 const Home: React.FC = () => {
@@ -38,350 +41,350 @@ const Home: React.FC = () => {
 
   const refs: ScrollRefs = {
     home: useRef<HTMLDivElement>(null),
-    aboutUs: useRef<HTMLDivElement>(null),
+    about: useRef<HTMLDivElement>(null),
     skills: useRef<HTMLDivElement>(null),
-    exprience: useRef<HTMLDivElement>(null),
+    experience: useRef<HTMLDivElement>(null),
+    contact: useRef<HTMLDivElement>(null),
   };
 
   useEffect(() => {
     const scrollOptions: ScrollIntoViewOptions = {
       behavior: "smooth",
-      block: 'center',
-      inline: "center"
+      block: "start",
     };
 
-    if (scroll === 'exprience' && refs.exprience.current) {
-      refs.exprience.current.scrollIntoView(scrollOptions);
-    } else if (scroll === 'aboutUs' && refs.aboutUs.current) {
-      refs.aboutUs.current.scrollIntoView(scrollOptions);
-    } else if (scroll === 'skills' && refs.skills.current) {
+    if (scroll === "experience" && refs.experience.current) {
+      refs.experience.current.scrollIntoView(scrollOptions);
+    } else if (scroll === "about" && refs.about.current) {
+      refs.about.current.scrollIntoView(scrollOptions);
+    } else if (scroll === "skills" && refs.skills.current) {
       refs.skills.current.scrollIntoView(scrollOptions);
+    } else if (scroll === "contact" && refs.contact.current) {
+      refs.contact.current.scrollIntoView(scrollOptions);
     } else if (refs.home.current) {
       refs.home.current.scrollIntoView(scrollOptions);
     }
   }, [scroll]);
 
   return (
-<div className="container" ref={home}>
-			<Head>
-				<title>Esmaeil jafari Resume!</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+    <div className="min-h-screen bg-gray-50">
+      <Head>
+        <title>Esmaeil Jafari - Frontend Developer</title>
+        <meta
+          name="description"
+          content="Professional resume of Esmaeil Jafari"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-			<main className="w-11/12 pt-24 mx-auto" ref={aboutUs}>
-				<Header />
-				<h2 className="text-lg text-center">About Me</h2>
-				<div className="flex flex-wrap items-center w-full p-3 sm:m-auto">
-					<div className="text-center sm:w-full md:w-5/12">
-						<Image
-							src="/images/esmaeiljafari.jpg"
-							width="300px"
-							height="300px"
-							className="rounded-full"
-						/>
-					</div>
-					<div className="w-full p-2 sm:w-full md:w-5/12">
-						<h1 className="mb-3 text-4xl font-weight:bold">Esmaeil Jafari</h1>
-						<p className="flex items-center">
-							<FaCalendarDay className="mr-2" />{' '}
-							<span>birtday : 16 june 1992</span>
-						</p>
-						<p>
-							I am a front-end developer with a proven ability to collaborate
-							effectively with senior developers. I always enjoy working as a
-							team member. I have a strong passion to improve in learning new
-							technologies, and using them, adhering to the ethics and rules of
-							each set Experience working in programming teams and coordinating
-							with colleagues
-						</p>
-					</div>
-				</div>
-				<h2 className="text-lg text-center" ref={skills}>Skills</h2>
-				<div className="flex items-center justify-center w-full p-3">
-					<DiHtml5 className="icon-skill html" />
-					<DiCss3 className="icon-skill css" />
-					<DiSass className="icon-skill sass" />
-					<DiJavascript className="icon-skill js" />
-					<DiPhp className="icon-skill typescript" />
-					<Image src="/images/typescript.png" width="46px" height="46px" />
-					<DiReact className="icon-skill react" />
-					<Image src="/images/redux.png" width="46px" height="46px" />
-					<Image src="/images/nextjs.png" width="48px" height="48px" />
-					<DiJqueryLogo className="icon-skill jquery" />
-					<DiBootstrap className="icon-skill bootstrap" />
-					<DiGit className="icon-skill git" />
-					<DiPhotoshop className="icon-skill photoshop" />
-				</div>
-				<div className="flex flex-wrap items-center justify-center">
-					<div className="mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium html">HTML</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-html h-2.5 rounded-full"
-								style={{ width: '90%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium css">CSS</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-css h-2.5 rounded-full"
-								style={{ width: '90%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium sass">SASS</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-sass h-2.5 rounded-full"
-								style={{ width: '70%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium js">JavaScript</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-js h-2.5 rounded-full"
-								style={{ width: '60%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium typescript">
-							TypeScript
-						</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-typescript h-2.5 rounded-full"
-								style={{ width: '40%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium react">React js</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-react h-2.5 rounded-full"
-								style={{ width: '60%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium redux">Redux</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-redux h-2.5 rounded-full"
-								style={{ width: '60%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium text-black">Next js</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-black h-2.5 rounded-full"
-								style={{ width: '80%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium jquery">jquery</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-jquery h-2.5 rounded-full"
-								style={{ width: '80%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium bootstrap">
-							Bootstrap
-						</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-bootstrap h-2.5 rounded-full"
-								style={{ width: '95%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium git">git</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-git h-2.5 rounded-full"
-								style={{ width: '70%' }}
-							></div>
-						</div>
-					</div>
-					<div className="mx-2 mt-3 md:w-3/12">
-						<div className="mb-1 text-base font-medium photoshop">
-							photoshop
-						</div>
-						<div className="w-full bg-gray-200 rounded-full h-2.5">
-							<div
-								className="bg-photoshop h-2.5 rounded-full"
-								style={{ width: '50%' }}
-							></div>
-						</div>
-					</div>
-				</div>
+      <Header />
 
-				<div className="flex flex-wrap items-center justify-center w-full mt-28">
-					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
-						<img
-							height="180em"
-							className="md:mx-auto"
-							src="https://github-readme-stats-eight-theta.vercel.app/api?username=pokerface71&show_icons=true&theme=algolia&include_all_commits=true&count_private=true"
-						/>
-					</div>
-					<div className="mx-3 mb-3 text-center md:w-5/12 sm:w-full ">
-						<img
-							height="180em"
-							className="md:mx-auto"
-							src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=pokerface71&layout=compact&langs_count=8&theme=algolia"
-						/>
-					</div>
-				</div>
-				<h2 className="text-lg text-center mt-28" ref={exprience}>Experience</h2>
-				<div className="flex flex-wrap items-center w-full p-3 sm:m-auto">
-					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
-						<p className="text-secondary">Frontend Developer</p>
-						<p className="flex items-center justify-between">
-							<span>Dinawin · Full-time</span>
-							<span>Jan 2022 - Present </span>
-						</p>
-						<p className="text-justify">
-							Dinawin is a company in the field of car spare parts that has several different applications. My responsibility is to move the old application forward and refactor it from the ground up.
-							technology’s
-						</p>
-						<p>
-							React | Nextjs | TypeScript | Sass | Text-to-Speech | signalR | JavaScript | micro frontend
-						</p>
-					</div>
-					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
-						<p className="text-secondary">Frontend Developer</p>
-						<p className="flex items-center justify-between">
-							<span>ketabplus · Full-time</span>
-							<span>Mar 2021 - Fen 2022 · 1 yr</span>
-						</p>
-						<p className="text-justify">
-							𝘒𝘦𝘵𝘢𝘣𝘗𝘭𝘶𝘴 𝘪𝘴 𝘢 𝘚𝘵𝘢𝘳𝘵-𝘜𝘱 𝘪𝘯 𝘵𝘩𝘦 𝘍𝘪𝘦𝘭𝘥 𝘖𝘧 𝘉𝘰𝘰𝘬𝘴 𝘞𝘩𝘰𝘴𝘦 𝘛𝘢𝘳𝘨𝘦𝘵 𝘐𝘴 𝘛𝘰
-							𝘌𝘯𝘤𝘰𝘶𝘳𝘢𝘨𝘦 𝘗𝘦𝘰𝘱𝘭𝘦 𝘛𝘰 𝘉𝘶𝘺 𝘉𝘰𝘰𝘬𝘴 𝘈𝘯𝘥 𝘙𝘦𝘢𝘥 𝘔𝘰𝘳𝘦 <br /> 𝘔𝘺
-							𝘙𝘦𝘴𝘱𝘰𝘯𝘴𝘪𝘣𝘪𝘭𝘪𝘵𝘺 𝘪𝘴 𝘙𝘦𝘧𝘢𝘤𝘵𝘰𝘳 . 𝘋𝘦𝘷𝘦𝘭𝘰𝘱 𝘢𝘯𝘥 𝘔𝘢𝘪𝘯𝘵𝘢𝘪𝘯 𝘵𝘩𝘦 𝘞𝘦𝘣𝘚𝘪𝘵𝘦 𝘢𝘯𝘥
-							𝘢𝘭𝘴𝘰 𝘪𝘵𝘴 𝘗𝘢𝘯𝘦𝘭. 𝘛𝘩𝘦 𝘛𝘦𝘤𝘩𝘯𝘰𝘭𝘰𝘨𝘪𝘦𝘴 𝘞𝘦 𝘜𝘴𝘦𝘥 𝘐𝘯 𝘛𝘩𝘦𝘴𝘦 2 𝘗𝘳𝘰𝘫𝘦𝘤𝘵𝘦𝘴:
-						</p>
-						<p>
-							𝘛𝘺𝘱𝘦𝘚𝘤𝘳𝘪𝘱𝘵 | 𝘕𝘦𝘹𝘵 𝘫𝘴 | 𝘙𝘦𝘢𝘤𝘵 | 𝘙𝘦𝘥𝘶𝘹-𝘛𝘰𝘰𝘬𝘪𝘵 | 𝘙𝘦𝘢𝘤𝘵𝘉𝘰𝘰𝘵𝘴𝘵𝘳𝘱
-							|𝘛𝘢𝘪𝘭𝘞𝘪𝘯𝘥 | 𝘚𝘈𝘚𝘚 | 𝘞𝘰𝘳𝘥𝘗𝘳𝘦𝘴𝘴
-						</p>
-					</div>
-					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
-						<p className="text-secondary">Frontend Developer</p>
-						<p className="flex items-center justify-between">
-							<span>sandbadcell · Full-time</span>
-							<span>Aug 2019 - Feb 2021 · 1 yr 7 mos</span>
-						</p>
-						<p className="text-justify">
-							𝘚𝘢𝘯𝘥𝘉𝘢𝘥𝘊𝘦𝘭𝘭 𝘪𝘴 𝘢 𝘗𝘳𝘰𝘥𝘶𝘤𝘵 𝘰𝘧 𝘢𝘩𝘰𝘰𝘳𝘢 𝘊𝘰𝘮𝘱𝘢𝘯𝘺 𝘛𝘩𝘢𝘵 𝘪𝘴 𝘢 𝘉2𝘉 𝘗𝘭𝘢𝘵𝘧𝘰𝘳𝘮
-							<br /> 𝘔𝘺 𝘙𝘦𝘴𝘱𝘰𝘯𝘴𝘪𝘣𝘪𝘭𝘪𝘵𝘺 𝘪𝘴 𝘋𝘦𝘷𝘦𝘭𝘰𝘱 𝘢𝘯𝘥 𝘔𝘢𝘪𝘯𝘵𝘢𝘪𝘯 𝘵𝘩𝘦 𝘞𝘦𝘣𝘚𝘪𝘵𝘦 𝘢𝘯𝘥
-							𝘢𝘭𝘴𝘰 𝘪𝘵𝘴 𝘗𝘢𝘯𝘦𝘭. <br /> 𝘛𝘩𝘦 𝘛𝘦𝘤𝘩𝘯𝘰𝘭𝘰𝘨𝘪𝘦𝘴 𝘞𝘦 𝘜𝘴𝘦𝘥 𝘐𝘯 𝘛𝘩𝘦𝘴𝘦 2
-							𝘗𝘳𝘰𝘫𝘦𝘤𝘵𝘦𝘴:
-						</p>
-						<p>
-							𝘑𝘲𝘶𝘦𝘳𝘺 | 𝘙𝘦𝘢𝘤𝘵 | 𝘙𝘦𝘥𝘶𝘹 | 𝘙𝘦𝘢𝘤𝘵𝘉𝘰𝘰𝘵𝘴𝘵𝘳𝘢𝘱 | 𝘉𝘰𝘰𝘵𝘴𝘵𝘳𝘢𝘱 | 𝘞𝘰𝘳𝘥𝘱𝘳𝘦𝘴𝘴 |
-							𝘗𝘏𝘗
-						</p>
-					</div>
-					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
-						<p className="text-secondary">Frontend Developer</p>
-						<p className="flex items-center justify-between">
-							<span>seoraz · Full-time</span>
-							<span>Feb 2017 - Aug 2019 · 2 yrs 7 mos</span>
-						</p>
-						<p className="text-justify">
-							𝘚𝘦𝘰𝘳𝘢𝘻 𝘪𝘴 𝘢 𝘧𝘶𝘭𝘭𝘺 𝘉𝘶𝘥𝘭𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦𝘴 𝘗𝘳𝘰𝘷𝘪𝘥𝘦𝘳 𝘖𝘧 𝘞𝘦𝘣 𝘋𝘦𝘴𝘪𝘨𝘯,
-							𝘋𝘦𝘷𝘦𝘭𝘰𝘱𝘮𝘦𝘯𝘵, 𝘊𝘰𝘳𝘱𝘰𝘳𝘢𝘵𝘦 𝘐𝘥𝘦𝘯𝘵𝘪𝘵𝘺 , 𝘔𝘰𝘣𝘪𝘭𝘦 𝘈𝘱𝘱𝘴 𝘈𝘭𝘰𝘯𝘨 𝘸𝘪𝘵𝘩 𝘚𝘦𝘰 𝘢𝘯𝘥
-							𝘚𝘰𝘤𝘪𝘢𝘭 𝘔𝘦𝘥𝘪𝘢 .<br /> 𝘛𝘩𝘦 𝘛𝘦𝘤𝘩𝘯𝘰𝘭𝘰𝘨𝘪𝘦𝘴 𝘢𝘯𝘥 𝘚𝘰𝘧𝘵𝘸𝘢𝘳𝘦 𝘵𝘩𝘢𝘵 𝘞𝘦 𝘜𝘴𝘦𝘥 𝘐𝘯
-							𝘛𝘩𝘦𝘴𝘦 𝘗𝘳𝘰𝘫𝘦𝘤𝘵𝘦𝘴:
-						</p>
-						<p>
-							𝘑𝘲𝘶𝘦𝘳𝘺 | 𝘙𝘦𝘢𝘤𝘵 | 𝘉𝘰𝘰𝘵𝘴𝘵𝘢𝘳𝘱 | 𝘗𝘩𝘱 | 𝘞𝘰𝘳𝘥𝘗𝘳𝘦𝘴𝘴 | 𝘖𝘱𝘦𝘯𝘊𝘢𝘳𝘵 | 𝘫𝘰𝘰𝘮𝘭𝘢 |
-							𝘗𝘩𝘰𝘵𝘰𝘚𝘩𝘰𝘱 .𝘯𝘦𝘵 𝘔𝘷𝘤
-						</p>
-					</div>
-					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
-						<p className="text-secondary">Frontend Developer</p>
-						<p className="flex items-center justify-between">
-							<span>WebNegah · Full-time</span>
-							<span>Jan 2015 - Jan 2017 · 2 yrs 1 mo</span>
-						</p>
-						<p className="text-justify">
-							𝘞𝘦𝘣𝘕𝘦𝘨𝘢𝘩 𝘪𝘴 𝘢 𝘱𝘳𝘰𝘨𝘳𝘢𝘮𝘮𝘪𝘯𝘨 𝘊𝘰𝘮𝘱𝘢𝘯𝘺 𝘞𝘪𝘵𝘩 20 𝘠𝘦𝘢𝘳𝘴 𝘖𝘧 𝘌𝘹𝘱𝘦𝘳𝘪𝘦𝘯𝘤𝘦
-							𝘪𝘯𝘛𝘩𝘪𝘴 𝘍𝘪𝘦𝘭𝘥 . 𝘔𝘺 𝘙𝘦𝘴𝘱𝘰𝘯𝘴𝘪𝘣𝘪𝘭𝘪𝘵𝘺 𝘪𝘯 𝘛𝘩𝘪𝘴 𝘊𝘰𝘮𝘱𝘢𝘯𝘺 𝘞𝘢𝘴 𝘵𝘰 𝘋𝘦𝘴𝘪𝘨𝘯
-							𝘞𝘦𝘣𝘴𝘪𝘵𝘦𝘴 𝘈𝘤𝘤𝘰𝘳𝘥𝘪𝘯𝘨 𝘵𝘰 𝘊𝘶𝘴𝘵𝘰𝘮𝘦𝘳 𝘕𝘦𝘦𝘥𝘴. <br /> 𝘛𝘩𝘦 𝘛𝘦𝘤𝘩𝘯𝘰𝘭𝘰𝘨𝘪𝘦𝘴 𝘢𝘯𝘥
-							𝘚𝘰𝘧𝘵𝘸𝘢𝘳𝘦 𝘵𝘩𝘢𝘵 𝘞𝘦 𝘜𝘴𝘦𝘥 𝘐𝘯 𝘛𝘩𝘦𝘴𝘦 𝘗𝘳𝘰𝘫𝘦𝘤𝘵𝘦𝘴:
-						</p>
-						<p>
-							𝘞𝘰𝘳𝘥𝘱𝘳𝘦𝘴𝘴 / 𝘋𝘕𝘕 / 𝘚𝘌𝘖 / 𝘑𝘢𝘷𝘢𝘚𝘤𝘳𝘪𝘱𝘵 / 𝘑𝘘𝘶𝘦𝘳𝘺 | 𝘉𝘰𝘰𝘵𝘴𝘵𝘳𝘢𝘱 | 𝘖𝘱𝘦𝘯𝘊𝘢𝘳𝘵
-							| 𝘗𝘩𝘰𝘵𝘰𝘚𝘩𝘰𝘱
-						</p>
-					</div>
-					<div className="mx-3 mb-3 md:w-5/12 sm:w-full">
-						<p className="text-secondary">Web Designer</p>
-						<p className="flex items-center justify-between">
-							<span>Vira · Full-time</span>
-							<span>Jan 2014 - Jan 2015 · 1 yr 1 mo</span>
-						</p>
-						<p className="text-justify">
-							.𝘞𝘦𝘣 𝘋𝘦𝘴𝘪𝘨𝘯 𝘣𝘺 𝘤𝘮𝘴 ( 𝘞𝘰𝘳𝘥𝘱𝘳𝘦𝘴𝘴, 𝘖𝘱𝘦𝘯𝘊𝘢𝘳𝘵, 𝘋𝘯𝘯)
-						</p>
-					</div>
-				</div>
-				<h2 className="mb-3 text-lg text-center mt-28">Social Meida</h2>
-				<div className="flex items-center justify-center">
-					<a
-						href="https://instagram.com/esmaeil_jafari_official"
-						className="mx-2"
-						target="_blank"
-					>
-						{' '}
-						<FaInstagram className="text-3xl" />
-					</a>
-					<a
-						href="https://www.linkedin.com/in/esmaeil-jafari1992/"
-						className="mx-2"
-						target="_blank"
-					>
-						{' '}
-						<FaLinkedin className="text-3xl" />
-					</a>
-					<a
-						href="https://api.whatsapp.com/send?phone=989052672239"
-						className="mx-2"
-						target="_blank"
-					>
-						{' '}
-						<FaWhatsapp className="text-3xl" />
-					</a>
-					<a href="tel:+989052672239" className="mx-2" target="_blank">
-						{' '}
-						<FaPhoneVolume className="text-3xl" />
-					</a>
-					<a
-						href="mailto:esmaeiljafari1992@gmail.com"
-						className="mx-2"
-						target="_blank"
-					>
-						{' '}
-						<FaMailBulk className="text-3xl" />
-					</a>
-				</div>
-			</main>
-			<Footer />
-		</div>
+      {/* Hero Section */}
+      <section
+        ref={refs.home}
+        className="pt-20 pb-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white"
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="md:w-1/2 mb-8 md:mb-0">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                Esmaeil Jafari
+              </h1>
+              <h2 className="text-2xl md:text-3xl font-semibold mb-6">
+                Frontend Developer
+              </h2>
+              <p className="text-lg mb-8">
+                Passionate about creating elegant solutions to complex problems
+              </p>
+              <div className="flex space-x-4">
+                <a
+                  href="https://www.linkedin.com/in/esmaeil-jafari1992/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-blue-200"
+                >
+                  <FaLinkedin size={24} />
+                </a>
+                <a
+                  href="https://instagram.com/esmaeil_jafari_official"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-blue-200"
+                >
+                  <FaInstagram size={24} />
+                </a>
+                <a
+                  href="https://api.whatsapp.com/send?phone=989052672239"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-blue-200"
+                >
+                  <FaWhatsapp size={24} />
+                </a>
+              </div>
+            </div>
+            <div className="md:w-1/2 flex justify-center">
+              <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                <Image
+                  src="/images/esmaeiljafari.jpg"
+                  alt="Esmaeil Jafari"
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-full"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section ref={refs.about} className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">About Me</h2>
+          <div className="max-w-3xl mx-auto text-lg text-gray-700">
+            <p className="mb-6">
+              I am a front-end developer with a proven ability to collaborate
+              effectively with senior developers. I always enjoy working as a
+              team member and have a strong passion for learning new
+              technologies.
+            </p>
+            <p>
+              With experience working in programming teams and coordinating with
+              colleagues, I bring a comprehensive approach to building web
+              applications.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section ref={refs.skills} className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Skills</h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            <div className="group flex items-center p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105">
+              <DiHtml5
+                size={24}
+                className="text-orange-600 mr-2 group-hover:text-orange-500 transition-colors duration-300"
+              />
+              <span className="text-sm font-medium group-hover:text-orange-600 transition-colors duration-300">
+                HTML5
+              </span>
+            </div>
+            <div className="group flex items-center p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105">
+              <DiCss3
+                size={24}
+                className="text-blue-600 mr-2 group-hover:text-blue-500 transition-colors duration-300"
+              />
+              <span className="text-sm font-medium group-hover:text-blue-600 transition-colors duration-300">
+                CSS3
+              </span>
+            </div>
+            <div className="group flex items-center p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105">
+              <DiSass
+                size={24}
+                className="text-pink-500 mr-2 group-hover:text-pink-400 transition-colors duration-300"
+              />
+              <span className="text-sm font-medium group-hover:text-pink-500 transition-colors duration-300">
+                SASS
+              </span>
+            </div>
+            <div className="group flex items-center p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105">
+              <DiJavascript1
+                size={24}
+                className="text-yellow-500 mr-2 group-hover:text-yellow-400 transition-colors duration-300"
+              />
+              <span className="text-sm font-medium group-hover:text-yellow-500 transition-colors duration-300">
+                JavaScript
+              </span>
+            </div>
+            <div className="group flex items-center p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105">
+              <DiReact
+                size={24}
+                className="text-blue-500 mr-2 group-hover:text-blue-400 transition-colors duration-300"
+              />
+              <span className="text-sm font-medium group-hover:text-blue-500 transition-colors duration-300">
+                React
+              </span>
+            </div>
+            <div className="group flex items-center p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105">
+              <DiBootstrap
+                size={24}
+                className="text-purple-500 mr-2 group-hover:text-purple-400 transition-colors duration-300"
+              />
+              <span className="text-sm font-medium group-hover:text-purple-500 transition-colors duration-300">
+                Bootstrap
+              </span>
+            </div>
+            <div className="group flex items-center p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105">
+              <DiGit
+                size={24}
+                className="text-orange-500 mr-2 group-hover:text-orange-400 transition-colors duration-300"
+              />
+              <span className="text-sm font-medium group-hover:text-orange-500 transition-colors duration-300">
+                Git
+              </span>
+            </div>
+            <div className="group flex items-center p-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:scale-105">
+              <DiPhotoshop
+                size={24}
+                className="text-blue-400 mr-2 group-hover:text-blue-300 transition-colors duration-300"
+              />
+              <span className="text-sm font-medium group-hover:text-blue-400 transition-colors duration-300">
+                Photoshop
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section ref={refs.experience} className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Experience</h2>
+          <div className="max-w-3xl mx-auto">
+            <div className="relative pl-8 pb-12 border-l-2 border-blue-500">
+              <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-blue-500"></div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-2">
+                  Frontend Developer
+                </h3>
+                <p className="text-gray-600 mb-2">Dinawin</p>
+                <p className="text-sm text-gray-500 mb-4">Jan 2022 - Present</p>
+                <p className="text-gray-700">
+                  Working on modernizing and refactoring legacy applications
+                  using modern technologies. Implementing new features and
+                  improving application performance.
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Technologies: React | Next.js | TypeScript | Sass |
+                  Text-to-Speech | SignalR | JavaScript | Micro Frontend
+                </p>
+              </div>
+            </div>
+            <div className="relative pl-8 pb-12 border-l-2 border-blue-500">
+              <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-blue-500"></div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-2">
+                  Frontend Developer
+                </h3>
+                <p className="text-gray-600 mb-2">KetabPlus</p>
+                <p className="text-sm text-gray-500 mb-4">
+                  Mar 2021 - Feb 2022
+                </p>
+                <p className="text-gray-700">
+                  Developed and maintained the website and its panel. Focused on
+                  creating responsive and user-friendly interfaces.
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Technologies: TypeScript | Next.js | React | Redux-Toolkit |
+                  ReactBootstrap | Tailwind | SASS
+                </p>
+              </div>
+            </div>
+            <div className="relative pl-8 pb-12 border-l-2 border-blue-500">
+              <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-blue-500"></div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-2">
+                  Frontend Developer
+                </h3>
+                <p className="text-gray-600 mb-2">SandBadCell</p>
+                <p className="text-sm text-gray-500 mb-4">
+                  Aug 2019 - Feb 2021
+                </p>
+                <p className="text-gray-700">
+                  Developed and maintained the website and its panel for a B2B
+                  platform.
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Technologies: jQuery | React | Redux | ReactBootstrap |
+                  Bootstrap | WordPress | PHP
+                </p>
+              </div>
+            </div>
+            <div className="relative pl-8 pb-12 border-l-2 border-blue-500">
+              <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-blue-500"></div>
+              <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-2">
+                  Frontend Developer
+                </h3>
+                <p className="text-gray-600 mb-2">WebNegah</p>
+                <p className="text-sm text-gray-500 mb-4">
+                  Jan 2015 - Jan 2017
+                </p>
+                <p className="text-gray-700">
+                  Developed and maintained various web applications using
+                  WordPress, DNN, and custom solutions. Focused on creating
+                  responsive and SEO-friendly websites.
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Technologies: WordPress | DNN | SEO | JavaScript | jQuery |
+                  Bootstrap | OpenCart | Photoshop
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section ref={refs.contact} className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+            Contact Me
+          </h2>
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <FaPhone className="text-blue-500 mr-4" size={20} />
+                <span className="text-gray-700">+98 905 267 2239</span>
+              </div>
+              <div className="flex items-center mb-4">
+                <FaEnvelope className="text-blue-500 mr-4" size={20} />
+                <span className="text-gray-700">
+                  esmaeiljafari1992@gmail.com
+                </span>
+              </div>
+              <div className="flex items-center">
+                <FaMapMarkerAlt className="text-blue-500 mr-4" size={20} />
+                <span className="text-gray-700">Tehran, Iran</span>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <FaWhatsapp className="text-green-500 mr-4" size={20} />
+                <span className="text-gray-700">+98 905 267 2239</span>
+              </div>
+              <div className="flex items-center mb-4">
+                <FaLinkedin className="text-blue-500 mr-4" size={20} />
+                <a
+                  href="https://www.linkedin.com/in/esmaeil-jafari1992/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 hover:text-blue-500 transition-colors duration-300"
+                >
+                  linkedin.com/in/esmaeil-jafari1992
+                </a>
+              </div>
+              <div className="flex items-center">
+                <FaInstagram className="text-pink-500 mr-4" size={20} />
+                <a
+                  href="https://instagram.com/esmaeil_jafari_official"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 hover:text-pink-500 transition-colors duration-300"
+                >
+                  @esmaeil_jafari_official
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
   );
 };
 
