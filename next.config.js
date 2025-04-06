@@ -2,7 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["github-readme-stats-eight-theta.vercel.app"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "github-readme-stats-eight-theta.vercel.app",
+        pathname: "/api/**",
+      },
+    ],
+    dangerouslyAllowSVG: true,
   },
   webpack: (config) => {
     config.resolve.alias = {
