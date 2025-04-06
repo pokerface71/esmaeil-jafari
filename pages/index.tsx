@@ -328,6 +328,35 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* GitHub Stats Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+            GitHub Activity
+          </h2>
+          <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+            <div className="w-full md:w-auto">
+              <Image
+                src="https://github-readme-stats-eight-theta.vercel.app/api?username=pokerface71&show_icons=true&theme=algolia&include_all_commits=true&count_private=true"
+                alt="GitHub Stats"
+                width={400}
+                height={200}
+                className="rounded-lg shadow-md"
+              />
+            </div>
+            <div className="w-full md:w-auto">
+              <Image
+                src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=pokerface71&layout=compact&langs_count=8&theme=algolia"
+                alt="Top Languages"
+                width={400}
+                height={200}
+                className="rounded-lg shadow-md"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section ref={refs.contact} className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
