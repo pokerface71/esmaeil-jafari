@@ -1,3 +1,5 @@
+@use "./setting.scss" as *;
+
 .base-bg {
 	background-color: $base-bg;
 }
