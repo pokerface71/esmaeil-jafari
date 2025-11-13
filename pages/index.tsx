@@ -15,7 +15,7 @@ import {
   DiPhotoshop,
   DiReact,
   DiSass,
-  DiWordpress,
+  DiWordpress
 } from "react-icons/di";
 import {
   FaEnvelope,
@@ -23,22 +23,22 @@ import {
   FaLinkedin,
   FaMapMarkerAlt,
   FaPhone,
-  FaWhatsapp,
+  FaWhatsapp
 } from "react-icons/fa";
 import {
   SiNextdotjs,
   SiRedux,
   SiTailwindcss,
-  SiTypescript,
+  SiTypescript
 } from "react-icons/si";
 import FloatingCircles from "@components/Layout/FloatingCircles";
 
 interface ScrollRefs {
-  home: React.RefObject<HTMLDivElement>;
-  about: React.RefObject<HTMLDivElement>;
-  skills: React.RefObject<HTMLDivElement>;
-  experience: React.RefObject<HTMLDivElement>;
-  contact: React.RefObject<HTMLDivElement>;
+  home: React.RefObject<HTMLDivElement | null>;
+  about: React.RefObject<HTMLDivElement | null>;
+  skills: React.RefObject<HTMLDivElement | null>;
+  experience: React.RefObject<HTMLDivElement | null>;
+  contact: React.RefObject<HTMLDivElement | null>;
 }
 
 const Home: React.FC = () => {
@@ -50,13 +50,13 @@ const Home: React.FC = () => {
     about: useRef<HTMLDivElement>(null),
     skills: useRef<HTMLDivElement>(null),
     experience: useRef<HTMLDivElement>(null),
-    contact: useRef<HTMLDivElement>(null),
+    contact: useRef<HTMLDivElement>(null)
   };
 
   useEffect(() => {
     const scrollOptions: ScrollIntoViewOptions = {
       behavior: "smooth",
-      block: "start",
+      block: "start"
     };
 
     if (scroll === "experience" && refs.experience.current) {
@@ -135,7 +135,7 @@ const Home: React.FC = () => {
             <div className="md:w-1/2 flex justify-center">
               <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-white shadow-2xl transform hover:scale-105 transition-transform duration-300">
                 <Image
-                  src="/images/esmaeiljafari.jpg"
+                  src="/Images/esmaeiljafari.jpg"
                   alt="Esmaeil Jafari"
                   fill
                   className="rounded-full object-cover"
@@ -343,6 +343,54 @@ const Home: React.FC = () => {
           </h2>
           <div className="relative">
             <div className="max-w-3xl mx-auto space-y-8 relative z-10">
+              <div className="relative pl-8 pb-12 border-l-4 border-blue-500 animate-slide-in-left">
+                <div className="absolute left-[-12px] top-0 w-6 h-6 rounded-full bg-blue-500 shadow-lg animate-pulse"></div>
+                <div className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <h3 className="text-2xl font-semibold mb-2 text-gray-800 animate-fade-in">
+                    Frontend Developer
+                  </h3>
+                  <p className="text-lg text-gray-600 mb-2 animate-fade-in">
+                    Otaghak
+                  </p>
+                  <p className="text-sm text-gray-500 mb-4 animate-fade-in">
+                    Oct 2025
+                  </p>
+                  <p className="text-gray-700 leading-relaxed animate-fade-in">
+                    Otaghak is a leading online platform for booking villas,
+                    apartments, and accommodations across Iran, Turkey, Armenia,
+                    and South Africa. As a Frontend Developer, I contributed to
+                    the development and enhancement of the platform's user
+                    interface, focusing on creating seamless booking experiences
+                    and improving user engagement. The platform features over
+                    38,000 accommodations and provides users with comprehensive
+                    search and filtering capabilities.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed mt-4 animate-fade-in">
+                    During my time at Otaghak, I worked on optimizing the
+                    booking flow, enhancing the search functionality, and
+                    improving the overall user experience across different
+                    device types. The platform serves as a comprehensive
+                    solution for travelers seeking accommodations, with features
+                    including real-time availability, detailed property
+                    listings, and secure booking processes.
+                  </p>
+                  <p className="text-sm text-gray-600 mt-4 animate-fade-in">
+                    Website:{" "}
+                    <a
+                      href="https://www.otaghak.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      www.otaghak.com
+                    </a>
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2 animate-fade-in">
+                    Technologies: React | Next.js | TypeScript | Modern Frontend
+                    Technologies
+                  </p>
+                </div>
+              </div>
               <div className="relative pl-8 pb-12 border-l-4 border-blue-500 animate-slide-in-left">
                 <div className="absolute left-[-12px] top-0 w-6 h-6 rounded-full bg-blue-500 shadow-lg animate-pulse"></div>
                 <div className="bg-gray-50 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">

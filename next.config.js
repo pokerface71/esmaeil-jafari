@@ -11,12 +11,10 @@ const nextConfig = {
     ],
     dangerouslyAllowSVG: true,
   },
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "@styles": require("path").resolve(__dirname, "styles"),
-    };
-    return config;
+  turbopack: {
+    resolveAlias: {
+      "@styles": "./styles",
+    },
   },
 };
 

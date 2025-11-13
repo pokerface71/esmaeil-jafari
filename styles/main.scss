@@ -1,10 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "./setting.scss";
-@import "./base.scss";
-@import "./helper.scss";
-@import "./override.scss";
-@import "./pages/Home.scss";
-@import "./components/Footer.scss";
-@import "./components/Header.scss";
+@use "./setting.scss";
+@use "./base.scss";
+@use "./helper.scss";
+@use "./override.scss";
+@use "./pages/Home.scss";
+@use "./components/Footer.scss";
+@use "./components/Header.scss";
