@@ -29,9 +29,9 @@ import {
   SiNextdotjs,
   SiRedux,
   SiTailwindcss,
-  SiTypescript
-} from "react-icons/si";
+SiTypescript} from "react-icons/si";
 import FloatingCircles from "@components/Layout/FloatingCircles";
+import SkillCard from "@components/SkillCard";
 
 interface ScrollRefs {
   home: React.RefObject<HTMLDivElement | null>;
@@ -362,48 +362,18 @@ const Home: React.FC = () => {
                   delay: "0.8s",
                   isCustom: true
                 }
-              ].map((skill, index) => {
-                const Icon = skill.Icon;
-                return (
-                  <div
-                    key={index}
-                    data-animate={`skill-${index}`}
-                    className={`group flex flex-col items-center p-6 neu-flat rounded-xl neu-hover transition-all duration-300 ${
-                      isVisible[`skill-${index}`]
-                        ? "animate-scale-in"
-                        : "opacity-0 scale-90"
-                    }`}
-                    id={`skill-${index}`}
-                    style={{ animationDelay: skill.delay }}
-                  >
-                    <Icon
-                      size={48}
-                      className={`${
-                        skill.isCustom
-                          ? "mb-4 group-hover:opacity-80 transition-opacity duration-300"
-                          : `text-${
-                              skill.color
-                            } mb-4 group-hover:text-${skill.color
-                              .replace("600", "500")
-                              .replace("500", "400")
-                              .replace(
-                                "400",
-                                "300"
-                              )} transition-all duration-300 group-hover:scale-125 transform`
-                      }`}
-                    />
-                    <span
-                      className={`text-lg font-medium text-foreground ${
-                        skill.isCustom
-                          ? "group-hover:text-blue-600"
-                          : `group-hover:text-${skill.color}`
-                      } transition-colors duration-300`}
-                    >
-                      {skill.name}
-                    </span>
-                  </div>
-                );
-              })}
+              ].map((skill, index) => (
+                <SkillCard
+                  key={index}
+                  Icon={skill.Icon}
+                  name={skill.name}
+                  color={skill.color}
+                  delay={skill.delay}
+                  isCustom={skill.isCustom}
+                  isVisible={isVisible[`skill-${index}`]}
+                  id={`skill-${index}`}
+                />
+              ))}
             </div>
           </div>
         </div>
