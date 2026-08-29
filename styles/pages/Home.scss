@@ -1,3 +1,79 @@
+@use "../setting.scss" as *;
+
 .icon-skill {
-	font-size: 48px;
+	font-size: 40px;
+}
+
+/* Hero section mesh gradient */
+.hero-mesh {
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(ellipse 80% 50% at 20% 40%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+		radial-gradient(ellipse 60% 40% at 80% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+		radial-gradient(ellipse 50% 60% at 50% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+	pointer-events: none;
+}
+
+/* Glowing orb behind profile image */
+.profile-glow {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+	filter: blur(40px);
+	animation: glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+	0%, 100% {
+		opacity: 0.6;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.1);
+	}
+}
+
+/* Profile image ring */
+.profile-ring {
+	position: absolute;
+	inset: -4px;
+	border-radius: 50%;
+	background: $gradient-primary;
+	animation: ring-rotate 6s linear infinite;
+}
+
+@keyframes ring-rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Experience card hover line */
+.experience-card {
+	position: relative;
+	overflow: hidden;
+}
+
+.experience-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 3px;
+	height: 100%;
+	background: $gradient-primary;
+	transform: scaleY(0);
+	transform-origin: bottom;
+	transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.experience-card:hover::before {
+	transform: scaleY(1);
 }
