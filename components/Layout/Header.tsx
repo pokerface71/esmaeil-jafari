@@ -68,12 +68,12 @@ export default function Header() {
                       className={cn(
                         "relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300",
                         isActive(item.key)
-                          ? "text-white"
-                          : "text-gray-400 hover:text-white"
+                          ? "text-foreground"
+                          : "text-muted-foreground hover:text-foreground"
                       )}
                     >
                       {isActive(item.key) && (
-                        <span className="absolute inset-0 rounded-lg bg-white/10 backdrop-blur-sm border border-white/10" />
+                        <span className="absolute inset-0 rounded-lg bg-indigo-500/10 backdrop-blur-sm border border-indigo-500/20" />
                       )}
                       <span className="relative z-10">{item.label}</span>
                     </Link>
@@ -87,7 +87,7 @@ export default function Header() {
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-2.5 rounded-xl transition-all duration-300 hover:bg-white/10"
+                className="p-2.5 rounded-xl transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/10"
                 aria-label="Toggle theme"
               >
                 {theme === "dark" ? (
@@ -152,19 +152,19 @@ export default function Header() {
                 <div className="w-5 h-4 flex flex-col justify-between">
                   <span
                     className={cn(
-                      "w-full h-0.5 bg-white rounded-full transition-all duration-300 origin-center",
+                      "w-full h-0.5 bg-foreground rounded-full transition-all duration-300 origin-center",
                       isMenuOpen && "rotate-45 translate-y-[7px]"
                     )}
                   />
                   <span
                     className={cn(
-                      "w-full h-0.5 bg-white rounded-full transition-all duration-300",
+                      "w-full h-0.5 bg-foreground rounded-full transition-all duration-300",
                       isMenuOpen && "opacity-0 scale-x-0"
                     )}
                   />
                   <span
                     className={cn(
-                      "w-full h-0.5 bg-white rounded-full transition-all duration-300 origin-center",
+                      "w-full h-0.5 bg-foreground rounded-full transition-all duration-300 origin-center",
                       isMenuOpen && "-rotate-45 -translate-y-[7px]"
                     )}
                   />
@@ -206,14 +206,13 @@ export default function Header() {
                     opacity: isMenuOpen ? 1 : 0,
                     transform: isMenuOpen ? "translateX(0)" : "translateX(20px)",
                   }}
-                >
-                  <Link
+                >                    <Link
                     href={item.href}
                     className={cn(
                       "flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-300",
                       isActive(item.key)
-                        ? "text-white bg-white/10"
-                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                        ? "text-foreground bg-indigo-500/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5"
                     )}
                     onClick={() => setIsMenuOpen(false)}
                   >
