@@ -22,14 +22,18 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const { locale, setLocale, t, dir } = useI18n();
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const navItems = [
+  useEffect(() => { setMounted(true); }, []);
+
+  const _navItems = [
     { href: "/?scroll=home", label: t("nav.home"), key: "home" },
     { href: "/?scroll=about", label: t("nav.about"), key: "about" },
     { href: "/?scroll=skills", label: t("nav.skills"), key: "skills" },
     { href: "/?scroll=experience", label: t("nav.experience"), key: "experience" },
     { href: "/?scroll=contact", label: t("nav.contact"), key: "contact" },
   ];
+  const navItems = mounted && dir === "rtl" ? [..._navItems].reverse() : _navItems;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +86,7 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:block">
-              <ul className={cn("flex items-center gap-1", dir === "rtl" && "flex-row-reverse")}>
+              <ul className="flex items-center gap-1">
                 {navItems.map((item) => (
                   <li key={item.key}>
                     <Link

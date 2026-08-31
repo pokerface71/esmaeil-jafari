@@ -699,10 +699,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   const dir: "ltr" | "rtl" = locale === "ar" || locale === "fa" ? "rtl" : "ltr";
 
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  // Always provide context so SSR and client initial render match (default = English).
+  // After mount, localStorage locale takes over.
   return (
     <I18nContext.Provider value={{ locale, setLocale, t, dir, isTransitioning }}>
       {children}
