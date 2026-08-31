@@ -29,7 +29,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
       style={{ animationDelay: delay }}
     >
       {/* Gradient background on hover */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-black/[0.02] dark:from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* Icon container */}
       <div className="relative mb-3">
@@ -58,7 +58,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
       </div>
 
       {/* Name */}
-      <span className="relative text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300">
+      <span className="relative text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
         {name}
       </span>
     </div>

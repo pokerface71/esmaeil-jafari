@@ -181,7 +181,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[hsl(224,30%,6%)] text-white">
+    <div className="min-h-screen text-foreground">
       <Head>
         <title>Esmaeil Jafari — Frontend Developer</title>
         <meta
@@ -201,7 +201,7 @@ const Home: React.FC = () => {
         <AuroraBackground variant="hero" />
 
         {/* Decorative grid */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] light:opacity-[0.015]" style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }} />
@@ -212,7 +212,7 @@ const Home: React.FC = () => {
             <div className="flex-1 text-center lg:text-left">
               <div
                 data-animate="hero-badge"
-                className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-light border border-white/10 mb-6 text-sm text-gray-400 ${
+                className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-light border border-black/5 dark:border-white/10 mb-6 text-sm text-muted-foreground ${
                   isVisible["hero-badge"] ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 id="hero-badge"
@@ -234,7 +234,7 @@ const Home: React.FC = () => {
 
               <h2
                 data-animate="hero-subtitle"
-                className={`text-2xl sm:text-3xl lg:text-4xl font-light text-gray-400 mb-6 ${
+                className={`text-2xl sm:text-3xl lg:text-4xl font-light text-muted-foreground mb-6 ${
                   isVisible["hero-subtitle"] ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 id="hero-subtitle"
@@ -245,7 +245,7 @@ const Home: React.FC = () => {
 
               <p
                 data-animate="hero-desc"
-                className={`text-lg text-gray-500 max-w-lg mb-10 leading-relaxed ${
+                className={`text-lg text-muted-foreground/70 max-w-lg mb-10 leading-relaxed ${
                   isVisible["hero-desc"] ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 id="hero-desc"
@@ -273,7 +273,7 @@ const Home: React.FC = () => {
                 </a>
                 <a
                   href="/?scroll=contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-gray-300 glass-light border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-300 hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-muted-foreground glass-light border border-black/5 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10 hover:text-foreground transition-all duration-300 hover:-translate-y-0.5"
                 >
                   Get In Touch
                 </a>
@@ -298,7 +298,7 @@ const Home: React.FC = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-12 h-12 rounded-xl glass-light flex items-center justify-center text-gray-500 border border-white/5 transition-all duration-300 hover:scale-110 hover:shadow-lg ${social.color}`}
+                    className={`w-12 h-12 rounded-xl glass-light flex items-center justify-center text-muted-foreground border border-black/5 dark:border-white/5 transition-all duration-300 hover:scale-110 hover:shadow-lg ${social.color}`}
                   >
                     <social.icon size={20} />
                   </a>
@@ -322,7 +322,7 @@ const Home: React.FC = () => {
               <div className="profile-ring" />
 
               {/* Image container */}
-              <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-[hsl(224,30%,6%)]">
+              <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-background">
                 <Image
                   src="/Images/esmaeiljafari.jpg"
                   alt="Esmaeil Jafari"
@@ -337,8 +337,8 @@ const Home: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <FaRocket className="text-indigo-400 text-sm" />
                   <div>
-                    <p className="text-xs text-gray-500">Experience</p>
-                    <p className="text-sm font-bold text-white">10+ Years</p>
+                    <p className="text-xs text-muted-foreground">Experience</p>
+                    <p className="text-sm font-bold text-foreground">10+ Years</p>
                   </div>
                 </div>
               </div>
@@ -347,8 +347,8 @@ const Home: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <FaCode className="text-purple-400 text-sm" />
                   <div>
-                    <p className="text-xs text-gray-500">Projects</p>
-                    <p className="text-sm font-bold text-white">50+</p>
+                    <p className="text-xs text-muted-foreground">Projects</p>
+                    <p className="text-sm font-bold text-foreground">50+</p>
                   </div>
                 </div>
               </div>
@@ -357,10 +357,10 @@ const Home: React.FC = () => {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-600">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
           <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <div className="w-5 h-8 rounded-full border border-gray-700 flex justify-center pt-1.5">
-            <div className="w-1 h-2 rounded-full bg-gray-500 animate-bounce" />
+          <div className="w-5 h-8 rounded-full border border-muted-foreground/30 flex justify-center pt-1.5">
+            <div className="w-1 h-2 rounded-full bg-muted-foreground/50 animate-bounce" />
           </div>
         </div>
       </section>
@@ -401,7 +401,7 @@ const Home: React.FC = () => {
             {/* Main Card */}
             <div
               data-animate="about-main"
-              className={`md:col-span-2 glass-card rounded-3xl p-8 ${
+              className={`md:col-span-2 glass-card rounded-3xl p-8 bento-about-card ${
                 isVisible["about-main"] ? "animate-fade-in-up" : "opacity-0"
               }`}
               id="about-main"
@@ -412,13 +412,13 @@ const Home: React.FC = () => {
                 </div>
                 <h3 className="text-xl font-bold">My Journey</h3>
               </div>
-              <p className="text-gray-400 leading-relaxed mb-4">
+              <p className="text-muted-foreground leading-relaxed mb-4">
                 I am a front-end developer with a proven ability to collaborate
                 effectively with senior developers. I always enjoy working as a
                 team member and have a strong passion for learning new
                 technologies.
               </p>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 With experience working in programming teams and coordinating with
                 colleagues, I bring a comprehensive approach to building web
                 applications that deliver exceptional user experiences and meet
@@ -430,7 +430,7 @@ const Home: React.FC = () => {
             <div className="flex flex-col gap-6">
               <div
                 data-animate="about-stat1"
-                className={`glass-card rounded-3xl p-6 ${
+                className={`glass-card rounded-3xl p-6 bento-about-card ${
                   isVisible["about-stat1"] ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 id="about-stat1"
@@ -438,12 +438,12 @@ const Home: React.FC = () => {
               >
                 <FaCalendarAlt className="text-2xl text-indigo-400 mb-3" />
                 <p className="text-3xl font-black gradient-text">10+</p>
-                <p className="text-sm text-gray-500 mt-1">Years of Experience</p>
+                <p className="text-sm text-muted-foreground mt-1">Years of Experience</p>
               </div>
 
               <div
                 data-animate="about-stat2"
-                className={`glass-card rounded-3xl p-6 ${
+                className={`glass-card rounded-3xl p-6 bento-about-card ${
                   isVisible["about-stat2"] ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 id="about-stat2"
@@ -451,12 +451,12 @@ const Home: React.FC = () => {
               >
                 <FaGlobe className="text-2xl text-purple-400 mb-3" />
                 <p className="text-3xl font-black gradient-text">6</p>
-                <p className="text-sm text-gray-500 mt-1">Companies Worked</p>
+                <p className="text-sm text-muted-foreground mt-1">Companies Worked</p>
               </div>
 
               <div
                 data-animate="about-stat3"
-                className={`glass-card rounded-3xl p-6 ${
+                className={`glass-card rounded-3xl p-6 bento-about-card ${
                   isVisible["about-stat3"] ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 id="about-stat3"
@@ -464,7 +464,7 @@ const Home: React.FC = () => {
               >
                 <FaBolt className="text-2xl text-yellow-400 mb-3" />
                 <p className="text-3xl font-black gradient-text">50+</p>
-                <p className="text-sm text-gray-500 mt-1">Projects Delivered</p>
+                <p className="text-sm text-muted-foreground mt-1">Projects Delivered</p>
               </div>
             </div>
           </div>
@@ -577,25 +577,25 @@ const Home: React.FC = () => {
                     {/* Header */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
                       <div>
-                        <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors duration-300">
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-indigo-300 dark:group-hover:text-indigo-300 transition-colors duration-300">
                           {exp.title}
                         </h3>
                         <p className="text-indigo-400 font-semibold">{exp.company}</p>
                       </div>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-light border border-white/5 text-xs text-gray-400 w-fit">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-light border border-black/5 dark:border-white/5 text-xs text-muted-foreground w-fit">
                         <FaCalendarAlt className="text-[10px]" />
                         {exp.date}
                       </span>
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-400 leading-relaxed text-sm mb-4">
+                    <p className="text-muted-foreground leading-relaxed text-sm mb-4">
                       {exp.description}
                     </p>
 
                     {/* Extra description */}
                     {exp.extra && (
-                      <p className="text-gray-500 leading-relaxed text-sm mb-4">
+                      <p className="text-muted-foreground/70 leading-relaxed text-sm mb-4">
                         {exp.extra}
                       </p>
                     )}
@@ -606,7 +606,7 @@ const Home: React.FC = () => {
                         {exp.highlights.map((highlight, i) => (
                           <li
                             key={i}
-                            className="flex items-start gap-2 text-sm text-gray-400"
+                            className="flex items-start gap-2 text-sm text-muted-foreground"
                           >
                             <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0" />
                             {highlight}
@@ -631,7 +631,7 @@ const Home: React.FC = () => {
 
                     {/* Tech tags */}
                     {exp.tech && (
-                      <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/5">
+                      <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/5">
                         {exp.tech.split(" | ").map((tech, i) => (
                           <span
                             key={i}
@@ -716,7 +716,7 @@ const Home: React.FC = () => {
             {/* Contact Info */}
             <div
               data-animate="contact-info"
-              className={`glass-card rounded-3xl p-8 ${
+              className={`glass-card rounded-3xl p-8 contact-card ${
                 isVisible["contact-info"] ? "animate-fade-in-up" : "opacity-0"
               }`}
               id="contact-info"
@@ -730,10 +730,10 @@ const Home: React.FC = () => {
                   { icon: FaMapMarkerAlt, label: "Tehran, Iran", color: "text-pink-400" },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4">
-                    <div className="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/5">
+                    <div className="w-11 h-11 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center flex-shrink-0 border border-black/5 dark:border-white/5">
                       <item.icon className={item.color} size={18} />
                     </div>
-                    <span className="text-gray-300 text-sm">{item.label}</span>
+                    <span className="text-muted-foreground text-sm">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -742,7 +742,7 @@ const Home: React.FC = () => {
             {/* Social Links Card */}
             <div
               data-animate="contact-social"
-              className={`glass-card rounded-3xl p-8 ${
+              className={`glass-card rounded-3xl p-8 contact-card ${
                 isVisible["contact-social"] ? "animate-fade-in-up" : "opacity-0"
               }`}
               id="contact-social"
@@ -782,16 +782,16 @@ const Home: React.FC = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group"
+                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 group"
                   >
                     <div className={`w-11 h-11 rounded-xl ${social.bgColor} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                       <social.icon className={social.color} size={18} />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white">{social.label}</p>
-                      <p className="text-xs text-gray-500">{social.sublabel}</p>
+                      <p className="text-sm font-semibold text-foreground">{social.label}</p>
+                      <p className="text-xs text-muted-foreground">{social.sublabel}</p>
                     </div>
-                    <FaArrowRight className="ml-auto text-gray-700 group-hover:text-gray-400 group-hover:translate-x-1 transition-all duration-300 text-xs" />
+                    <FaArrowRight className="ml-auto text-muted-foreground/30 group-hover:text-muted-foreground group-hover:translate-x-1 transition-all duration-300 text-xs" />
                   </a>
                 ))}
               </div>

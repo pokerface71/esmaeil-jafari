@@ -23,7 +23,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative py-12 border-t border-white/5">
+    <footer className="relative py-12 border-t border-black/5 dark:border-white/5 footer-glass">
       {/* Gradient line at top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
 
@@ -31,11 +31,11 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Copyright */}
           <div className="flex flex-col items-center md:items-start gap-1">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()}{" "}
               <span className="gradient-text font-semibold">Esmaeil Jafari</span>. All rights reserved.
             </p>
-            <p className="text-xs text-gray-600">
+            <p className="text-xs text-muted-foreground/60">
               Crafted with passion & precision
             </p>
           </div>
@@ -48,7 +48,7 @@ export default function Footer() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-10 h-10 rounded-xl glass-light flex items-center justify-center text-gray-500 border border-white/5 transition-all duration-300 hover:scale-110 hover:shadow-lg ${social.hoverColor}`}
+                className={`w-10 h-10 rounded-xl glass-light flex items-center justify-center text-muted-foreground border border-black/5 dark:border-white/5 transition-all duration-300 hover:scale-110 hover:shadow-lg ${social.hoverColor}`}
                 aria-label={social.label}
               >
                 <social.icon size={18} />
