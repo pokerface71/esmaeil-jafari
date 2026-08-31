@@ -39,6 +39,8 @@ import {
 } from "react-icons/si";
 import AuroraBackground from "@components/Layout/AuroraBackground";
 import SkillCard from "@components/SkillCard";
+import { useI18n, experienceTranslations } from "lib/i18n";
+import { cn } from "lib/utils";
 
 interface ScrollRefs {
   home: React.RefObject<HTMLDivElement | null>;
@@ -66,71 +68,14 @@ const skills = [
   { Icon: MuiIcon, name: "MUI", color: "blue-400", delay: "0.75s", isCustom: true },
 ];
 
-const experiences = [
-  {
-    title: "Frontend Developer",
-    company: "Otaghak",
-    date: "Oct 2025",
-    description:
-      "Otaghak is a leading online platform for booking villas, apartments, and accommodations across Iran, Turkey, Armenia, and South Africa. As a Frontend Developer, I contributed to the development and enhancement of the platform's user interface, focusing on creating seamless booking experiences and improving user engagement. The platform features over 38,000 accommodations and provides users with comprehensive search and filtering capabilities.",
-    extra:
-      "During my time at Otaghak, I worked on optimizing the booking flow, enhancing the search functionality, and improving the overall user experience across different device types.",
-    website: "https://www.otaghak.com/",
-    websiteLabel: "www.otaghak.com",
-    tech: "React | Next.js | TypeScript | Modern Frontend Technologies",
-  },
-  {
-    title: "Frontend Developer",
-    company: "Dinawin",
-    date: "Jan 2022 - Present",
-    description:
-      "Dinawin is a leading company in the automotive spare parts industry with multiple applications. As a Frontend Developer, my primary responsibility is to modernize and refactor the legacy application from the ground up. This involves implementing modern technologies, improving application performance, and ensuring a seamless user experience across all platforms.",
-    highlights: [
-      "Baaz.ir — Main platform for automotive spare parts with advanced search capabilities and real-time inventory management",
-      "Karban.Baaz.ir — Specialized Task Management System with comprehensive workflow automation",
-      "Shop.Baaz.ir — E-commerce platform with integrated payment gateways and order tracking",
-      "Akorayan.com — Additional platform for automotive services with CRM features",
-    ],
-    tech: "React | Next.js | TypeScript | Sass | SignalR | Micro Frontend | Redux | MUI | Zustand | React Query",
-  },
-  {
-    title: "Frontend Developer",
-    company: "KetabPlus",
-    date: "Mar 2021 - Feb 2022",
-    description:
-      "KetabPlus is an innovative startup in the book industry, dedicated to promoting reading culture and making books more accessible. I was responsible for refactoring, developing, and maintaining both the public website and the admin panel.",
-    tech: "TypeScript | Next.js | React | Redux-Toolkit | ReactBootstrap | Tailwind | SASS",
-  },
-  {
-    title: "Frontend Developer",
-    company: "SandBadCell",
-    date: "Aug 2019 - Feb 2021",
-    description:
-      "SandBadCell is a B2B platform developed by Ahoora Company, specializing in business-to-business transactions. I developed and maintained both the public-facing website and the administrative panel.",
-    tech: "jQuery | React | Redux | ReactBootstrap | Bootstrap | WordPress | PHP",
-  },
-  {
-    title: "Frontend Developer",
-    company: "Seoraz | Simagar",
-    date: "Feb 2017 - Aug 2019",
-    description:
-      "Seoraz is a fully bundled services provider of Web Design, Development, Corporate Identity, Mobile Apps along with SEO and Social Media. I contributed to various web projects focusing on responsive and visually appealing interfaces.",
-    tech: "JavaScript | jQuery | React | Bootstrap | WordPress | SEO",
-  },
-  {
-    title: "Frontend Developer",
-    company: "WebNegah",
-    date: "Jan 2015 - Jan 2017",
-    description:
-      "WebNegah is a well-established programming company with over 20 years of experience. I designed and developed websites tailored to specific customer requirements using various technologies.",
-    tech: "WordPress | DNN | SEO | JavaScript | jQuery | Bootstrap | OpenCart | Photoshop",
-  },
-];
-
 const Home: React.FC = () => {
   const router = useRouter();
   const scroll = router.query.scroll as string;
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({});
+  const { t, locale, dir } = useI18n();
+
+  // Get experiences for current locale
+  const experiences = experienceTranslations[locale] || experienceTranslations.en;
 
   const refs: ScrollRefs = {
     home: useRef<HTMLDivElement>(null),
@@ -207,9 +152,9 @@ const Home: React.FC = () => {
         }} />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-32">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+          <div className={cn("flex flex-col lg:flex-row items-center justify-between gap-16", dir === "rtl" && "lg:flex-row-reverse")}>
             {/* Text Content */}
-            <div className="flex-1 text-center lg:text-left">
+            <div className={cn("flex-1 text-center", dir === "rtl" ? "lg:text-right" : "lg:text-left")}>
               <div
                 data-animate="hero-badge"
                 className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-light border border-black/5 dark:border-white/10 mb-6 text-sm text-muted-foreground ${
@@ -218,7 +163,7 @@ const Home: React.FC = () => {
                 id="hero-badge"
               >
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                Available for new opportunities
+                {t("hero.badge")}
               </div>
 
               <h1
@@ -228,7 +173,7 @@ const Home: React.FC = () => {
                 }`}
                 id="hero-title"
               >
-                Hi, I&apos;m{" "}
+                {t("hero.title.greeting")}{" "}
                 <span className="gradient-text">Esmaeil</span>
               </h1>
 
@@ -240,7 +185,7 @@ const Home: React.FC = () => {
                 id="hero-subtitle"
                 style={{ animationDelay: "0.15s" }}
               >
-                Frontend Developer
+                {t("hero.subtitle")}
               </h2>
 
               <p
@@ -251,16 +196,15 @@ const Home: React.FC = () => {
                 id="hero-desc"
                 style={{ animationDelay: "0.3s" }}
               >
-                Crafting elegant, high-performance web experiences with modern technologies.
-                Passionate about clean code, intuitive UIs, and continuous learning.
+                {t("hero.desc")}
               </p>
 
               {/* CTA Buttons */}
               <div
                 data-animate="hero-cta"
-                className={`flex flex-wrap gap-4 justify-center lg:justify-start ${
-                  isVisible["hero-cta"] ? "animate-fade-in-up" : "opacity-0"
-                }`}
+                className={`flex flex-wrap gap-4 justify-center ${
+                  dir === "rtl" ? "lg:justify-end" : "lg:justify-start"
+                } ${isVisible["hero-cta"] ? "animate-fade-in-up" : "opacity-0"}`}
                 id="hero-cta"
                 style={{ animationDelay: "0.45s" }}
               >
@@ -268,23 +212,23 @@ const Home: React.FC = () => {
                   href="/?scroll=experience"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-[length:200%_100%] hover:animate-[gradient-shift_2s_ease_infinite] hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  View Experience
-                  <FaArrowRight className="text-xs" />
+                  {t("hero.cta.experience")}
+                  <FaArrowRight className={cn("text-xs", dir === "rtl" && "rotate-180")} />
                 </a>
                 <a
                   href="/?scroll=contact"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-muted-foreground glass-light border border-black/5 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10 hover:text-foreground transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  Get In Touch
+                  {t("hero.cta.contact")}
                 </a>
               </div>
 
               {/* Social Links */}
               <div
                 data-animate="hero-social"
-                className={`flex gap-3 mt-10 justify-center lg:justify-start ${
-                  isVisible["hero-social"] ? "animate-fade-in-up" : "opacity-0"
-                }`}
+                className={`flex gap-3 mt-10 justify-center ${
+                  dir === "rtl" ? "lg:justify-end" : "lg:justify-start"
+                } ${isVisible["hero-social"] ? "animate-fade-in-up" : "opacity-0"}`}
                 id="hero-social"
                 style={{ animationDelay: "0.6s" }}
               >
@@ -333,22 +277,22 @@ const Home: React.FC = () => {
               </div>
 
               {/* Floating stats */}
-              <div className="absolute -bottom-2 -left-4 glass-card rounded-2xl px-4 py-3 animate-bounce-in" style={{ animationDelay: "0.8s" }}>
+              <div className={cn("absolute -bottom-2 glass-card rounded-2xl px-4 py-3 animate-bounce-in", dir === "rtl" ? "-right-4" : "-left-4")} style={{ animationDelay: "0.8s" }}>
                 <div className="flex items-center gap-2">
                   <FaRocket className="text-indigo-400 text-sm" />
                   <div>
-                    <p className="text-xs text-muted-foreground">Experience</p>
-                    <p className="text-sm font-bold text-foreground">10+ Years</p>
+                    <p className="text-xs text-muted-foreground">{t("hero.stats.experience")}</p>
+                    <p className="text-sm font-bold text-foreground">{t("hero.stats.experience.value")}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -top-2 -right-4 glass-card rounded-2xl px-4 py-3 animate-bounce-in" style={{ animationDelay: "1s" }}>
+              <div className={cn("absolute -top-2 glass-card rounded-2xl px-4 py-3 animate-bounce-in", dir === "rtl" ? "-left-4" : "-right-4")} style={{ animationDelay: "1s" }}>
                 <div className="flex items-center gap-2">
                   <FaCode className="text-purple-400 text-sm" />
                   <div>
-                    <p className="text-xs text-muted-foreground">Projects</p>
-                    <p className="text-sm font-bold text-foreground">50+</p>
+                    <p className="text-xs text-muted-foreground">{t("hero.stats.projects")}</p>
+                    <p className="text-sm font-bold text-foreground">{t("hero.stats.projects.value")}</p>
                   </div>
                 </div>
               </div>
@@ -358,7 +302,7 @@ const Home: React.FC = () => {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <span className="text-xs tracking-widest uppercase">{t("hero.scroll")}</span>
           <div className="w-5 h-8 rounded-full border border-muted-foreground/30 flex justify-center pt-1.5">
             <div className="w-1 h-2 rounded-full bg-muted-foreground/50 animate-bounce" />
           </div>
@@ -382,7 +326,7 @@ const Home: React.FC = () => {
               }`}
               id="about-label"
             >
-              About Me
+              {t("about.label")}
             </span>
             <h2
               data-animate="about-title"
@@ -391,8 +335,8 @@ const Home: React.FC = () => {
               }`}
               id="about-title"
             >
-              Turning ideas into{" "}
-              <span className="gradient-text">reality</span>
+              {t("about.title")}{" "}
+              <span className="gradient-text">{t("about.title.highlight")}</span>
             </h2>
           </div>
 
@@ -406,23 +350,17 @@ const Home: React.FC = () => {
               }`}
               id="about-main"
             >
-              <div className="flex items-center gap-3 mb-6">
+              <div className={cn("flex items-center gap-3 mb-6", dir === "rtl" && "flex-row-reverse")}>
                 <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
                   <FaRocket className="text-indigo-400" />
                 </div>
-                <h3 className="text-xl font-bold">My Journey</h3>
+                <h3 className="text-xl font-bold">{t("about.journey.title")}</h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                I am a front-end developer with a proven ability to collaborate
-                effectively with senior developers. I always enjoy working as a
-                team member and have a strong passion for learning new
-                technologies.
+              <p className={cn("text-muted-foreground leading-relaxed mb-4", dir === "rtl" && "text-right")}>
+                {t("about.journey.p1")}
               </p>
-              <p className="text-muted-foreground leading-relaxed">
-                With experience working in programming teams and coordinating with
-                colleagues, I bring a comprehensive approach to building web
-                applications that deliver exceptional user experiences and meet
-                business objectives.
+              <p className={cn("text-muted-foreground leading-relaxed", dir === "rtl" && "text-right")}>
+                {t("about.journey.p2")}
               </p>
             </div>
 
@@ -438,7 +376,7 @@ const Home: React.FC = () => {
               >
                 <FaCalendarAlt className="text-2xl text-indigo-400 mb-3" />
                 <p className="text-3xl font-black gradient-text">10+</p>
-                <p className="text-sm text-muted-foreground mt-1">Years of Experience</p>
+                <p className={cn("text-sm text-muted-foreground mt-1", dir === "rtl" && "text-right")}>{t("about.stat.years")}</p>
               </div>
 
               <div
@@ -451,7 +389,7 @@ const Home: React.FC = () => {
               >
                 <FaGlobe className="text-2xl text-purple-400 mb-3" />
                 <p className="text-3xl font-black gradient-text">6</p>
-                <p className="text-sm text-muted-foreground mt-1">Companies Worked</p>
+                <p className={cn("text-sm text-muted-foreground mt-1", dir === "rtl" && "text-right")}>{t("about.stat.companies")}</p>
               </div>
 
               <div
@@ -464,7 +402,7 @@ const Home: React.FC = () => {
               >
                 <FaBolt className="text-2xl text-yellow-400 mb-3" />
                 <p className="text-3xl font-black gradient-text">50+</p>
-                <p className="text-sm text-muted-foreground mt-1">Projects Delivered</p>
+                <p className={cn("text-sm text-muted-foreground mt-1", dir === "rtl" && "text-right")}>{t("about.stat.projects")}</p>
               </div>
             </div>
           </div>
@@ -488,7 +426,7 @@ const Home: React.FC = () => {
               }`}
               id="skills-label"
             >
-              Tech Stack
+              {t("skills.label")}
             </span>
             <h2
               data-animate="skills-title"
@@ -497,8 +435,8 @@ const Home: React.FC = () => {
               }`}
               id="skills-title"
             >
-              Skills &{" "}
-              <span className="gradient-text">Technologies</span>
+              {t("skills.title")}{" "}
+              <span className="gradient-text">{t("skills.title.highlight")}</span>
             </h2>
           </div>
 
@@ -537,7 +475,7 @@ const Home: React.FC = () => {
               }`}
               id="exp-label"
             >
-              Career Path
+              {t("experience.label")}
             </span>
             <h2
               data-animate="exp-title"
@@ -546,70 +484,70 @@ const Home: React.FC = () => {
               }`}
               id="exp-title"
             >
-              Work{" "}
-              <span className="gradient-text">Experience</span>
+              {t("experience.title")}{" "}
+              <span className="gradient-text">{t("experience.title.highlight")}</span>
             </h2>
           </div>
 
           {/* Timeline */}
           <div className="relative">
             {/* Vertical line */}
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/50 via-purple-500/30 to-transparent" />
+            <div className={cn("absolute top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/50 via-purple-500/30 to-transparent", dir === "rtl" ? "right-6" : "left-6")} />
 
             <div className="space-y-8">
               {experiences.map((exp, index) => (
                 <div
                   key={index}
                   data-animate={`exp-${index}`}
-                  className={`relative pl-16 ${
+                  className={`relative ${dir === "rtl" ? "pr-16" : "pl-16"} ${
                     isVisible[`exp-${index}`] ? "animate-slide-in-left" : "opacity-0 translate-x-[-30px]"
                   }`}
                   id={`exp-${index}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {/* Timeline dot */}
-                  <div className="absolute left-[18px] top-8">
+                  <div className={cn("absolute top-8", dir === "rtl" ? "right-[18px]" : "left-[18px]")}>
                     <div className="timeline-dot" />
                   </div>
 
                   {/* Card */}
                   <div className="experience-card glass-card rounded-2xl p-6 sm:p-8 group">
                     {/* Header */}
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                    <div className={cn("flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4", dir === "rtl" && "sm:flex-row-reverse")}>
                       <div>
                         <h3 className="text-xl font-bold text-foreground group-hover:text-indigo-300 dark:group-hover:text-indigo-300 transition-colors duration-300">
-                          {exp.title}
+                          {t(exp.titleKey)}
                         </h3>
-                        <p className="text-indigo-400 font-semibold">{exp.company}</p>
+                        <p className="text-indigo-400 font-semibold">{t(exp.companyKey)}</p>
                       </div>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-light border border-black/5 dark:border-white/5 text-xs text-muted-foreground w-fit">
+                      <span className={cn("inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-light border border-black/5 dark:border-white/5 text-xs text-muted-foreground w-fit", dir === "rtl" && "flex-row-reverse")}>
                         <FaCalendarAlt className="text-[10px]" />
-                        {exp.date}
+                        {t(exp.dateKey)}
                       </span>
                     </div>
 
                     {/* Description */}
-                    <p className="text-muted-foreground leading-relaxed text-sm mb-4">
-                      {exp.description}
+                    <p className={cn("text-muted-foreground leading-relaxed text-sm mb-4", dir === "rtl" && "text-right")}>
+                      {t(exp.descKey)}
                     </p>
 
                     {/* Extra description */}
-                    {exp.extra && (
-                      <p className="text-muted-foreground/70 leading-relaxed text-sm mb-4">
-                        {exp.extra}
+                    {exp.extraKey && (
+                      <p className={cn("text-muted-foreground/70 leading-relaxed text-sm mb-4", dir === "rtl" && "text-right")}>
+                        {t(exp.extraKey)}
                       </p>
                     )}
 
                     {/* Highlights */}
-                    {exp.highlights && (
-                      <ul className="space-y-2 mb-4">
-                        {exp.highlights.map((highlight, i) => (
+                    {exp.highlightsKeys && (
+                      <ul className={cn("space-y-2 mb-4", dir === "rtl" && "text-right")}>
+                        {exp.highlightsKeys.map((highlightKey, i) => (
                           <li
                             key={i}
-                            className="flex items-start gap-2 text-sm text-muted-foreground"
+                            className={cn("flex items-start gap-2 text-sm text-muted-foreground", dir === "rtl" && "flex-row-reverse")}
                           >
                             <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0" />
-                            {highlight}
+                            {t(highlightKey)}
                           </li>
                         ))}
                       </ul>
@@ -621,17 +559,17 @@ const Home: React.FC = () => {
                         href={exp.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300 transition-colors duration-300 mb-4"
+                        className={cn("inline-flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300 transition-colors duration-300 mb-4", dir === "rtl" && "flex-row-reverse")}
                       >
                         <FaGlobe className="text-xs" />
                         {exp.websiteLabel}
-                        <FaArrowRight className="text-[10px] transition-transform duration-300 group-hover:translate-x-1" />
+                        <FaArrowRight className={cn("text-[10px] transition-transform duration-300 group-hover:translate-x-1", dir === "rtl" && "rotate-180 group-hover:-translate-x-1")} />
                       </a>
                     )}
 
                     {/* Tech tags */}
                     {exp.tech && (
-                      <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/5">
+                      <div className={cn("flex flex-wrap gap-2 mt-4 pt-4 border-t border-black/5 dark:border-white/5", dir === "rtl" && "flex-row-reverse")}>
                         {exp.tech.split(" | ").map((tech, i) => (
                           <span
                             key={i}
@@ -657,11 +595,11 @@ const Home: React.FC = () => {
         <div className="relative z-10 max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-indigo-400 mb-4">
-              Open Source
+              {t("github.label")}
             </span>
             <h2 className="text-4xl sm:text-5xl font-black">
-              GitHub{" "}
-              <span className="gradient-text">Activity</span>
+              {t("github.title")}{" "}
+              <span className="gradient-text">{t("github.title.highlight")}</span>
             </h2>
           </div>
 
@@ -697,7 +635,7 @@ const Home: React.FC = () => {
               }`}
               id="contact-label"
             >
-              Get In Touch
+              {t("contact.label")}
             </span>
             <h2
               data-animate="contact-title"
@@ -706,8 +644,8 @@ const Home: React.FC = () => {
               }`}
               id="contact-title"
             >
-              Let&apos;s Work{" "}
-              <span className="gradient-text">Together</span>
+              {t("contact.title")}{" "}
+              <span className="gradient-text">{t("contact.title.highlight")}</span>
             </h2>
           </div>
 
@@ -721,15 +659,15 @@ const Home: React.FC = () => {
               }`}
               id="contact-info"
             >
-              <h3 className="text-xl font-bold mb-6">Contact Information</h3>
+              <h3 className="text-xl font-bold mb-6">{t("contact.info.title")}</h3>
 
               <div className="space-y-5">
                 {[
                   { icon: FaPhone, label: "+98 905 267 2239", color: "text-indigo-400" },
                   { icon: FaEnvelope, label: "esmaeiljafari1992@gmail.com", color: "text-purple-400" },
-                  { icon: FaMapMarkerAlt, label: "Tehran, Iran", color: "text-pink-400" },
+                  { icon: FaMapMarkerAlt, label: t("contact.location"), color: "text-pink-400" },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4">
+                  <div key={i} className={cn("flex items-center gap-4", dir === "rtl" && "flex-row-reverse")}>
                     <div className="w-11 h-11 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center flex-shrink-0 border border-black/5 dark:border-white/5">
                       <item.icon className={item.color} size={18} />
                     </div>
@@ -748,7 +686,7 @@ const Home: React.FC = () => {
               id="contact-social"
               style={{ animationDelay: "0.15s" }}
             >
-              <h3 className="text-xl font-bold mb-6">Connect With Me</h3>
+              <h3 className="text-xl font-bold mb-6">{t("contact.social.title")}</h3>
 
               <div className="space-y-4">
                 {[
@@ -782,16 +720,16 @@ const Home: React.FC = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 group"
+                    className={cn("flex items-center gap-4 p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 group", dir === "rtl" && "flex-row-reverse")}
                   >
                     <div className={`w-11 h-11 rounded-xl ${social.bgColor} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                       <social.icon className={social.color} size={18} />
                     </div>
-                    <div>
+                    <div className={cn(dir === "rtl" && "text-right flex-1")}>
                       <p className="text-sm font-semibold text-foreground">{social.label}</p>
                       <p className="text-xs text-muted-foreground">{social.sublabel}</p>
                     </div>
-                    <FaArrowRight className="ml-auto text-muted-foreground/30 group-hover:text-muted-foreground group-hover:translate-x-1 transition-all duration-300 text-xs" />
+                    <FaArrowRight className={cn("ml-auto text-muted-foreground/30 group-hover:text-muted-foreground group-hover:translate-x-1 transition-all duration-300 text-xs", dir === "rtl" && "mr-auto ml-0 rotate-180 group-hover:-translate-x-1")} />
                   </a>
                 ))}
               </div>

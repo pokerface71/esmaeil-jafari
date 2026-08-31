@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { cn } from "lib/utils";
 import { useTheme } from "components/ThemeProvider";
+import { useI18n, Locale } from "lib/i18n";
+import { FaGlobe } from "react-icons/fa";
 
-const navItems = [
-  { href: "/?scroll=home", label: "Home", key: "home" },
-  { href: "/?scroll=about", label: "About", key: "about" },
-  { href: "/?scroll=skills", label: "Skills", key: "skills" },
-  { href: "/?scroll=experience", label: "Experience", key: "experience" },
-  { href: "/?scroll=contact", label: "Contact", key: "contact" },
+const locales: { code: Locale; label: string; flag: string }[] = [
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "fa", label: "فارسی", flag: "🇮🇷" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
 ];
 
 export default function Header() {
@@ -19,6 +20,16 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { locale, setLocale, t, dir } = useI18n();
+  const [isLangOpen, setIsLangOpen] = useState(false);
+
+  const navItems = [
+    { href: "/?scroll=home", label: t("nav.home"), key: "home" },
+    { href: "/?scroll=about", label: t("nav.about"), key: "about" },
+    { href: "/?scroll=skills", label: t("nav.skills"), key: "skills" },
+    { href: "/?scroll=experience", label: t("nav.experience"), key: "experience" },
+    { href: "/?scroll=contact", label: t("nav.contact"), key: "contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +39,18 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close language dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = () => setIsLangOpen(false);
+    if (isLangOpen) {
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }
+  }, [isLangOpen]);
+
   const isActive = (key: string) => currentPath.includes(key);
+
+  const currentLocale = locales.find((l) => l.code === locale) || locales[0];
 
   return (
     <>
@@ -60,7 +82,7 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:block">
-              <ul className="flex items-center gap-1">
+              <ul className={cn("flex items-center gap-1", dir === "rtl" && "flex-row-reverse")}>
                 {navItems.map((item) => (
                   <li key={item.key}>
                     <Link
@@ -83,7 +105,57 @@ export default function Header() {
             </nav>
 
             {/* Actions */}
-            <div className="flex items-center gap-3">
+            <div className={cn("flex items-center gap-3", dir === "rtl" && "flex-row-reverse")}>
+              {/* Language Switcher */}
+              <div className="relative">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsLangOpen(!isLangOpen);
+                  }}
+                  className={cn(
+                    "p-2.5 rounded-xl transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-1.5",
+                    dir === "rtl" && "flex-row-reverse"
+                  )}
+                  aria-label="Switch language"
+                >
+                  <FaGlobe className="w-5 h-5 text-gray-300" />
+                  <span className="text-xs font-medium text-gray-300">{currentLocale.code.toUpperCase()}</span>
+                </button>
+
+                {/* Language Dropdown */}
+                <div
+                  className={cn(
+                    "absolute top-full mt-2 glass-card rounded-xl py-2 min-w-[140px] transition-all duration-300 z-50",
+                    dir === "rtl" ? "right-0" : "left-0",
+                    isLangOpen
+                      ? "opacity-100 scale-100 pointer-events-auto"
+                      : "opacity-0 scale-95 pointer-events-none"
+                  )}
+                >
+                  {locales.map((loc) => (
+                    <button
+                      key={loc.code}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLocale(loc.code);
+                        setIsLangOpen(false);
+                      }}
+                      className={cn(
+                        "w-full px-4 py-2.5 text-sm flex items-center gap-3 transition-all duration-200",
+                        dir === "rtl" && "flex-row-reverse text-right",
+                        locale === loc.code
+                          ? "text-indigo-400 bg-indigo-500/10"
+                          : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                      )}
+                    >
+                      <span className="text-base">{loc.flag}</span>
+                      <span>{loc.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
@@ -109,7 +181,7 @@ export default function Header() {
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-[length:200%_100%] group-hover:animate-[gradient-shift_2s_ease_infinite]" />
                 <span className="relative z-10 flex items-center gap-2">
-                  Download CV
+                  {locale === "fa" ? "دانلود رزومه" : locale === "ar" ? "تحميل السيرة الذاتية" : locale === "tr" ? "CV İndir" : "Download CV"}
                   <svg
                     className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5"
                     fill="none"
@@ -191,10 +263,32 @@ export default function Header() {
         {/* Menu Panel */}
         <div
           className={cn(
-            "absolute top-0 right-0 w-72 h-full glass p-8 pt-24 transition-transform duration-500 ease-out",
-            isMenuOpen ? "translate-x-0" : "translate-x-full"
+            "absolute top-0 h-full glass p-8 pt-24 transition-transform duration-500 ease-out w-72",
+            dir === "rtl" ? "left-0" : "right-0",
+            isMenuOpen ? "translate-x-0" : dir === "rtl" ? "-translate-x-full" : "translate-x-full"
           )}
         >
+          {/* Mobile Language Switcher */}
+          <div className={cn("mb-6 flex gap-2", dir === "rtl" && "flex-row-reverse")}>
+            {locales.map((loc) => (
+              <button
+                key={loc.code}
+                onClick={() => {
+                  setLocale(loc.code);
+                }}
+                className={cn(
+                  "px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                  locale === loc.code
+                    ? "text-indigo-400 bg-indigo-500/10 border border-indigo-500/20"
+                    : "text-muted-foreground hover:text-foreground hover:bg-white/5 border border-transparent"
+                )}
+              >
+                <span className="mr-1">{loc.flag}</span>
+                {loc.label}
+              </button>
+            ))}
+          </div>
+
           <nav>
             <ul className="flex flex-col gap-2">
               {navItems.map((item, index) => (
@@ -204,20 +298,22 @@ export default function Header() {
                   style={{
                     transitionDelay: isMenuOpen ? `${index * 80}ms` : "0ms",
                     opacity: isMenuOpen ? 1 : 0,
-                    transform: isMenuOpen ? "translateX(0)" : "translateX(20px)",
+                    transform: isMenuOpen ? "translateX(0)" : dir === "rtl" ? "translateX(-20px)" : "translateX(20px)",
                   }}
-                >                    <Link
+                >
+                  <Link
                     href={item.href}
                     className={cn(
                       "flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-300",
                       isActive(item.key)
                         ? "text-foreground bg-indigo-500/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5"
+                        : "text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5",
+                      dir === "rtl" && "flex-row-reverse"
                     )}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {isActive(item.key) && (
-                      <span className="w-1 h-6 rounded-full bg-gradient-to-b from-indigo-500 to-purple-500 mr-3" />
+                      <span className={cn("w-1 h-6 rounded-full bg-gradient-to-b from-indigo-500 to-purple-500", dir === "rtl" ? "mr-3" : "ml-3")} />
                     )}
                     {item.label}
                   </Link>
@@ -232,7 +328,7 @@ export default function Header() {
             style={{
               transitionDelay: isMenuOpen ? "400ms" : "0ms",
               opacity: isMenuOpen ? 1 : 0,
-              transform: isMenuOpen ? "translateX(0)" : "translateX(20px)",
+              transform: isMenuOpen ? "translateX(0)" : dir === "rtl" ? "translateX(-20px)" : "translateX(20px)",
             }}
           >
             <Link
@@ -241,7 +337,7 @@ export default function Header() {
               className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 transition-all duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              Download CV
+              {locale === "fa" ? "دانلود رزومه" : locale === "ar" ? "تحميل السيرة الذاتية" : locale === "tr" ? "CV İndir" : "Download CV"}
               <svg
                 className="w-4 h-4"
                 fill="none"

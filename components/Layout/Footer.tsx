@@ -1,4 +1,6 @@
 import { FaLinkedin, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { useI18n } from "lib/i18n";
+import { cn } from "lib/utils";
 
 const socialLinks = [
   {
@@ -22,21 +24,23 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const { t, dir } = useI18n();
+
   return (
     <footer className="relative py-12 border-t border-black/5 dark:border-white/5 footer-glass">
       {/* Gradient line at top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className={cn("flex flex-col md:flex-row justify-between items-center gap-6", dir === "rtl" && "md:flex-row-reverse")}>
           {/* Copyright */}
-          <div className="flex flex-col items-center md:items-start gap-1">
+          <div className={cn("flex flex-col items-center gap-1", dir === "rtl" ? "md:items-end" : "md:items-start")}>
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()}{" "}
-              <span className="gradient-text font-semibold">Esmaeil Jafari</span>. All rights reserved.
+              <span className="gradient-text font-semibold">Esmaeil Jafari</span>. {t("footer.rights")}
             </p>
             <p className="text-xs text-muted-foreground/60">
-              Crafted with passion & precision
+              {t("footer.crafted")}
             </p>
           </div>
 

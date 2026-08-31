@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -299,12 +299,11 @@
 /* ======================== */
 html {
   scroll-behavior: smooth;
-  direction: rtl;
 }
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  direction: ltr;
-  text-align: left;
+  direction: inherit;
+  text-align: inherit;
   margin: 0;
   padding: 0;
   color: #f0f0f5;
@@ -483,6 +482,57 @@ body {
 
 .experience-card:hover::before {
   transform: scaleY(1);
+}
+
+/* ======================== */
+/*   Language Transition     */
+/* ======================== */
+.locale-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.locale-transition.transitioning {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* ======================== */
+/*     RTL Support           */
+/* ======================== */
+[dir='rtl'] {
+  text-align: right;
+}
+
+[dir='rtl'] .experience-card::before {
+  left: auto;
+  right: 0;
+}
+
+[dir='rtl'] .animate-slide-in-left {
+  animation-name: slide-in-right;
+}
+
+[dir='rtl'] .profile-ring::after {
+  direction: ltr;
+}
+
+[dir='rtl'] .timeline-dot {
+  left: auto;
+  right: 18px;
+}
+
+/* Per-language fonts */
+[dir='fa'] body,
+[dir='ar'] body {
+  font-family: 'Vazirmatn', 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: 0;
+}
+
+html[lang='tr'] body {
+  font-family: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 /* ======================== */
