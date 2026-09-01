@@ -5,8 +5,6 @@ import { useRouter } from "next/router";
 import { cn } from "lib/utils";
 import { useTheme } from "components/ThemeProvider";
 import { useI18n, Locale } from "lib/i18n";
-import { FaGlobe } from "react-icons/fa";
-
 const locales: { code: Locale; label: string; flag: string }[] = [
   { code: "en", label: "English", flag: "🇺🇸" },
   { code: "fa", label: "فارسی", flag: "🇮🇷" },
@@ -16,7 +14,7 @@ const locales: { code: Locale; label: string; flag: string }[] = [
 
 export default function Header() {
   const router = useRouter();
-  const currentPath = router.asPath;
+  const scrollParam = (router.query.scroll as string) || "home";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
@@ -52,7 +50,7 @@ export default function Header() {
     }
   }, [isLangOpen]);
 
-  const isActive = (key: string) => currentPath.includes(key);
+  const isActive = (key: string) => scrollParam === key;
 
   const currentLocale = locales.find((l) => l.code === locale) || locales[0];
 
@@ -60,10 +58,10 @@ export default function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 z-50 w-full transition-all duration-500",
+          "fixed top-0 left-0 z-50 w-full transition-all duration-500 backdrop-blur-xl",
           isScrolled
-            ? "glass py-3 shadow-lg shadow-black/20"
-            : "py-4 bg-transparent"
+            ? "bg-background/80 py-3 shadow-lg shadow-black/20 border-b border-white/5"
+            : "py-4 bg-background/40"
         )}
       >
         <div className="max-w-6xl mx-auto px-6">
@@ -110,27 +108,23 @@ export default function Header() {
 
             {/* Actions */}
             <div className={cn("flex items-center gap-3", dir === "rtl" && "flex-row-reverse")}>
-              {/* Language Switcher */}
+              {/* Language Switcher - Minimal Flag */}
               <div className="relative">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsLangOpen(!isLangOpen);
                   }}
-                  className={cn(
-                    "p-2.5 rounded-xl transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-1.5",
-                    dir === "rtl" && "flex-row-reverse"
-                  )}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-lg transition-all duration-300 hover:scale-110"
                   aria-label="Switch language"
                 >
-                  <FaGlobe className="w-5 h-5 text-gray-300" />
-                  <span className="text-xs font-medium text-gray-300">{currentLocale.code.toUpperCase()}</span>
+                  {currentLocale.flag}
                 </button>
 
                 {/* Language Dropdown */}
                 <div
                   className={cn(
-                    "absolute top-full mt-2 glass-card rounded-xl py-2 min-w-[140px] transition-all duration-300 z-50",
+                    "absolute top-full mt-2 glass-card rounded-xl p-1.5 min-w-0 transition-all duration-300 z-50",
                     dir === "rtl" ? "right-0" : "left-0",
                     isLangOpen
                       ? "opacity-100 scale-100 pointer-events-auto"
@@ -146,15 +140,13 @@ export default function Header() {
                         setIsLangOpen(false);
                       }}
                       className={cn(
-                        "w-full px-4 py-2.5 text-sm flex items-center gap-3 transition-all duration-200",
-                        dir === "rtl" && "flex-row-reverse text-right",
+                        "w-8 h-8 rounded-full flex items-center justify-center text-lg transition-all duration-200",
                         locale === loc.code
-                          ? "text-indigo-400 bg-indigo-500/10"
-                          : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                          ? "bg-indigo-500/15 ring-1 ring-indigo-500/30"
+                          : "hover:bg-white/10"
                       )}
                     >
-                      <span className="text-base">{loc.flag}</span>
-                      <span>{loc.label}</span>
+                      {loc.flag}
                     </button>
                   ))}
                 </div>
@@ -173,48 +165,6 @@ export default function Header() {
                 ) : (
                   <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                  </svg>
-                )}
-              </button>
-
-              {/* Download CV Button */}
-              <Link
-                href="/Esmaeil_jafari-Resume.pdf"
-                download
-                className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white relative overflow-hidden group transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/25"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-[length:200%_100%] group-hover:animate-[gradient-shift_2s_ease_infinite]" />
-                <span className="relative z-10 flex items-center gap-2">
-                  {locale === "fa" ? "دانلود رزومه" : locale === "ar" ? "تحميل السيرة الذاتية" : locale === "tr" ? "CV İndir" : "Download CV"}
-                  <svg
-                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                  </svg>
-                </span>
-              </Link>
-
-              {/* Mobile Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="md:hidden p-2 rounded-lg glass-light hover:bg-white/10 transition-all duration-300"
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? (
-                  <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
-                ) : (
-                  <svg className="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                   </svg>
                 )}
               </button>
@@ -262,33 +212,28 @@ export default function Header() {
         <div
           className="absolute inset-0 bg-black/60 backdrop-blur-sm"
           onClick={() => setIsMenuOpen(false)}
-        />
-
-        {/* Menu Panel */}
+        />            {/* Menu Panel */}
         <div
           className={cn(
-            "absolute top-0 h-full glass p-8 pt-24 transition-transform duration-500 ease-out w-72",
+            "absolute top-0 h-full glass p-6 pt-20 transition-transform duration-500 ease-out w-64 sm:w-72",
             dir === "rtl" ? "left-0" : "right-0",
             isMenuOpen ? "translate-x-0" : dir === "rtl" ? "-translate-x-full" : "translate-x-full"
           )}
         >
-          {/* Mobile Language Switcher */}
-          <div className={cn("mb-6 flex gap-2", dir === "rtl" && "flex-row-reverse")}>
+          {/* Mobile Language Switcher - Minimal Flags */}
+          <div className={cn("mb-6 flex justify-center gap-3", dir === "rtl" && "flex-row-reverse")}>
             {locales.map((loc) => (
               <button
                 key={loc.code}
-                onClick={() => {
-                  setLocale(loc.code);
-                }}
+                onClick={() => setLocale(loc.code)}
                 className={cn(
-                  "px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                  "w-10 h-10 rounded-full flex items-center justify-center text-xl transition-all duration-200",
                   locale === loc.code
-                    ? "text-indigo-400 bg-indigo-500/10 border border-indigo-500/20"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/5 border border-transparent"
+                    ? "bg-indigo-500/15 ring-1 ring-indigo-500/30 scale-110"
+                    : "hover:bg-white/10"
                 )}
               >
-                <span className="mr-1">{loc.flag}</span>
-                {loc.label}
+                {loc.flag}
               </button>
             ))}
           </div>
