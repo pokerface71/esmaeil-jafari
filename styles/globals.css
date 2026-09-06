@@ -765,26 +765,40 @@ body::after {
   will-change: transform;
 }
 
-/* ---- Flying cartoon astronaut decoration ---- */
-.astronaut {
+/* ---- Roaming cartoon astronaut (flies between elements, perches & acts) ---- */
+.astro-stage {
   display: none; /* shown by JS on >=1024px */
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 30;
-  width: 158px;
+  width: 132px;
   pointer-events: none;
-  will-change: transform, opacity;
-  transform: translate3d(var(--ax, 24px), var(--ay, 64px), 0);
-  filter: drop-shadow(0 16px 18px rgba(24, 8, 60, 0.35));
-  transition: opacity 0.25s ease;
+  will-change: transform;
+  transform: translate3d(var(--ax, 40px), var(--ay, 60px), 0);
+  filter: drop-shadow(0 16px 18px rgba(24, 8, 60, 0.32));
+}
+[data-theme='light'] .astro-stage {
+  filter: drop-shadow(0 16px 18px rgba(49, 46, 129, 0.16));
 }
 .a-tilt {
-  transform: rotate(var(--ar, 0deg));
-  transform-origin: 50% 64%;
+  transform: rotate(var(--ar, 0deg)) scaleY(var(--sy, 1));
+  transform-origin: 50% 88%;
+  will-change: transform;
+}
+.a-tilt {
+  transform: rotate(var(--ar, 0deg)) scaleY(var(--sy, 1));
+  transform-origin: 50% 88%;
+  will-change: transform;
+}
+.astro-stage.is-spin .a-tilt {
+  animation: astro-spin 0.85s cubic-bezier(0.5, 0, 0.2, 1);
 }
 .a-float {
   animation: astro-float 4.2s ease-in-out infinite;
+}
+.astro-stage.is-hop .a-float {
+  animation: astro-hop 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 .a-astro {
   display: block;
@@ -794,23 +808,55 @@ body::after {
 .a-flame {
   position: absolute;
   left: 50%;
-  bottom: -30px;
+  bottom: -34px;
   width: 42px;
   opacity: var(--ff, 0);
   transform-origin: 50% 0;
   animation: astro-flicker 0.16s linear infinite;
+  z-index: -1;
 }
+
+/* Face blink + waving arm */
+.a-eyes {
+  transform-origin: 110px 80px;
+}
+.is-blink .a-eyes {
+  animation: astro-blink 0.34s ease-in-out 2;
+}
+.a-arm-r {
+  transition: transform 0.2s ease;
+}
+.is-wave .a-arm-r {
+  animation: astro-wave 0.62s ease-in-out infinite;
+}
+
 @keyframes astro-float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes astro-hop {
+  0% { transform: translateY(0) scale(1, 1); }
+  35% { transform: translateY(-34px) scale(0.98, 1.02); }
+  62% { transform: translateY(0) scale(1.05, 0.92); }
+  80% { transform: translateY(-6px) scale(0.99, 1.01); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes astro-spin {
+  0% { transform: rotate(var(--ar, 0deg)) scaleY(1); }
+  100% { transform: rotate(calc(var(--ar, 0deg) + 360deg)) scaleY(1); }
+}
+@keyframes astro-blink {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.1); }
+}
+@keyframes astro-wave {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(20deg); }
 }
 @keyframes astro-flicker {
   0%, 100% { transform: translateX(-50%) scaleY(1); opacity: var(--ff, 0); }
-  35% { transform: translateX(-50%) scaleY(0.82); opacity: calc(var(--ff, 0) * 0.8); }
-  70% { transform: translateX(-50%) scaleY(1.12); opacity: calc(var(--ff, 0) * 0.95); }
-}
-[data-theme='light'] .astronaut {
-  filter: drop-shadow(0 16px 18px rgba(49, 46, 129, 0.18));
+  35% { transform: translateX(-50%) scaleY(0.8); opacity: calc(var(--ff, 0) * 0.78); }
+  70% { transform: translateX(-50%) scaleY(1.14); opacity: calc(var(--ff, 0) * 0.95); }
 }
 
 /* ---- Giant ghost section numbers ---- */
