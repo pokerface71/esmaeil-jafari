@@ -765,6 +765,54 @@ body::after {
   will-change: transform;
 }
 
+/* ---- Flying cartoon astronaut decoration ---- */
+.astronaut {
+  display: none; /* shown by JS on >=1024px */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 158px;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform: translate3d(var(--ax, 24px), var(--ay, 64px), 0);
+  filter: drop-shadow(0 16px 18px rgba(24, 8, 60, 0.35));
+  transition: opacity 0.25s ease;
+}
+.a-tilt {
+  transform: rotate(var(--ar, 0deg));
+  transform-origin: 50% 64%;
+}
+.a-float {
+  animation: astro-float 4.2s ease-in-out infinite;
+}
+.a-astro {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.a-flame {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  width: 42px;
+  opacity: var(--ff, 0);
+  transform-origin: 50% 0;
+  animation: astro-flicker 0.16s linear infinite;
+}
+@keyframes astro-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+@keyframes astro-flicker {
+  0%, 100% { transform: translateX(-50%) scaleY(1); opacity: var(--ff, 0); }
+  35% { transform: translateX(-50%) scaleY(0.82); opacity: calc(var(--ff, 0) * 0.8); }
+  70% { transform: translateX(-50%) scaleY(1.12); opacity: calc(var(--ff, 0) * 0.95); }
+}
+[data-theme='light'] .astronaut {
+  filter: drop-shadow(0 16px 18px rgba(49, 46, 129, 0.18));
+}
+
 /* ---- Giant ghost section numbers ---- */
 .ghost-num {
   position: absolute;
