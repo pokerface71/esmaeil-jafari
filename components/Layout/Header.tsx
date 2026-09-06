@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { cn } from "lib/utils";
@@ -20,18 +19,17 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const { locale, setLocale, t, dir } = useI18n();
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
-
-  const _navItems = [
+  // Single canonical order (Home → Contact). The flex container flows right-to-left
+  // automatically when the document is RTL, so the menu mirrors itself without
+  // manually reversing (which would double-reverse and keep the LTR order).
+  const navItems = [
     { href: "/?scroll=home", label: t("nav.home"), key: "home" },
     { href: "/?scroll=about", label: t("nav.about"), key: "about" },
     { href: "/?scroll=skills", label: t("nav.skills"), key: "skills" },
     { href: "/?scroll=experience", label: t("nav.experience"), key: "experience" },
     { href: "/?scroll=contact", label: t("nav.contact"), key: "contact" },
   ];
-  const navItems = mounted && dir === "rtl" ? [..._navItems].reverse() : _navItems;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,19 +65,17 @@ export default function Header() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
+            <Link href="/" className="flex items-center gap-3 group" aria-label="Esmaeil Jafari — Home">
               <div className="relative">
-                <div className="w-10 h-10 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110">
-                  <Image
-                    src="/netliheart.svg"
-                    width={40}
-                    height={40}
-                    alt="Logo"
-                    className="w-full h-full"
-                  />
+                <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#6366f1,#8b5cf6_55%,#d946ef)] font-sans text-sm font-black tracking-wide text-white shadow-[0_0_24px_rgba(139,92,246,0.45)] ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-110">
+                  EJ
                 </div>
-                <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
+                <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-md" />
               </div>
+              <span className="hidden sm:flex flex-col leading-tight">
+                <span className="text-sm font-bold text-foreground">Esmaeil Jafari</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.34em] text-violet-300/70">Frontend Dev</span>
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
