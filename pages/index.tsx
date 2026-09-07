@@ -46,7 +46,7 @@ import AstronautFly from "@components/Layout/AstronautFly";
 import SkillCard from "@components/SkillCard";
 import { useI18n, experienceTranslations } from "lib/i18n";
 import { cn } from "lib/utils";
-
+import ProfileImage from "../assets/Images/esmaeiljafari.jpg";
 interface ScrollRefs {
   home: React.RefObject<HTMLDivElement | null>;
   about: React.RefObject<HTMLDivElement | null>;
@@ -567,7 +567,7 @@ const Home: React.FC = () => {
             {/* Profile Image */}
             <div
               data-animate="hero-image"
-              className={`relative flex-shrink-0 ${
+              className={`relative shrink-0 ${
                 isVisible["hero-image"]
                   ? "animate-scale-in"
                   : "opacity-0 scale-90"
@@ -607,7 +607,7 @@ const Home: React.FC = () => {
                   className="tilt-card relative w-60 h-60 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-[#0b0c15] shadow-[0_0_80px_rgba(129,140,248,0.25)]"
                 >
                   <Image
-                    src="/Images/esmaeiljafari.jpg"
+                    src={ProfileImage}
                     alt="Esmaeil Jafari"
                     fill
                     className="rounded-full object-cover"
@@ -1116,7 +1116,12 @@ const Home: React.FC = () => {
                 {t("github.title.highlight")}
               </span>
             </h2>
-          </div>          <div id="github-card" data-spot className="spot-card relative glass-card rounded-3xl p-6 sm:p-8 w-full max-w-2xl mx-auto">
+          </div>{" "}
+          <div
+            id="github-card"
+            data-spot
+            className="spot-card relative glass-card rounded-3xl p-6 sm:p-8 w-full max-w-2xl mx-auto"
+          >
             <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
               <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
