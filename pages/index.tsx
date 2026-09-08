@@ -1139,8 +1139,8 @@ const Home: React.FC = () => {
             </div>
             <div className="rounded-2xl overflow-hidden border border-white/[0.06] bg-black/30 p-3">
               <Image
-                src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=pokerface71&layout=compact&langs_count=8&theme=algolia"
-                alt="Top Languages"
+                src="https://github-readme-streak-stats.herokuapp.com/?user=pokerface71&theme=tokyonight&hide_border=true%22%20alt=%22GitHub%20Streak"
+                alt="herokuapp"
                 width={400}
                 height={200}
                 className="rounded-xl w-full"
