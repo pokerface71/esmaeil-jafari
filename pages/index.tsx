@@ -44,6 +44,7 @@ import ScrollProgress from "@components/Layout/ScrollProgress";
 import BackToTop from "@components/Layout/BackToTop";
 import AstronautFly from "@components/Layout/AstronautFly";
 import SkillCard from "@components/SkillCard";
+import BlogSection from "@components/Blog/BlogSection";
 import { useI18n, experienceTranslations } from "lib/i18n";
 import { cn } from "lib/utils";
 import ProfileImage from "../assets/Images/esmaeiljafari.jpg";
@@ -1150,6 +1151,9 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* ==================== BLOG ==================== */}
+      <BlogSection />
 
       {/* ==================== CONTACT ==================== */}
       <section ref={refs.contact} className="relative py-28 overflow-hidden">

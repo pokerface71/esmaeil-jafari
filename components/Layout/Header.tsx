@@ -28,6 +28,7 @@ export default function Header() {
     { href: "/?scroll=about", label: t("nav.about"), key: "about" },
     { href: "/?scroll=skills", label: t("nav.skills"), key: "skills" },
     { href: "/?scroll=experience", label: t("nav.experience"), key: "experience" },
+    { href: "/blog", label: t("nav.blog"), key: "blog" },
     { href: "/?scroll=contact", label: t("nav.contact"), key: "contact" },
   ];
 

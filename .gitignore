@@ -23,11 +23,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# local env files — NEVER commit real keys
+.env
+.env.*
+!.env.example
+
+# typescript incremental build cache
+*.tsbuildinfo
+
+# Freebuff local workspace metadata
+.freebuff/
 
 # Local Netlify folder
 .netlify
