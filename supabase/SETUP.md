@@ -51,11 +51,28 @@ npm run dev
 - `/blog/SLUG` → متن کامل مقاله
 - `/admin` → ورود با ایمیل/رمز مرحله ۴ و مدیریت مقالات (ساخت/ویرایش/حذف، چندزبانه، پیش‌نویس/انتشار)
 
-## ۷. دیپلوی روی Netlify
+## ۷. متغیرهای محیطی پروداکشن (Netlify)
 
-1. در پنل Netlify: **Site configuration → Environment variables**.
-2. دو متغیر `NEXT_PUBLIC_SUPABASE_URL` و `NEXT_PUBLIC_SUPABASE_ANON_KEY` را اضافه کنید.
-3. **Deploy site** را بزنید تا با متغیرهای جدید دوباره بیلد شود.
+> ⚠️ متغیرهای `NEXT_PUBLIC_*` در زمان **بیلد** داخل کد جاسازی می‌شوند، نه در زمان اجرا.
+> یعنی بعد از هر تغییر، حتماً باید دوباره دیپلوی بگیرید وگرنه سایت مقادیر قبلی را می‌بیند.
+
+قدم‌به‌قدم در پنل Netlify:
+
+1. وارد **app.netlify.com** شوید و سایت‌تان را باز کنید.
+2. منوی بالا: **Site configuration** → از منوی کنار: **Environment variables**.
+3. دکمه **Add a variable → Add a variable manually** و این دو را بسازید:
+
+   | Key | Value | منطوق از کجا؟ |
+   |---|---|---|
+   | `NEXT_PUBLIC_SUPABASE_URL` | `https://xxxx.supabase.co` | Supabase → Project Settings → **API** → Project URL |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJhbGciOi...` (کلید بلند) | Supabase → Project Settings → **API** → Project API keys → `anon` `public` |
+
+4. Scopes را روی پیش‌فرض بگذارید (هم **Production** هم **Deploy previews** تیک بخورد).
+5. **Save** و سپس از تب **Deploys** → **Trigger deploy** → **Clear cache and deploy site**.
+6. بعد از اتمام بیلد، سایت را باز کنید — سکشن «مقالات» باید مقالات منتشرشده را نشان دهد. اگر پیام «بلاگ پیکربندی نشده» دیدید یعنی دیپلوی با متغیرهای جدید انجام نشده (قدم ۵ را تکرار کنید).
+
+> ℹ️ کلید `anon` «عمومی» است و در کد کلاینت دیده شدنش مشکلی ندارد؛ امنیت نوشتن با RLS تضمین شده است.
+> هرگز کلید `service_role` را در متغیرهای `NEXT_PUBLIC_*` قرار ندهید — آن کلید دور همه‌ی RLS می‌زند.
 
 ## نکته‌ها
 
