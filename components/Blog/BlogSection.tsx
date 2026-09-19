@@ -34,6 +34,7 @@ function formatDate(iso: string | null, locale: string): string {
 }
 
 const AUTOPLAY_MS = 5000;
+const GAP = 24; // px — must match the flex gap-6 of the track
 
 export default function BlogSection() {
   const { t, locale, dir } = useI18n();
@@ -42,12 +43,28 @@ export default function BlogSection() {
   const [posts, setPosts] = useState<PostView[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Slider state — index is always LTR (0 = leftmost card).
+  // ------------------------------------------------------------------
+  // Slider state
+  // index counts PAGES (viewport-width chunks), 0 = first page.
+  // perView is responsive: 1 on phones, 2 on tablets, 3 on desktop.
+  // ------------------------------------------------------------------
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const touchStartX = useRef<number | null>(null);
-  const perView = 3;
+  const [perView, setPerView] = useState(3);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const [stepPx, setStepPx] = useState(0); // one page = perView cards + gaps
 
+  // live drag state (touch + mouse)
+  const [dragPx, setDragPx] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const drag = useRef<{ startX: number; lastX: number; moved: boolean } | null>(
+    null
+  );
+  const suppressClick = useRef(false);
+
+  // ------------------------------------------------------------------
+  // Data
+  // ------------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
     getPublishedPosts(locale, 9)
@@ -65,52 +82,110 @@ export default function BlogSection() {
     };
   }, [locale]);
 
+  // ------------------------------------------------------------------
+  // Responsive perView — matches the card width classes below:
+  //   < 640px  → 1 card (w-[85%])
+  //   < 1024px → 2 cards (w-[calc((100%-24px)/2)])
+  //   ≥ 1024px → 3 cards (w-[calc((100%-48px)/3)])
+  // ------------------------------------------------------------------
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      setPerView(w < 640 ? 1 : w < 1024 ? 2 : 3);
+      const vw = viewportRef.current?.clientWidth ?? 0;
+      setStepPx(vw + GAP);
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
+
   const count = posts.length;
-  const maxIndex = Math.max(0, count - perView);
+  const pageCount = Math.max(1, Math.ceil(count / perView));
 
   const go = useCallback(
     (next: number) => {
       setIndex((prev) => {
         let v = next;
-        if (v < 0) v = maxIndex; // wrap around
-        if (v > maxIndex) v = 0;
+        if (v < 0) v = pageCount - 1; // wrap
+        if (v > pageCount - 1) v = 0;
         return v;
       });
     },
-    [maxIndex]
+    [pageCount]
   );
 
-  // Autoplay — pauses on hover/touch.
+  // Clamp when perView/pageCount changes (e.g. rotate device)
   useEffect(() => {
-    if (paused || loading || count <= perView) return;
+    setIndex((i) => Math.min(i, pageCount - 1));
+  }, [pageCount]);
+
+  // Autoplay — pauses on hover/touch, respects page count.
+  useEffect(() => {
+    if (paused || loading || pageCount <= 1) return;
     const id = window.setInterval(() => go(index + 1), AUTOPLAY_MS);
     return () => window.clearInterval(id);
-  }, [paused, loading, count, index, go]);
+  }, [paused, loading, pageCount, index, go]);
 
-  // Keep index valid when the post list changes (locale switch refetch).
-  useEffect(() => {
-    if (index > maxIndex) setIndex(0);
-  }, [index, maxIndex]);
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
+  // ------------------------------------------------------------------
+  // Drag handling (touch + pointer/mouse) — the track follows the finger
+  // live, then snaps to the nearest page on release.
+  // ------------------------------------------------------------------
+  const startDrag = (clientX: number) => {
+    drag.current = { startX: clientX, lastX: clientX, moved: false };
+    setDragging(true);
     setPaused(true);
   };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current == null) return;
-    const dx = e.changedTouches[0].clientX - touchStartX.current;
-    touchStartX.current = null;
-    // In RTL the visual order flips, so swipe direction flips too.
-    if (Math.abs(dx) < 40) return;
-    if (rtl ? dx < 0 : dx > 0) go(index - 1);
-    else go(index + 1);
+
+  const moveDrag = (clientX: number) => {
+    if (!drag.current) return;
+    const dx = clientX - drag.current.startX;
+    if (Math.abs(dx) > 5) drag.current.moved = true;
+    drag.current.lastX = clientX;
+    setDragPx(dx);
   };
 
-  // Physical offset: RTL slides move the opposite way.
-  const offset = rtl ? index : -index;
+  const endDrag = () => {
+    if (!drag.current) return;
+    const dx = dragPx;
+    const threshold = Math.max(40, (stepPx || 300) * 0.15);
+
+    let next = index;
+    if (Math.abs(dx) > threshold) {
+      // LTR: swipe left (dx<0) → next page. RTL mirrors it.
+      const forward = rtl ? dx > 0 : dx < 0;
+      next = forward ? index + 1 : index - 1;
+      if (next < 0) next = pageCount - 1;
+      if (next > pageCount - 1) next = 0;
+    }
+    setIndex(next);
+    setDragPx(0);
+    setDragging(false);
+    drag.current = null;
+    suppressClick.current = drag.current === null && Math.abs(dx) > 5;
+    window.setTimeout(() => {
+      suppressClick.current = false;
+    }, 80);
+    // resume autoplay shortly after release
+    window.setTimeout(() => setPaused(false), 3500);
+  };
+
+  // Prevent card-link navigation after a real drag
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (suppressClick.current) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
+  // Physical offset of the track, in px: one page per index.
+  const baseOffset = index * stepPx * (rtl ? 1 : -1);
+  // Drag delta: flip sign for RTL so the track follows the finger.
+  const dragOffset = rtl ? -dragPx : dragPx;
+  const translate = `translateX(${baseOffset + (dragging ? dragOffset : 0)}px)`;
 
   const hasPosts = !loading && posts.length > 0;
-  const isSlider = count > perView;
+  const isSlider = pageCount > 1;
 
   return (
     <section id="blog" className="relative py-28 overflow-hidden">
@@ -158,14 +233,8 @@ export default function BlogSection() {
 
         {/* Slider */}
         {hasPosts && (
-          <div
-            className="relative"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
-          >
-            {/* Arrows — desktop only, like the tech marquee style */}
+          <div className="relative">
+            {/* Arrows — desktop only */}
             {isSlider && (
               <>
                 <button
@@ -185,24 +254,58 @@ export default function BlogSection() {
               </>
             )}
 
-            {/* Viewport */}
-            <div className="overflow-hidden -mx-3 px-3">
+            {/* Viewport — the touch surface */}
+            <div
+              ref={viewportRef}
+              className="overflow-hidden -mx-3 px-3 touch-pan-y select-none"
+              onClickCapture={onClickCapture}
+              onTouchStart={(e) => startDrag(e.touches[0].clientX)}
+              onTouchMove={(e) => moveDrag(e.touches[0].clientX)}
+              onTouchEnd={endDrag}
+              onMouseDown={(e) => {
+                // mouse drag for trackpads/desktop, ignore on touch devices
+                if (e.button !== 0) return;
+                startDrag(e.clientX);
+              }}
+              onMouseMove={(e) => {
+                if (drag.current && e.buttons) moveDrag(e.clientX);
+              }}
+              onMouseUp={endDrag}
+              onMouseLeave={() => {
+                if (drag.current) endDrag();
+                setPaused(false);
+              }}
+            >
               <div
-                className="flex gap-6 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                className={cn(
+                  "flex gap-6",
+                  dragging ? "cursor-grabbing" : "cursor-grab md:cursor-default"
+                )}
                 style={{
-                  transform: `translateX(calc(${offset} * (100% / ${perView} + 24px / ${perView})))`,
+                  transform: translate,
+                  transition: dragging
+                    ? "none"
+                    : "transform 650ms cubic-bezier(0.22, 1, 0.36, 1)",
                 }}
               >
                 {posts.map((post) => (
                   <article
                     key={post.id}
                     data-spot
-                    className="spot-card glass-card rounded-3xl overflow-hidden group flex flex-col w-[calc((100%-48px)/3)] shrink-0 max-md:w-[85%]"
+                    className={cn(
+                      "spot-card glass-card rounded-3xl overflow-hidden group flex flex-col shrink-0",
+                      perView === 1
+                        ? "w-[85%]"
+                        : perView === 2
+                          ? "w-[calc((100%-24px)/2)]"
+                          : "w-[calc((100%-48px)/3)]"
+                    )}
                   >
                     {/* Cover */}
                     <Link
                       href={`/blog/${post.slug}`}
                       className="relative block h-44 overflow-hidden"
+                      draggable={false}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -217,6 +320,7 @@ export default function BlogSection() {
                         alt={post.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         loading="lazy"
+                        draggable={false}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-500" />
                       {post.tags && post.tags.length > 0 && (
@@ -275,10 +379,10 @@ export default function BlogSection() {
               </div>
             </div>
 
-            {/* Dots */}
+            {/* Dots — one per page */}
             {isSlider && (
               <div className="flex items-center justify-center gap-2.5 mt-8">
-                {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+                {Array.from({ length: pageCount }).map((_, i) => (
                   <button
                     key={i}
                     onClick={() => go(i)}
