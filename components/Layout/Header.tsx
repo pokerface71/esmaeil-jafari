@@ -4,6 +4,10 @@ import { useRouter } from "next/router";
 import { cn } from "lib/utils";
 import { useTheme } from "components/ThemeProvider";
 import { useI18n, Locale } from "lib/i18n";
+import ResumeModal from "components/Layout/ResumeModal";
+
+const downloadCvLabel = (locale: string) =>
+  locale === "fa" ? "دانلود رزومه" : locale === "ar" ? "تحميل السيرة الذاتية" : locale === "tr" ? "CV İndir" : "Download CV";
 const locales: { code: Locale; label: string; flag: string }[] = [
   { code: "en", label: "English", flag: "🇺🇸" },
   { code: "fa", label: "فارسی", flag: "🇮🇷" },
@@ -19,6 +23,12 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const { locale, setLocale, t, dir } = useI18n();
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
+  const openResume = () => {
+    setIsMenuOpen(false);
+    setIsResumeOpen(true);
+  };
 
   // Single canonical order (Home → Contact). The flex container flows right-to-left
   // automatically when the document is RTL, so the menu mirrors itself without
@@ -149,6 +159,27 @@ export default function Header() {
                 </div>
               </div>
 
+              {/* Desktop Download CV */}
+              <button
+                onClick={openResume}
+                className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 transition-all duration-300 shadow-lg shadow-indigo-500/20"
+              >
+                {downloadCvLabel(locale)}
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+              </button>
+
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
@@ -277,13 +308,11 @@ export default function Header() {
               transform: isMenuOpen ? "translateX(0)" : dir === "rtl" ? "translateX(-20px)" : "translateX(20px)",
             }}
           >
-            <Link
-              href="/Esmaeil_jafari-Resume.pdf"
-              download
+            <button
               className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 transition-all duration-300"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={openResume}
             >
-              {locale === "fa" ? "دانلود رزومه" : locale === "ar" ? "تحميل السيرة الذاتية" : locale === "tr" ? "CV İndir" : "Download CV"}
+              {downloadCvLabel(locale)}
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -297,10 +326,12 @@ export default function Header() {
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                 />
               </svg>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
+
+      <ResumeModal open={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </>
   );
 }
