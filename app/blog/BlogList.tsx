@@ -1,4 +1,4 @@
-import Head from "next/head";
+"use client";
 import Link from "next/link";
 import { FaArrowRight, FaCalendarAlt } from "react-icons/fa";
 import AuroraBackground from "components/design-system/organisms/AuroraBackground";
@@ -21,6 +21,36 @@ import {
 
 const BLOG_DESCRIPTION =
   `Articles on frontend development, React, Next.js and modern web technologies by ${SITE_NAME}.`;
+
+/**
+ * Blog list route data (App Router equivalent of pages/blog/index.tsx).
+ *
+ * - `generateMetadata` moved the next/head block.
+ * - `revalidate: 60` keeps ISR so newly published articles show up live.
+ * - Server fetches here; the client template renders the list.
+ */
+export async function generateMetadata(): Promise<import("next").Metadata> {
+  return {
+    title: "Blog | Esmaeil Jafari",
+    description: BLOG_DESCRIPTION,
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      title: "Blog | Esmaeil Jafari",
+      description: BLOG_DESCRIPTION,
+      url: absoluteUrl("/blog"),
+      images: [{ url: DEFAULT_OG_IMAGE }],
+    },
+    twitter: {
+      card: "summary",
+      title: "Blog | Esmaeil Jafari",
+      description: BLOG_DESCRIPTION,
+    },
+    alternates: {
+      canonical: absoluteUrl("/blog"),
+    },
+  };
+}
 
 export const revalidate = 60; // ISR: refresh at most every 60s
 
@@ -56,37 +86,6 @@ export default function BlogList({ posts }: BlogListProps) {
 
   return (
     <div className="min-h-screen text-foreground">
-      <Head>
-        <title key="title">{`Blog | ${SITE_NAME}`}</title>
-        <meta
-          name="description"
-          content={BLOG_DESCRIPTION}
-          key="description"
-        />
-        <link rel="canonical" href={absoluteUrl("/blog")} key="canonical-blog" />
-
-        <meta property="og:type" content="website" key="og-type" />
-        <meta property="og:site_name" content={SITE_NAME} key="og-site" />
-        <meta property="og:title" content={`Blog | ${SITE_NAME}`} key="og-title" />
-        <meta
-          property="og:description"
-          content={BLOG_DESCRIPTION}
-          key="og-description"
-        />
-        <meta property="og:url" content={absoluteUrl("/blog")} key="og-url" />
-        <meta property="og:image" content={DEFAULT_OG_IMAGE} key="og-image" />
-
-        <meta name="twitter:card" content="summary" key="tw-card" />
-        <meta name="twitter:title" content={`Blog | ${SITE_NAME}`} key="tw-title" />
-        <meta
-          name="twitter:description"
-          content={BLOG_DESCRIPTION}
-          key="tw-description"
-        />
-        <meta name="twitter:image" content={DEFAULT_OG_IMAGE} key="tw-image" />
-
-        <meta name="robots" content="index, follow" key="robots" />
-      </Head>
       <Header />
       <section className="relative pt-36 pb-16 overflow-hidden">
         <AuroraBackground variant="default" />
@@ -97,8 +96,7 @@ export default function BlogList({ posts }: BlogListProps) {
               {t("blog.label")}
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.06]">
-              {t("blog.title")}{" "}
-              <span className="gradient-text">{t("blog.title.highlight")}</span>
+              {t("blog.title")} <span className="gradient-text">{t("blog.title.highlight")}</span>
             </h1>
           </div>
 
@@ -194,9 +192,4 @@ export default function BlogList({ posts }: BlogListProps) {
       <Footer />
     </div>
   );
-}
-
-export async function getStaticProps() {
-  const posts = await getPublishedPostsRaw();
-  return { props: { posts }, revalidate: 60 };
 }

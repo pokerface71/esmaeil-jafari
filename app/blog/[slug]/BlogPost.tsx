@@ -1,33 +1,19 @@
+"use client";
 import Link from "next/link";
-import Head from "next/head";
-import { useRouter } from "next/router";
 import { FaArrowLeft, FaCalendarAlt, FaTag } from "react-icons/fa";
 import AuroraBackground from "components/design-system/organisms/AuroraBackground";
 import Header from "components/design-system/organisms/Header";
 import Footer from "components/design-system/organisms/Footer";
 import MarkdownRenderer from "components/design-system/organisms/MarkdownRenderer";
 import { useI18n } from "lib/i18n";
-import {
-  getPostBySlugRaw,
-  getPublishedSlugs,
-  toPostView,
-  type Post,
-} from "lib/supabase";
+import { getPostBySlugRaw, toPostView, type Post } from "lib/supabase";
 import { coverArtDataUri } from "lib/coverArt";
 import { cn } from "lib/utils";
-import {
-  DEFAULT_DESCRIPTION,
-  SITE_NAME,
-  absoluteUrl,
-  blogPostingJsonLd,
-  lastmod,
-  ogImage,
-} from "lib/seo";
+import { DEFAULT_DESCRIPTION } from "lib/seo";
 
-export const revalidate = 60; // ISR
-
-interface BlogPostPageProps {
-  post: Post | null;
+/** Props come from the slug route (server): the client only renders. */
+export interface BlogPostProps {
+  post: Post;
 }
 
 function formatDate(iso: string | null, locale: string): string {
@@ -47,116 +33,15 @@ function formatDate(iso: string | null, locale: string): string {
   }
 }
 
-export default function BlogPostPage({ post }: BlogPostPageProps) {
-  const router = useRouter();
+export default function BlogPost({ post }: BlogPostProps) {
   const { t, locale, dir } = useI18n();
 
-  if (router.isFallback) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-muted-foreground">
-        …
-      </div>
-    );
-  }
-
-  const view = post ? toPostView(post, locale) : null;
-
-  if (!view) {
-    return (
-      <div className="min-h-screen text-foreground">
-        <Head>
-          <title key="title">{`Article not found | ${SITE_NAME}`}</title>
-          <meta name="robots" content="noindex" key="robots" />
-        </Head>
-        <Header />
-        <section className="relative pt-40 pb-24">
-          <AuroraBackground variant="default" />
-          <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-            <h1 className="text-3xl font-black mb-4">{t("blog.not_found")}</h1>
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-violet-300 hover:text-violet-200 transition-colors"
-            >
-              <FaArrowLeft className={cn("text-xs", dir === "rtl" && "rotate-180")} />
-              {t("blog.back")}
-            </Link>
-          </div>
-        </section>
-        <Footer />
-      </div>
-    );
-  }
+  // Server pre-rendered the post; `view` is never null here.
+  const view = toPostView(post, locale);
+  if (!view) return null;
 
   return (
     <div className="min-h-screen text-foreground">
-      <Head>
-        <title key="title">{`${view.title} | ${SITE_NAME}`}</title>
-        <meta
-          name="description"
-          content={view.excerpt || DEFAULT_DESCRIPTION}
-          key="description"
-        />
-        <link
-          rel="canonical"
-          href={absoluteUrl(`/blog/${view.slug}`)}
-          key="canonical-post"
-        />
-
-        <meta property="og:type" content="article" key="og-type" />
-        <meta property="og:site_name" content={SITE_NAME} key="og-site" />
-        <meta property="og:title" content={view.title} key="og-title" />
-        <meta
-          property="og:description"
-          content={view.excerpt || DEFAULT_DESCRIPTION}
-          key="og-description"
-        />
-        <meta
-          property="og:url"
-          content={absoluteUrl(`/blog/${view.slug}`)}
-          key="og-url"
-        />
-        <meta property="og:image" content={ogImage(view.cover_image_url)} key="og-image" />
-        {view.published_at && (
-          <meta
-            property="article:published_time"
-            content={lastmod(view.published_at)}
-            key="og-published"
-          />
-        )}
-
-        <meta
-          name="twitter:card"
-          content={
-            view.cover_image_url?.startsWith("http")
-              ? "summary_large_image"
-              : "summary"
-          }
-          key="tw-card"
-        />
-        <meta name="twitter:title" content={view.title} key="tw-title" />
-        <meta
-          name="twitter:description"
-          content={view.excerpt || DEFAULT_DESCRIPTION}
-          key="tw-description"
-        />
-        <meta name="twitter:image" content={ogImage(view.cover_image_url)} key="tw-image" />
-
-        <script
-          type="application/ld+json"
-          key="ld-post"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(
-              blogPostingJsonLd({
-                title: view.title,
-                excerpt: view.excerpt,
-                slug: view.slug,
-                cover: view.cover_image_url,
-                publishedAt: view.published_at,
-              })
-            ),
-          }}
-        />
-      </Head>
       <Header />
 
       <article className="relative pt-36 pb-20 overflow-hidden">
@@ -255,21 +140,4 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
       <Footer />
     </div>
   );
-}
-
-export async function getStaticPaths() {
-  const slugs = await getPublishedSlugs();
-  return {
-    paths: slugs.map((slug) => ({ params: { slug } })),
-    fallback: "blocking", // new posts render on first visit, then cache
-  };
-}
-
-export async function getStaticProps({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const post = await getPostBySlugRaw(params.slug);
-  return { props: { post }, revalidate: 60 };
 }

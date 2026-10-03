@@ -1,6 +1,8 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { cn } from "lib/utils";
 import { useTheme } from "components/ThemeProvider";
 import { useI18n, Locale } from "lib/i18n";
@@ -16,8 +18,8 @@ const locales: { code: Locale; label: string; flag: string }[] = [
 ];
 
 export default function Header() {
-  const router = useRouter();
-  const scrollParam = (router.query.scroll as string) || "home";
+  const searchParams = useSearchParams();
+  const scrollParam = (searchParams.get("scroll") as string) || "home";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();

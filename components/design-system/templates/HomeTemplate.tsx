@@ -1,7 +1,8 @@
+"use client";
 import React, { useRef } from "react";
-import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
+import { cn } from "lib/utils";
 import {
   FaEnvelope,
   FaInstagram,
@@ -61,6 +62,7 @@ import {
   BlogSection,
 } from "components/design-system/organisms";
 import Header from "components/design-system/organisms/Header";
+import { useI18n } from "lib/i18n";
 import ScrollProgress from "components/design-system/organisms/ScrollProgress";
 import {
   useRevealOnScroll,
@@ -68,8 +70,7 @@ import {
   useParallax,
   useTilt,
 } from "components/design-system/hooks";
-import { useI18n, experienceTranslations } from "lib/i18n";
-import { cn } from "lib/utils";
+import { experienceTranslations } from "lib/i18n";
 import ProfileImage from "../../../assets/Images/esmaeiljafari.jpg";
 
 const skills = [
@@ -112,7 +113,11 @@ const socials = [
 ];
 
 export interface HomeTemplateProps {
-  /** Turns false in Storybook to skip next/head duplication warnings. */
+  /**
+   * `withHead` is kept for Storybook coverage only. In the app the metadata
+   * lives in the route `generateMetadata`; this prop is removed from the
+   * app usage (app/page.tsx renders <HomeTemplate /> without it).
+   */
   withHead?: boolean;
 }
 
@@ -122,8 +127,8 @@ export interface HomeTemplateProps {
  * every visual unit is an atom/molecule/organism from the design system.
  */
 const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
-  const router = useRouter();
-  const scroll = router.query.scroll as string;
+  const searchParams = useSearchParams();
+  const scroll = (searchParams.get("scroll") as string) || "home";
   const isVisible = useRevealOnScroll();
   useSpotlight();
   useParallax();
@@ -158,16 +163,6 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
 
   return (
     <div className="min-h-screen text-foreground">
-      {withHead && (
-        <Head>
-          <title>Esmaeil Jafari — Frontend Developer</title>
-          <meta
-            name="description"
-            content="Professional portfolio of Esmaeil Jafari — Frontend Developer specializing in React, Next.js, and modern web technologies."
-          />
-        </Head>
-      )}
-
       <Header />
       <ScrollProgress />
 
@@ -251,11 +246,11 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
                 id="hero-cta"
                 style={{ animationDelay: "0.4s" }}
               >
-                <Button variant="primary" onClick={() => router.push("/?scroll=experience")}>
+                <Button variant="primary" onClick={() => { window.location.href = "/?scroll=experience"; }}>
                   {t("hero.cta.experience")}
                   <FaArrowRight className={cn("text-xs", dir === "rtl" && "rotate-180")} />
                 </Button>
-                <Button variant="secondary" onClick={() => router.push("/?scroll=contact")}>
+                <Button variant="secondary" onClick={() => { window.location.href = "/?scroll=contact"; }}>
                   {t("hero.cta.contact")}
                 </Button>
               </div>

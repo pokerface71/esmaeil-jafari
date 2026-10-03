@@ -3,17 +3,18 @@ import { render, type RenderOptions } from "@testing-library/react";
 import { vi } from "vitest";
 import { I18nProvider } from "lib/i18n";
 import { ThemeProvider } from "components/ThemeProvider";
-import { mockRouter } from "./mocks/next";
-
-vi.mock("next/router", () => ({
-  __esModule: true,
-  useRouter: () => mockRouter,
-}));
+import { mockRouter, mockSearchParams } from "./mocks/next";
 
 vi.mock("next/head", () => ({
   __esModule: true,
   default: (props: { children: React.ReactNode }) => <>{props.children}</>,
 }));
+
+// Reset the static mock search params between tests so `?scroll=` state does
+// not leak across tests (because `useSearchParams` returns a shared instance).
+beforeEach(() => {
+  mockSearchParams.delete("scroll");
+});
 
 function AllProviders({ children }: { children: React.ReactNode }) {
   return (
