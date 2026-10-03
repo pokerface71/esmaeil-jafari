@@ -711,7 +711,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
             </div>
             <div className="rounded-2xl overflow-hidden border border-white/[0.06] bg-black/30 p-3">
               <Image
-                src="https://github-readme-streak-stats.herokuapp.com/?user=pokerface71&theme=tokyonight&hide_border=true%22%20alt=%22GitHub%20Streak"
+                src="https://streak-stats.demolab.com/?user=pokerface71&theme=tokyonight&hide_border=true"
                 alt="GitHub streak stats"
                 width={400}
                 height={200}
