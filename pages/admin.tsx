@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { FaArrowLeft, FaEdit, FaPlus, FaTrash } from "react-icons/fa";
-import AuroraBackground from "@components/Layout/AuroraBackground";
-import Header from "@components/Layout/Header";
+import AuroraBackground from "components/design-system/organisms/AuroraBackground";
+import Header from "components/design-system/organisms/Header";
 import { useI18n } from "lib/i18n";
 import { getAdminClient, type Post, type PostTranslation } from "lib/supabase";
 import { cn } from "lib/utils";

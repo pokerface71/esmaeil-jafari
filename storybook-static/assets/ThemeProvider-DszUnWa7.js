@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{t}from"./react-0r6B6o6q.js";import{t as n}from"./jsx-runtime-CadfrxEJ.js";function r(){return(0,i.useContext)(a)}var i,a;function o(){return(o=e((()=>{n(),i=t(),a=(0,i.createContext)({theme:`dark`,toggleTheme:()=>{}})})))()}export{r as n,o as t};

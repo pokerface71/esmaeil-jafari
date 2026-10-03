@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "vitest/globals"],
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "include": ["tests/**/*.ts", "tests/**/*.tsx", "components/design-system/**/*.stories.tsx", "vitest.config.ts", "vitest.setup.ts"],
+  "exclude": ["node_modules", ".next", "storybook-static"]
+}

@@ -1,0 +1,23 @@
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{t}from"./react-0r6B6o6q.js";import{t as n}from"./jsx-runtime-CadfrxEJ.js";import{n as r,r as i}from"./iframe-DzdkXuDb.js";import{n as a,t as o}from"./utils-hLODUlCh.js";import{n as s,t as c}from"./ThemeProvider-DszUnWa7.js";var l,u;function d(){return(d=e((()=>{l=n(),a(),c(),u=({className:e})=>{let{theme:t,toggleTheme:n}=s();return(0,l.jsx)(`button`,{type:`button`,onClick:n,className:o(`p-2.5 rounded-xl transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/10`,e),"aria-label":`Toggle theme`,"aria-pressed":t===`dark`,children:t===`dark`?(0,l.jsx)(`svg`,{className:`w-5 h-5 text-gray-300`,fill:`none`,stroke:`currentColor`,viewBox:`0 0 24 24`,"aria-hidden":`true`,children:(0,l.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,strokeWidth:1.5,d:`M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z`})}):(0,l.jsx)(`svg`,{className:`w-5 h-5 text-indigo-600`,fill:`none`,stroke:`currentColor`,viewBox:`0 0 24 24`,"aria-hidden":`true`,children:(0,l.jsx)(`path`,{strokeLinecap:`round`,strokeLinejoin:`round`,strokeWidth:1.5,d:`M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z`})})})},u.__docgenInfo={description:`Molecule: light/dark switch button. Consumes ThemeProvider directly so any
+surface (header, storybook toolbar, mobile menu) can reuse it.`,methods:[],displayName:`ThemeToggle`,props:{className:{required:!1,tsType:{name:`string`},description:``}}}})))()}var f,p,m,h;function g(){return(g=e((()=>{f=n(),p=t(),a(),r(),m=[{code:`en`,flag:`🇺🇸`,name:`English`},{code:`fa`,flag:`🇮🇷`,name:`فارسی`},{code:`ar`,flag:`🇸🇦`,name:`العربية`},{code:`tr`,flag:`🇹🇷`,name:`Türkçe`}],h=({className:e})=>{let{locale:t,setLocale:n,dir:r}=i(),[a,s]=(0,p.useState)(!1);(0,p.useEffect)(()=>{if(!a)return;let e=()=>s(!1);return document.addEventListener(`click`,e),()=>document.removeEventListener(`click`,e)},[a]);let c=m.find(e=>e.code===t)??m[0];return(0,f.jsxs)(`div`,{className:o(`relative`,e),children:[(0,f.jsx)(`button`,{type:`button`,onClick:e=>{e.stopPropagation(),s(!a)},className:`w-8 h-8 rounded-full flex items-center justify-center text-lg transition-all duration-300 hover:scale-110`,"aria-label":`Switch language`,"aria-expanded":a,children:c.flag}),(0,f.jsx)(`div`,{className:o(`absolute top-full mt-2 glass-card rounded-xl p-1.5 transition-all duration-300 z-50`,r===`rtl`?`right-0`:`left-0`,a?`opacity-100 scale-100 pointer-events-auto`:`opacity-0 scale-95 pointer-events-none`),children:m.map(e=>(0,f.jsx)(`button`,{type:`button`,onClick:t=>{t.stopPropagation(),n(e.code),s(!1)},className:o(`w-8 h-8 rounded-full flex items-center justify-center text-lg transition-all duration-200`,t===e.code?`bg-indigo-500/15 ring-1 ring-indigo-500/30`:`hover:bg-white/10`),"aria-label":e.name,"aria-pressed":t===e.code,children:e.flag},e.code))})]})},h.__docgenInfo={description:`Molecule: flag dropdown for switching UI language.
+RTL-aware positioning and outside-click close.`,methods:[],displayName:`LanguageSwitcher`,props:{className:{required:!1,tsType:{name:`string`},description:``}}}})))()}var _,v,y,b,x;function S(){return(S=e((()=>{_=n(),d(),g(),v={title:`Design System/Molecules/Controls`,parameters:{docs:{autodocs:!1}}},y={name:`ThemeToggle`,parameters:{docs:{description:{story:`Reads/writes ThemeProvider state. Toggle the theme in the Storybook toolbar to see the icon swap (moon in dark, sun in light).`}}},render:()=>(0,_.jsx)(u,{})},b={name:`LanguageSwitcher`,parameters:{docs:{description:{story:`Flag dropdown wired to I18nProvider. Use the Locale toolbar global to preview RTL layouts (fa/ar), or click a flag here.`}}},render:()=>(0,_.jsx)(h,{})},x=[`ThemeToggleDefault`,`LanguageSwitcherDefault`],y.parameters={...y.parameters,docs:{...y.parameters?.docs,source:{originalSource:`{
+  name: "ThemeToggle",
+  parameters: {
+    docs: {
+      description: {
+        story: "Reads/writes ThemeProvider state. Toggle the theme in the Storybook toolbar to see the icon swap (moon in dark, sun in light)."
+      }
+    }
+  },
+  render: () => <ThemeToggle />
+}`,...y.parameters?.docs?.source}}},b.parameters={...b.parameters,docs:{...b.parameters?.docs,source:{originalSource:`{
+  name: "LanguageSwitcher",
+  parameters: {
+    docs: {
+      description: {
+        story: "Flag dropdown wired to I18nProvider. Use the Locale toolbar global to preview RTL layouts (fa/ar), or click a flag here."
+      }
+    }
+  },
+  render: () => <LanguageSwitcher />
+}`,...b.parameters?.docs?.source}}}})))()}S();export{b as LanguageSwitcherDefault,y as ThemeToggleDefault,x as __namedExportsOrder,v as default};

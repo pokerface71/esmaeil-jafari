@@ -18,9 +18,13 @@
     "paths": {
       "@components/*": ["components/*"],
       "@styles/*": ["styles/*"],
+      "@design-system/*": ["components/design-system/*"],
+      "components/*": ["components/*"],
+      "lib/*": ["lib/*"],
+      "styles/*": ["styles/*"],
       "@/*": ["."]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".next", "storybook-static", "tests", "vitest.config.ts", "vitest.setup.ts", "**/*.stories.tsx", "components/design-system/tokens"]
 }

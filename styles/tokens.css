@@ -1,0 +1,95 @@
+/* ============================================================
+   DESIGN TOKENS — single source of truth
+   Raw design decisions as CSS custom properties.
+   `:root` = dark (default), `[data-theme='light']` overrides.
+   Nothing in here should reference component class names.
+   ============================================================ */
+
+/* ---- Dark (default) theme: near-black w/ violet cast ---- */
+:root {
+  /* Semantic palette (HSL triplets, consumed via hsl(var(--x))) */
+  --background: 240 22% 4%;
+  --foreground: 0 0% 96%;
+  --card: 240 18% 7%;
+  --card-foreground: 0 0% 96%;
+  --popover: 240 18% 7%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 252 89% 70%;
+  --primary-foreground: 240 30% 6%;
+  --secondary: 240 14% 12%;
+  --secondary-foreground: 0 0% 92%;
+  --muted: 240 14% 12%;
+  --muted-foreground: 240 10% 62%;
+  --accent: 263 70% 66%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 240 14% 16%;
+  --input: 240 14% 13%;
+  --ring: 252 89% 70%;
+  --radius: 1rem;
+
+  /* Page backdrop */
+  --page-bg: radial-gradient(1100px 620px at 50% -160px, rgba(129, 140, 248, 0.10), transparent 62%),
+             radial-gradient(760px 520px at 88% 8%, rgba(192, 132, 252, 0.07), transparent 60%),
+             radial-gradient(900px 700px at 0% 100%, rgba(56, 189, 248, 0.05), transparent 60%),
+             #06060b;
+
+  /* Brand gradients */
+  --gradient-primary: linear-gradient(100deg, #c7d2fe 0%, #a5b4fc 22%, #c084fc 55%, #f0abfc 78%, #7dd3fc 100%);
+  --gradient-cta: linear-gradient(100deg, #6366f1 0%, #8b5cf6 45%, #a855f7 100%);
+  --gradient-accent: linear-gradient(135deg, #3b82f6, #6366f1);
+  --gradient-warm: linear-gradient(135deg, #f59e0b, #ef4444);
+  --gradient-cool: linear-gradient(135deg, #06b6d4, #3b82f6);
+  --gradient-mesh: radial-gradient(at 40% 20%, #6366f1 0, transparent 50%),
+                   radial-gradient(at 80% 0%, #8b5cf6 0, transparent 40%),
+                   radial-gradient(at 0% 50%, #3b82f6 0, transparent 50%),
+                   radial-gradient(at 80% 50%, #a855f7 0, transparent 40%),
+                   radial-gradient(at 0% 100%, #6366f1 0, transparent 50%);
+
+  /* Glassmorphism */
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --hairline: rgba(255, 255, 255, 0.06);
+}
+
+/* ---- Light theme ---- */
+[data-theme='light'] {
+  --background: 220 30% 98%;
+  --foreground: 228 26% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 228 26% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 228 26% 12%;
+  --primary: 250 80% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 18% 95%;
+  --secondary-foreground: 228 26% 15%;
+  --muted: 220 18% 95%;
+  --muted-foreground: 224 12% 42%;
+  --accent: 250 60% 50%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 55%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 14% 90%;
+  --input: 220 14% 90%;
+  --ring: 250 80% 55%;
+
+  --page-bg: radial-gradient(1100px 620px at 50% -160px, rgba(129, 140, 248, 0.10), transparent 62%),
+             #f7f8fb;
+
+  --gradient-primary: linear-gradient(100deg, #4338ca 0%, #7c3aed 50%, #db2777 100%);
+  --gradient-cta: linear-gradient(100deg, #4f46e5 0%, #7c3aed 45%, #9333ea 100%);
+  --gradient-accent: linear-gradient(135deg, #2563eb, #4f46e5);
+  --gradient-warm: linear-gradient(135deg, #d97706, #dc2626);
+  --gradient-cool: linear-gradient(135deg, #0891b2, #2563eb);
+  --gradient-mesh: radial-gradient(at 40% 20%, #6366f1 0, transparent 50%),
+                   radial-gradient(at 80% 0%, #8b5cf6 0, transparent 40%),
+                   radial-gradient(at 0% 50%, #3b82f6 0, transparent 50%),
+                   radial-gradient(at 80% 50%, #a855f7 0, transparent 40%),
+                   radial-gradient(at 0% 100%, #6366f1 0, transparent 50%);
+
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.55));
+  --glass-border: rgba(15, 23, 42, 0.07);
+  --hairline: rgba(15, 23, 42, 0.07);
+}

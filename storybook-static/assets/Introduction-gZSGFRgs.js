@@ -1,0 +1,21 @@
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{t}from"./jsx-runtime-CadfrxEJ.js";import{C as n,a as r,o as i,w as a}from"./blocks-Doul1jHM.js";function o(e){let t={code:`code`,h1:`h1`,h2:`h2`,li:`li`,ol:`ol`,p:`p`,strong:`strong`,...a(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(r,{name:`Design System / Introduction`}),`
+`,(0,c.jsx)(t.h1,{id:`portfolio-design-system`,children:`Portfolio Design System`}),`
+`,(0,c.jsxs)(t.p,{children:[`This design system follows `,(0,c.jsx)(t.strong,{children:`Atomic Design`}),` (Brad Frost) with a Tailwind v4 token pipeline.`]}),`
+`,(0,c.jsx)(t.h2,{id:`layers`,children:`Layers`}),`
+`,(0,c.jsxs)(t.p,{children:[`| Layer | Path | Contains |
+|---|---|---|
+| `,(0,c.jsx)(t.strong,{children:`Tokens`}),` | `,(0,c.jsx)(t.code,{children:`styles/tokens.css`}),` | Raw CSS custom properties: semantic colors (HSL), gradients, glass surfaces, radii. `,(0,c.jsx)(t.code,{children:`[data-theme='light']`}),` overrides everything. |
+| `,(0,c.jsx)(t.strong,{children:`Utilities`}),` | `,(0,c.jsx)(t.code,{children:`styles/utilities.css`}),` | Shared visual primitives (`,(0,c.jsx)(t.code,{children:`.glass-card`}),`, `,(0,c.jsx)(t.code,{children:`.spot-card`}),`, `,(0,c.jsx)(t.code,{children:`.code-chip`}),`, `,(0,c.jsx)(t.code,{children:`.btn-primary`}),`, `,(0,c.jsx)(t.code,{children:`.skill-tag`}),`, effect keyframes). |
+| `,(0,c.jsx)(t.strong,{children:`Atoms`}),` | `,(0,c.jsx)(t.code,{children:`components/design-system/atoms`}),` | Smallest testable units: Button, Badge, IconBox, CodeChip, GlassCard, SkillTag, GradientText, Card. |
+| `,(0,c.jsx)(t.strong,{children:`Molecules`}),` | `,(0,c.jsx)(t.code,{children:`components/design-system/molecules`}),` | Atom compositions: SkillCard, SectionHeader, StatCard, SocialIconLink, ContactInfoItem, ThemeToggle, LanguageSwitcher. |
+| `,(0,c.jsx)(t.strong,{children:`Organisms`}),` | `,(0,c.jsx)(t.code,{children:`components/design-system/organisms`}),` | Self-sufficient sections: Header, Footer, TechMarquee, AuroraBackground, BlogSection, CodeBlock, MarkdownRenderer, effects. |
+| `,(0,c.jsx)(t.strong,{children:`Templates`}),` | `,(0,c.jsx)(t.code,{children:`components/design-system/templates`}),` | Page-level composition (HomeTemplate) plus behavior hooks (reveal, spotlight, parallax, tilt). |
+| `,(0,c.jsx)(t.strong,{children:`Pages`}),` | `,(0,c.jsx)(t.code,{children:`pages/`}),` | Thin wrappers: SEO/head concerns only. |`]}),`
+`,(0,c.jsx)(t.h2,{id:`rules`,children:`Rules`}),`
+`,(0,c.jsxs)(t.ol,{children:[`
+`,(0,c.jsxs)(t.li,{children:[(0,c.jsx)(t.strong,{children:`No hardcoded colors.`}),` Everything consumes `,(0,c.jsx)(t.code,{children:`hsl(var(--token))`}),` or a Tailwind token mapped in `,(0,c.jsx)(t.code,{children:`@theme`}),` (globals.css).`]}),`
+`,(0,c.jsxs)(t.li,{children:[(0,c.jsx)(t.strong,{children:`Downward imports only.`}),` Atoms never import molecules/organisms. Templates compose everything.`]}),`
+`,(0,c.jsxs)(t.li,{children:[(0,c.jsx)(t.strong,{children:`Behavior lives in hooks`}),` (`,(0,c.jsx)(t.code,{children:`components/design-system/hooks`}),`) so it can be tested headlessly.`]}),`
+`,(0,c.jsxs)(t.li,{children:[(0,c.jsx)(t.strong,{children:`Every atom & molecule ships a story`}),` with `,(0,c.jsx)(t.code,{children:`autodocs`}),`; RTL + theme switching come from the Storybook toolbar globals.`]}),`
+`,(0,c.jsxs)(t.li,{children:[(0,c.jsxs)(t.strong,{children:[`Unit tests colocated under `,(0,c.jsx)(t.code,{children:`tests/`})]}),` mirror the design-system structure.`]}),`
+`]})]})}function s(e={}){let{wrapper:t}={...a(),...e.components};return t?(0,c.jsx)(t,{...e,children:(0,c.jsx)(o,{...e})}):o(e)}var c;function l(){return(l=e((()=>{c=t(),n(),i()})))()}l();export{s as default};

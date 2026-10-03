@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaArrowLeft, FaCalendarAlt, FaTag } from "react-icons/fa";
-import AuroraBackground from "@components/Layout/AuroraBackground";
-import Header from "@components/Layout/Header";
-import Footer from "@components/Layout/Footer";
-import MarkdownRenderer from "@components/Blog/MarkdownRenderer";
+import AuroraBackground from "components/design-system/organisms/AuroraBackground";
+import Header from "components/design-system/organisms/Header";
+import Footer from "components/design-system/organisms/Footer";
+import MarkdownRenderer from "components/design-system/organisms/MarkdownRenderer";
 import { useI18n } from "lib/i18n";
 import {
   getPostBySlugRaw,
