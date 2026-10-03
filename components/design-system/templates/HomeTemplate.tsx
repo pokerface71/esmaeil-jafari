@@ -70,7 +70,7 @@ import {
 } from "components/design-system/hooks";
 import { useI18n, experienceTranslations } from "lib/i18n";
 import { cn } from "lib/utils";
-import ProfileImage from "../../assets/Images/esmaeiljafari.jpg";
+import ProfileImage from "../../../assets/Images/esmaeiljafari.jpg";
 
 const skills = [
   { Icon: DiHtml5, name: "HTML5", color: "text-orange-400", tile: "bg-orange-500/10", glow: "bg-orange-500", ring: "border-orange-400/25", delay: "0.05s" },
