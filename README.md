@@ -1,39 +1,68 @@
-# Next + Netlify Starter
+# Esmaeil Jafari — Portfolio
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/46648482-644c-4c80-bafb-872057e51b6b/deploy-status)](https://app.netlify.com/sites/next-dev-starter/deploys)
+**Live site: [https://esmaeil-jafari.netlify.app/](https://esmaeil-jafari.netlify.app/)**
 
-This is a [Next.js](https://nextjs.org/) v12 project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and set up to be instantly deployed to [Netlify](https://url.netlify.com/SyTBPVamO)!
+[![Netlify Status](https://api.netlify.com/api/v1/badges/35d3e182-bd2a-4f58-bfb4-56810770ce0c/deploy-status)](https://app.netlify.com/projects/esmaeil-jafari/deploys)
+[![Repository](https://img.shields.io/badge/GitHub-pokerface71%2Fesmaeil--jafari-181717?logo=github)](https://github.com/pokerface71/esmaeil-jafari)
 
-This project is a very minimal starter that includes 2 sample components, a global stylesheet, a `netlify.toml` for deployment, and a `jsconfig.json` for setting up absolute imports and aliases. It also includes the [Essential Next.js Build Plugin](https://github.com/netlify/netlify-plugin-nextjs), which will allow for you to implement features like Preview Mode, server-side rendering/incremental static regeneration via Netlify Functions, and internationalized routing.
+Personal portfolio and blog of **Esmaeil Jafari**, a frontend developer. Built with Next.js (pages router), styled with Tailwind CSS, and backed by Supabase for blog content and the admin panel.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/next-netlify-starter&utm_source=github&utm_medium=nextstarter-cs&utm_campaign=devex-cs)
+- **Website:** [esmaeil-jafari.netlify.app](https://esmaeil-jafari.netlify.app/)
+- **Source code:** [github.com/pokerface71/esmaeil-jafari](https://github.com/pokerface71/esmaeil-jafari)
+- **Issues:** [github.com/pokerface71/esmaeil-jafari/issues](https://github.com/pokerface71/esmaeil-jafari/issues)
 
-(If you click this button, it will create a new repo for you that looks exactly like this one, and sets that repo up immediately for deployment on Netlify)
+## Tech stack
 
-## Getting Started
+- [Next.js 16](https://nextjs.org/) (pages router, Turbopack builds) + [React 19](https://react.dev/) + [TypeScript 7](https://www.typescriptlang.org/)
+- [Tailwind CSS 4](https://tailwindcss.com/) with a design-system layer under `components/design-system`
+- [Supabase](https://supabase.com/) — blog posts (4 locales: en/fa/ar/tr) and admin auth
+- [Storybook 10](https://storybook.js.org/) for component development
+- [Vitest](https://vitest.dev/) + Testing Library for tests
+- Deployed on [Netlify](https://www.netlify.com/) via `netlify.toml` + `@netlify/plugin-nextjs`
 
-First, run the development server:
+## Getting started
 
 ```bash
+git clone https://github.com/pokerface71/esmaeil-jafari.git
+cd esmaeil-jafari
+npm install
+cp .env.example .env.local   # then fill in your Supabase keys
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Environment variables
 
-### Installation options
+See [`.env.example`](.env.example):
 
-**Option one:** One-click deploy
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (blog + admin) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon/public key |
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/next-netlify-starter&utm_source=github&utm_medium=nextstarter-cs&utm_campaign=devex-cs)
+The site still builds and renders empty blog sections when these are missing.
 
-**Option two:** Manual clone
+## Scripts
 
-1. Clone this repo: `git clone https://github.com/netlify-templates/next-netlify-starter.git`
-2. Navigate to the directory and run `npm install`
-3. Run `npm run dev`
-4. Make your changes
-5. Connect to [Netlify](https://url.netlify.com/Bk4UicocL) manually (the `netlify.toml` file is the one you'll need to make sure stays intact to make sure the export is done and pointed to the right stuff)
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Dev server (Turbopack) |
+| `npm run build` | Production build (Turbopack) |
+| `npm run typecheck` | Type-check app + test tsconfigs |
+| `npm test` | Run Vitest suite |
+| `npm run test:coverage` | Tests with coverage |
+| `npm run storybook` | Storybook on port 6006 |
+| `npm run build-storybook` | Static Storybook build |
+
+## SEO & performance
+
+- Per-page meta, Open Graph/Twitter cards and JSON-LD (`lib/seo.ts`, applied in `pages/`)
+- Dynamic [`sitemap.xml`](pages/sitemap.xml.tsx) and [`robots.txt`](public/robots.txt) (admin disallowed)
+- Self-hosted fonts via `next/font` (no Google Fonts requests at runtime)
+- Long-cache headers for hashed assets in `netlify.toml`
+- Blog pages are SSG/ISR with graceful build-time fallback if Supabase is unreachable
+
+## License
+
+Private project — all rights reserved.
