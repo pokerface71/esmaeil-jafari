@@ -1,4 +1,8 @@
 import "@styles/globals.css";
+// Side-effect import: pulls the next/font CSS (@font-face + `--font-*`
+// variables) into the app's stylesheet. pages/_document.tsx reads the
+// `fontVariables` classes and puts them on <html>.
+import "@styles/fonts";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { ThemeProvider } from "components/ThemeProvider";

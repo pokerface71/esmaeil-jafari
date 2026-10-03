@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { FaArrowLeft, FaCalendarAlt, FaTag } from "react-icons/fa";
 import AuroraBackground from "components/design-system/organisms/AuroraBackground";
@@ -14,6 +15,14 @@ import {
 } from "lib/supabase";
 import { coverArtDataUri } from "lib/coverArt";
 import { cn } from "lib/utils";
+import {
+  DEFAULT_DESCRIPTION,
+  SITE_NAME,
+  absoluteUrl,
+  blogPostingJsonLd,
+  lastmod,
+  ogImage,
+} from "lib/seo";
 
 export const revalidate = 60; // ISR
 
@@ -55,6 +64,10 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   if (!view) {
     return (
       <div className="min-h-screen text-foreground">
+        <Head>
+          <title key="title">{`Article not found | ${SITE_NAME}`}</title>
+          <meta name="robots" content="noindex" key="robots" />
+        </Head>
         <Header />
         <section className="relative pt-40 pb-24">
           <AuroraBackground variant="default" />
@@ -76,6 +89,74 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 
   return (
     <div className="min-h-screen text-foreground">
+      <Head>
+        <title key="title">{`${view.title} | ${SITE_NAME}`}</title>
+        <meta
+          name="description"
+          content={view.excerpt || DEFAULT_DESCRIPTION}
+          key="description"
+        />
+        <link
+          rel="canonical"
+          href={absoluteUrl(`/blog/${view.slug}`)}
+          key="canonical-post"
+        />
+
+        <meta property="og:type" content="article" key="og-type" />
+        <meta property="og:site_name" content={SITE_NAME} key="og-site" />
+        <meta property="og:title" content={view.title} key="og-title" />
+        <meta
+          property="og:description"
+          content={view.excerpt || DEFAULT_DESCRIPTION}
+          key="og-description"
+        />
+        <meta
+          property="og:url"
+          content={absoluteUrl(`/blog/${view.slug}`)}
+          key="og-url"
+        />
+        <meta property="og:image" content={ogImage(view.cover_image_url)} key="og-image" />
+        {view.published_at && (
+          <meta
+            property="article:published_time"
+            content={lastmod(view.published_at)}
+            key="og-published"
+          />
+        )}
+
+        <meta
+          name="twitter:card"
+          content={
+            view.cover_image_url?.startsWith("http")
+              ? "summary_large_image"
+              : "summary"
+          }
+          key="tw-card"
+        />
+        <meta name="twitter:title" content={view.title} key="tw-title" />
+        <meta
+          name="twitter:description"
+          content={view.excerpt || DEFAULT_DESCRIPTION}
+          key="tw-description"
+        />
+        <meta name="twitter:image" content={ogImage(view.cover_image_url)} key="tw-image" />
+
+        <script
+          type="application/ld+json"
+          key="ld-post"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              blogPostingJsonLd({
+                title: view.title,
+                excerpt: view.excerpt,
+                slug: view.slug,
+                cover: view.cover_image_url,
+                publishedAt: view.published_at,
+              })
+            ),
+          }}
+        />
+      </Head>
       <Header />
 
       <article className="relative pt-36 pb-20 overflow-hidden">
@@ -106,6 +187,9 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
               })
             }
             alt={view.title}
+            width={1200}
+            height={630}
+            decoding="async"
             className="w-full h-auto rounded-3xl border border-white/10 mb-8"
           />
 

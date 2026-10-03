@@ -1,0 +1,12 @@
+<!--
+  Storybook renders inside its own iframe and never runs pages/_document.tsx,
+  so it cannot pick up the app's self-hosted next/font setup. Keep the Google
+  Fonts link here so stories use the same typefaces as the real site; the app
+  itself loads fonts through next/font (styles/fonts.ts).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+/>

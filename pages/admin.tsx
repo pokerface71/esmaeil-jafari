@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { FaArrowLeft, FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import AuroraBackground from "components/design-system/organisms/AuroraBackground";
 import Header from "components/design-system/organisms/Header";
@@ -217,6 +218,10 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen text-foreground">
+      <Head>
+        <title key="title">{`Blog Admin | Esmaeil Jafari`}</title>
+        <meta name="robots" content="noindex, nofollow" key="robots" />
+      </Head>
       <Header />
 
       <section className="relative pt-36 pb-24 overflow-hidden">

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link";
 import { FaArrowRight, FaCalendarAlt } from "react-icons/fa";
 import AuroraBackground from "components/design-system/organisms/AuroraBackground";
@@ -12,6 +13,14 @@ import {
 } from "lib/supabase";
 import { coverArtDataUri } from "lib/coverArt";
 import { cn } from "lib/utils";
+import {
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  absoluteUrl,
+} from "lib/seo";
+
+const BLOG_DESCRIPTION =
+  `Articles on frontend development, React, Next.js and modern web technologies by ${SITE_NAME}.`;
 
 export const revalidate = 60; // ISR: refresh at most every 60s
 
@@ -47,6 +56,37 @@ export default function BlogList({ posts }: BlogListProps) {
 
   return (
     <div className="min-h-screen text-foreground">
+      <Head>
+        <title key="title">{`Blog | ${SITE_NAME}`}</title>
+        <meta
+          name="description"
+          content={BLOG_DESCRIPTION}
+          key="description"
+        />
+        <link rel="canonical" href={absoluteUrl("/blog")} key="canonical-blog" />
+
+        <meta property="og:type" content="website" key="og-type" />
+        <meta property="og:site_name" content={SITE_NAME} key="og-site" />
+        <meta property="og:title" content={`Blog | ${SITE_NAME}`} key="og-title" />
+        <meta
+          property="og:description"
+          content={BLOG_DESCRIPTION}
+          key="og-description"
+        />
+        <meta property="og:url" content={absoluteUrl("/blog")} key="og-url" />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} key="og-image" />
+
+        <meta name="twitter:card" content="summary" key="tw-card" />
+        <meta name="twitter:title" content={`Blog | ${SITE_NAME}`} key="tw-title" />
+        <meta
+          name="twitter:description"
+          content={BLOG_DESCRIPTION}
+          key="tw-description"
+        />
+        <meta name="twitter:image" content={DEFAULT_OG_IMAGE} key="tw-image" />
+
+        <meta name="robots" content="index, follow" key="robots" />
+      </Head>
       <Header />
       <section className="relative pt-36 pb-16 overflow-hidden">
         <AuroraBackground variant="default" />
@@ -93,6 +133,9 @@ export default function BlogList({ posts }: BlogListProps) {
                     })
                   }
                   alt={post.title}
+                  width={1200}
+                  height={630}
+                  decoding="async"
                   className="w-full h-48 object-cover border-b border-white/10 transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />

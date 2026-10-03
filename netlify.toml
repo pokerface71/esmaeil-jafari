@@ -7,3 +7,33 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# ------------------------------------------------------------------
+# Caching — keep repeat views fast.
+# Hashed Next.js build assets can be cached forever; everything else in
+# /public gets a short TTL plus a background revalidation window.
+# ------------------------------------------------------------------
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/favicon*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/apple-touch-icon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"

@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
   direction: inherit;
   text-align: inherit;
   margin: 0;
@@ -767,11 +767,11 @@ body::after {
 /* ======================== */
 [dir='fa'] body,
 [dir='ar'] body {
-  font-family: 'Vazirmatn', 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-vazirmatn, 'Vazirmatn'), var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
   letter-spacing: 0;
 }
 html[lang='tr'] body {
-  font-family: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-poppins, 'Poppins'), var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
   letter-spacing: -0.01em;
 }
 
