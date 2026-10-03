@@ -129,8 +129,83 @@ export function toPostView(post: Post, locale: string): PostView | null {
 // Queries
 // ---------------------------------------------------------------------------
 
-function mapError(error: { message: string }): never {
-  throw new Error(error.message);
+/**
+ * Run a public read query with retries and phase-aware failure handling.
+ *
+ * A transient network failure (`TypeError: fetch failed` — DNS blip, a hiccup
+ * reaching Supabase, a flaky build container) used to be rethrown, which
+ * aborted `next build` outright ("Failed to collect page data for
+ * /blog/[slug]"). Behaviour now depends on where the query runs:
+ *
+ *   - build time: retry, then return null so the caller serves its empty
+ *     fallback — a network blip can never break a deploy. ISR refills the
+ *     page within `revalidate` seconds once connectivity is back.
+ *   - runtime: retry, then throw — Next keeps serving the last good ISR
+ *     page instead of overwriting it with empty content, and client-side
+ *     callers already `.catch()` into an empty state.
+ */
+const QUERY_ATTEMPTS = 3;
+const QUERY_RETRY_DELAY_MS = 400;
+
+function isBuildPhase(): boolean {
+  return (
+    typeof process !== "undefined" &&
+    process.env.NEXT_PHASE === "phase-production-build"
+  );
+}
+
+/**
+ * One raw request to the Supabase REST root, used purely for build-time
+ * logging: `TypeError: fetch failed` hides the real reason, while this probe
+ * surfaces the underlying cause (ENOTFOUND / ETIMEDOUT / HTTP 503 …) so a
+ * failing Netlify build can actually be diagnosed.
+ */
+async function probeSupabase(): Promise<string> {
+  try {
+    const res = await fetch(`${SUPABASE_URL.replace(/\/+$/, "")}/rest/v1/`, {
+      method: "GET",
+    });
+    return `probe → HTTP ${res.status} from ${SUPABASE_URL}`;
+  } catch (e) {
+    const cause = (e as { cause?: { code?: string; message?: string } }).cause;
+    const detail = cause ? ` (cause: ${cause.code ?? cause.message})` : "";
+    return `probe → ${e instanceof Error ? e.message : String(e)}${detail} from ${SUPABASE_URL}`;
+  }
+}
+
+async function runPublicQuery<T>(
+  label: string,
+  run: () => PromiseLike<{ data: T | null; error: { message: string } | null }>
+): Promise<T | null> {
+  let lastReason = "unknown error";
+
+  for (let attempt = 1; attempt <= QUERY_ATTEMPTS; attempt += 1) {
+    try {
+      const { data, error } = await run();
+      if (error) throw new Error(error.message);
+      return data;
+    } catch (e) {
+      lastReason = e instanceof Error ? e.message : String(e);
+      if (attempt < QUERY_ATTEMPTS) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, QUERY_RETRY_DELAY_MS * attempt)
+        );
+      }
+    }
+  }
+
+  if (isBuildPhase()) {
+    console.warn(
+      `[supabase] ${label} failed after ${QUERY_ATTEMPTS} attempts (${lastReason}). ` +
+        `Continuing the build with empty data; ISR will refill it.`
+    );
+    console.warn(`[supabase] ${await probeSupabase()}`);
+    return null;
+  }
+
+  throw new Error(
+    `[supabase] ${label} failed after ${QUERY_ATTEMPTS} attempts: ${lastReason}`
+  );
 }
 
 /** Published posts for the public site, newest first. */
@@ -140,18 +215,18 @@ export async function getPublishedPosts(
 ): Promise<PostView[]> {
   if (!isSupabaseConfigured) return [];
 
-  let query = getClient()
-    .from("posts")
-    .select("*, translations:post_translations(*)")
-    .eq("published", true)
-    .order("published_at", { ascending: false, nullsFirst: false });
+  const rows = await runPublicQuery<Post[]>("posts (published)", () => {
+    let query = getClient()
+      .from("posts")
+      .select("*, translations:post_translations(*)")
+      .eq("published", true)
+      .order("published_at", { ascending: false, nullsFirst: false });
 
-  if (limit != null) query = query.limit(limit);
+    if (limit != null) query = query.limit(limit);
+    return query;
+  });
 
-  const { data, error } = await query;
-  if (error) mapError(error);
-
-  return (data ?? [])
+  return (rows ?? [])
     .map((row) => toPostView(row as unknown as Post, locale))
     .filter((p): p is PostView => p !== null);
 }
@@ -163,14 +238,15 @@ export async function getPostBySlug(
 ): Promise<PostView | null> {
   if (!isSupabaseConfigured) return null;
 
-  const { data, error } = await getClient()
-    .from("posts")
-    .select("*, translations:post_translations(*)")
-    .eq("slug", slug)
-    .eq("published", true)
-    .maybeSingle();
+  const data = await runPublicQuery<Post>("post by slug", () =>
+    getClient()
+      .from("posts")
+      .select("*, translations:post_translations(*)")
+      .eq("slug", slug)
+      .eq("published", true)
+      .maybeSingle()
+  );
 
-  if (error) mapError(error);
   if (!data) return null;
   return toPostView(data as unknown as Post, locale);
 }
@@ -185,32 +261,33 @@ export async function getPostBySlug(
 export async function getPublishedPostsRaw(limit?: number): Promise<Post[]> {
   if (!isSupabaseConfigured) return [];
 
-  let query = getClient()
-    .from("posts")
-    .select("*, translations:post_translations(*)")
-    .eq("published", true)
-    .order("published_at", { ascending: false, nullsFirst: false });
+  const rows = await runPublicQuery<Post[]>("posts (published, raw)", () => {
+    let query = getClient()
+      .from("posts")
+      .select("*, translations:post_translations(*)")
+      .eq("published", true)
+      .order("published_at", { ascending: false, nullsFirst: false });
 
-  if (limit != null) query = query.limit(limit);
+    if (limit != null) query = query.limit(limit);
+    return query;
+  });
 
-  const { data, error } = await query;
-  if (error) mapError(error);
-
-  return (data ?? []) as unknown as Post[];
+  return (rows ?? []) as unknown as Post[];
 }
 
 /** One published post by slug (raw row), or null. */
 export async function getPostBySlugRaw(slug: string): Promise<Post | null> {
   if (!isSupabaseConfigured) return null;
 
-  const { data, error } = await getClient()
-    .from("posts")
-    .select("*, translations:post_translations(*)")
-    .eq("slug", slug)
-    .eq("published", true)
-    .maybeSingle();
+  const data = await runPublicQuery<Post>("post by slug (raw)", () =>
+    getClient()
+      .from("posts")
+      .select("*, translations:post_translations(*)")
+      .eq("slug", slug)
+      .eq("published", true)
+      .maybeSingle()
+  );
 
-  if (error) mapError(error);
   return (data as unknown as Post) ?? null;
 }
 
@@ -218,13 +295,12 @@ export async function getPostBySlugRaw(slug: string): Promise<Post | null> {
 export async function getPublishedSlugs(): Promise<string[]> {
   if (!isSupabaseConfigured) return [];
 
-  const { data, error } = await getClient()
-    .from("posts")
-    .select("slug")
-    .eq("published", true);
+  const rows = await runPublicQuery<{ slug: string }[]>(
+    "slugs (published)",
+    () => getClient().from("posts").select("slug").eq("published", true)
+  );
 
-  if (error) mapError(error);
-  return (data ?? []).map((r: { slug: string }) => r.slug);
+  return (rows ?? []).map((r) => r.slug);
 }
 
 // ---------------------------------------------------------------------------

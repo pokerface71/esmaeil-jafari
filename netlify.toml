@@ -4,6 +4,10 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Prefer IPv4 when DNS returns A + AAAA records: some build containers have
+  # broken IPv6 routing, which shows up as a bare "TypeError: fetch failed"
+  # when querying Supabase during `next build`.
+  NODE_OPTIONS = "--dns-result-order=ipv4first"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
