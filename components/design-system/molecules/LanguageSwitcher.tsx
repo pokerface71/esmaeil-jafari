@@ -11,14 +11,16 @@ const locales: { code: Locale; flag: string; name: string }[] = [
   { code: "en", flag: "🇺🇸", name: "English" },
   { code: "fa", flag: "🇮🇷", name: "فارسی" },
   { code: "ar", flag: "🇸🇦", name: "العربية" },
-  { code: "tr", flag: "🇹🇷", name: "Türkçe" },
+  { code: "tr", flag: "🇹🇷", name: "Türkçe" }
 ];
 
 /**
  * Molecule: flag dropdown for switching UI language.
  * RTL-aware positioning and outside-click close.
  */
-export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className }) => {
+export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
+  className
+}) => {
   const { locale, setLocale, dir } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
 

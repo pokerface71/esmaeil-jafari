@@ -29,11 +29,15 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   highlight,
   subtitle,
   parallaxSpeed,
-  className,
+  className
 }) => (
   <div className={cn("relative text-center mb-16", className)}>
     {num && (
-      <span aria-hidden="true" data-parallax={parallaxSpeed} className="ghost-num">
+      <span
+        aria-hidden="true"
+        data-parallax={parallaxSpeed}
+        className="ghost-num"
+      >
         {num}
       </span>
     )}
@@ -41,11 +45,12 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       {chip}
     </CodeChip>
     <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.06]">
-      {title}{" "}
-      {highlight && <GradientText>{highlight}</GradientText>}
+      {title} {highlight && <GradientText>{highlight}</GradientText>}
     </h2>
     {subtitle && (
-      <p className="mt-5 text-muted-foreground/70 max-w-md mx-auto">{subtitle}</p>
+      <p className="mt-5 text-muted-foreground/70 max-w-md mx-auto">
+        {subtitle}
+      </p>
     )}
   </div>
 );

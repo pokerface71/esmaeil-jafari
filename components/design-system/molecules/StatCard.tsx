@@ -1,6 +1,6 @@
-import React from "react";
+import { GlassCard, IconBox } from "components/design-system/atoms";
 import { cn } from "lib/utils";
-import { GlassCard, IconBox, GradientText } from "components/design-system/atoms";
+import React from "react";
 
 export interface StatCardProps {
   value: string;
@@ -28,7 +28,7 @@ export const StatCard: React.FC<StatCardProps> = ({
   index,
   isVisible = true,
   id,
-  className,
+  className
 }) => (
   <GlassCard
     spotlight
@@ -43,9 +43,16 @@ export const StatCard: React.FC<StatCardProps> = ({
     )}
   >
     <div className="flex items-center justify-between mb-4">
-      <IconBox icon={icon} tone={tone} size="sm" className="h-9 w-9 rounded-xl" />
+      <IconBox
+        icon={icon}
+        tone={tone}
+        size="sm"
+        className="h-9 w-9 rounded-xl"
+      />
       {index && (
-        <span className="font-mono text-[10px] text-muted-foreground/60">{index}</span>
+        <span className="font-mono text-[10px] text-muted-foreground/60">
+          {index}
+        </span>
       )}
     </div>
     <p className="text-4xl font-black gradient-text leading-none">{value}</p>

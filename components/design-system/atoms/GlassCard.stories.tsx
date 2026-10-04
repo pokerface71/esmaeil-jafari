@@ -1,11 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { FaRocket, FaCode, FaBolt, FaGlobe, FaEnvelope, FaPhone } from "react-icons/fa";
+import {
+  FaRocket,
+  FaCode,
+  FaBolt,
+  FaGlobe,
+  FaEnvelope,
+  FaPhone
+} from "react-icons/fa";
 import { GlassCard } from "./GlassCard";
 import { IconBox } from "./IconBox";
 
 const meta = {
   title: "Design System/Atoms/Surfaces",
-  parameters: { docs: { autodocs: false } },
+  parameters: { docs: { autodocs: false } }
 } satisfies Meta;
 
 export default meta;
@@ -22,7 +29,7 @@ export const GlassCardDefault: Story = {
         </p>
       </div>
     </GlassCard>
-  ),
+  )
 };
 
 export const GlassCardSpotlight: Story = {
@@ -33,7 +40,7 @@ export const GlassCardSpotlight: Story = {
         Move the cursor over this card — the radial glow follows the pointer.
       </p>
     </GlassCard>
-  ),
+  )
 };
 
 const toneIcons = {
@@ -43,7 +50,7 @@ const toneIcons = {
   amber: <FaBolt />,
   green: <FaPhone />,
   blue: <FaCode />,
-  pink: <FaEnvelope />,
+  pink: <FaEnvelope />
 } as const;
 
 export const IconBoxMatrix: Story = {
@@ -52,13 +59,26 @@ export const IconBoxMatrix: Story = {
     <div className="flex flex-col gap-6">
       {(["sm", "md", "lg"] as const).map((size) => (
         <div key={size} className="flex items-center gap-4">
-          {(["violet", "fuchsia", "sky", "amber", "green", "blue", "pink"] as const).map(
-            (tone) => (
-              <IconBox key={tone} tone={tone} size={size} icon={toneIcons[tone]} />
-            )
-          )}
+          {(
+            [
+              "violet",
+              "fuchsia",
+              "sky",
+              "amber",
+              "green",
+              "blue",
+              "pink"
+            ] as const
+          ).map((tone) => (
+            <IconBox
+              key={tone}
+              tone={tone}
+              size={size}
+              icon={toneIcons[tone]}
+            />
+          ))}
         </div>
       ))}
     </div>
-  ),
+  )
 };

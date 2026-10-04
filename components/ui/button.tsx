@@ -16,24 +16,25 @@ const buttonVariants = cva(
         secondary:
           "bg-white/5 text-gray-300 border border-white/5 hover:bg-white/10",
         ghost: "hover:bg-white/5 hover:text-white",
-        link: "text-indigo-400 underline-offset-4 hover:text-indigo-300",
+        link: "text-indigo-400 underline-offset-4 hover:text-indigo-300"
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-lg px-3",
         lg: "h-11 rounded-xl px-8",
-        icon: "h-10 w-10",
-      },
+        icon: "h-10 w-10"
+      }
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
-    },
+      size: "default"
+    }
   }
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }

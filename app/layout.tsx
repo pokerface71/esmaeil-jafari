@@ -1,8 +1,7 @@
-import { Inter, JetBrains_Mono, Poppins, Vazirmatn } from "next/font/google";
 import "@styles/globals.css";
-import { fontVariables } from "@styles/fonts";
-import { Suspense } from "react";
 import { Providers } from "components/Providers";
+import { Inter, JetBrains_Mono, Poppins, Vazirmatn } from "next/font/google";
+import { Suspense } from "react";
 
 // fonts: pull the next/font CSS (variable font faces + --font-* variables)
 // into the app bundle so they are emitted to .next/static; the root layout
@@ -11,30 +10,35 @@ const inter = Inter({
   subsets: ["latin", "latin-ext"],
   weight: "variable",
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-inter"
 });
 const vazirmatn = Vazirmatn({
   subsets: ["arabic", "latin"],
   weight: "variable",
   display: "swap",
   variable: "--font-vazirmatn",
-  preload: false,
+  preload: false
 });
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
   variable: "--font-poppins",
-  preload: false,
+  preload: false
 });
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: "variable",
   display: "swap",
-  variable: "--font-jetbrains",
+  variable: "--font-jetbrains"
 });
 
-const fontClasses = [inter.variable, vazirmatn.variable, poppins.variable, jetBrainsMono.variable].join(" ");
+const fontClasses = [
+  inter.variable,
+  vazirmatn.variable,
+  poppins.variable,
+  jetBrainsMono.variable
+].join(" ");
 
 /**
  * Root layout: the App Router equivalent of pages/_app.tsx + pages/_document.tsx.
@@ -51,28 +55,28 @@ export const metadata = {
   metadataBase: new URL("https://esmaeiljafari.dev"),
   title: {
     default: "Esmaeil Jafari — Frontend Developer",
-    template: "%s | Esmaeil Jafari",
+    template: "%s | Esmaeil Jafari"
   },
   description:
     "Professional portfolio of Esmaeil Jafari — Frontend Developer specializing in React, Next.js, and modern web technologies.",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.svg",
-    apple: "/apple-touch-icon.png",
+    apple: "/apple-touch-icon.png"
   },
   manifest: "/site.webmanifest",
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#06060b" },
-    { media: "(prefers-color-scheme: light)", color: "#f7f8fb" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f8fb" }
   ],
   appleWebApp: {
     title: "Esmaeil Jafari",
-    status: "enabled",
-  },
+    status: "enabled"
+  }
 };
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
@@ -93,10 +97,10 @@ export default function RootLayout({
       </head>
       <body>
         <Suspense fallback={null}>
-        <Suspense fallback={null}>
-        <Providers>{children}</Providers>
-      </Suspense>
-      </Suspense>
+          <Suspense fallback={null}>
+            <Providers>{children}</Providers>
+          </Suspense>
+        </Suspense>
       </body>
     </html>
   );

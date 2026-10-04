@@ -7,7 +7,7 @@ import Header from "./Header";
 
 const meta = {
   title: "Design System/Organisms/Layout",
-  parameters: { layout: "fullscreen", docs: { autodocs: false } },
+  parameters: { layout: "fullscreen", docs: { autodocs: false } }
 } satisfies Meta;
 
 export default meta;
@@ -29,7 +29,7 @@ export const AuroraVariants: Story = {
         </div>
       ))}
     </div>
-  ),
+  )
 };
 
 export const RaysDefault: Story = {
@@ -38,7 +38,7 @@ export const RaysDefault: Story = {
     <div className="relative h-80 w-[560px] mx-auto my-10 overflow-hidden rounded-3xl border border-white/10 bg-[#06060b]">
       <AnimatedRays />
     </div>
-  ),
+  )
 };
 
 export const RaysMuted: Story = {
@@ -47,12 +47,12 @@ export const RaysMuted: Story = {
     <div className="relative h-80 w-[560px] mx-auto my-10 overflow-hidden rounded-3xl border border-white/10 bg-[#06060b]">
       <AnimatedRays muted />
     </div>
-  ),
+  )
 };
 
 export const MarqueeDefault: Story = {
   name: "TechMarquee",
-  render: () => <TechMarquee />,
+  render: () => <TechMarquee />
 };
 
 export const HeaderDefault: Story = {
@@ -61,10 +61,10 @@ export const HeaderDefault: Story = {
     <div className="pt-24">
       <Header />
     </div>
-  ),
+  )
 };
 
 export const FooterDefault: Story = {
   name: "Footer",
-  render: () => <Footer />,
+  render: () => <Footer />
 };

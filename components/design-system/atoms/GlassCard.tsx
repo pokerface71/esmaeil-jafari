@@ -1,8 +1,10 @@
 import React from "react";
 import { cn } from "lib/utils";
 
-export interface GlassCardProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, "ref"> {
+export interface GlassCardProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "ref"
+> {
   /** Enables the `.spot-card` cursor-following radial glow. */
   spotlight?: boolean;
   /** Renders as a `<section>` instead of `<div>`. */

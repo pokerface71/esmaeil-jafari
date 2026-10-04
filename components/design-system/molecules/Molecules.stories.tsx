@@ -1,5 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { FaCalendarAlt, FaGlobe, FaBolt, FaRocket, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaGlobe,
+  FaBolt,
+  FaRocket,
+  FaWhatsapp,
+  FaMapMarkerAlt
+} from "react-icons/fa";
 import { SkillCard } from "./SkillCard";
 import { SectionHeader } from "./SectionHeader";
 import { StatCard } from "./StatCard";
@@ -8,7 +15,7 @@ import { ContactInfoItem } from "./ContactInfoItem";
 
 const meta = {
   title: "Design System/Molecules/Compositions",
-  parameters: { docs: { autodocs: false } },
+  parameters: { docs: { autodocs: false } }
 } satisfies Meta;
 
 export default meta;
@@ -25,7 +32,7 @@ export const SkillCardDefault: Story = {
       glow="bg-cyan-400"
       ring="border-cyan-400/25"
     />
-  ),
+  )
 };
 
 export const SkillCardGrid: Story = {
@@ -33,15 +40,43 @@ export const SkillCardGrid: Story = {
   render: () => (
     <div className="grid grid-cols-4 gap-4 max-w-2xl">
       {[
-        { name: "HTML5", color: "text-orange-400", tile: "bg-orange-500/10", glow: "bg-orange-500", ring: "border-orange-400/25", Icon: FaRocket },
-        { name: "React", color: "text-cyan-400", tile: "bg-cyan-500/10", glow: "bg-cyan-400", ring: "border-cyan-400/25", Icon: FaRocket },
-        { name: "Next.js", color: "text-slate-200", tile: "bg-slate-400/10", glow: "bg-slate-300", ring: "border-slate-300/20", Icon: FaGlobe },
-        { name: "TypeScript", color: "text-blue-300", tile: "bg-blue-400/10", glow: "bg-blue-400", ring: "border-blue-300/25", Icon: FaBolt },
+        {
+          name: "HTML5",
+          color: "text-orange-400",
+          tile: "bg-orange-500/10",
+          glow: "bg-orange-500",
+          ring: "border-orange-400/25",
+          Icon: FaRocket
+        },
+        {
+          name: "React",
+          color: "text-cyan-400",
+          tile: "bg-cyan-500/10",
+          glow: "bg-cyan-400",
+          ring: "border-cyan-400/25",
+          Icon: FaRocket
+        },
+        {
+          name: "Next.js",
+          color: "text-slate-200",
+          tile: "bg-slate-400/10",
+          glow: "bg-slate-300",
+          ring: "border-slate-300/20",
+          Icon: FaGlobe
+        },
+        {
+          name: "TypeScript",
+          color: "text-blue-300",
+          tile: "bg-blue-400/10",
+          glow: "bg-blue-400",
+          ring: "border-blue-300/25",
+          Icon: FaBolt
+        }
       ].map((s) => (
         <SkillCard key={s.name} {...s} delay={`${Math.random()}s`} />
       ))}
     </div>
-  ),
+  )
 };
 
 export const SectionHeaderDefault: Story = {
@@ -53,7 +88,7 @@ export const SectionHeaderDefault: Story = {
       title="Turning ideas into"
       highlight="reality"
     />
-  ),
+  )
 };
 
 export const SectionHeaderWithSubtitle: Story = {
@@ -66,7 +101,7 @@ export const SectionHeaderWithSubtitle: Story = {
       highlight="Together"
       subtitle="Crafting elegant, high-performance web experiences."
     />
-  ),
+  )
 };
 
 export const StatCardDefault: Story = {
@@ -80,18 +115,36 @@ export const StatCardDefault: Story = {
       tone="violet"
       index="01.1"
     />
-  ),
+  )
 };
 
 export const StatCardRow: Story = {
   name: "StatCard row",
   render: () => (
     <div className="flex gap-6">
-      <StatCard value="10+" label="Years" icon={<FaCalendarAlt />} tone="violet" index="01.1" />
-      <StatCard value="6" label="Companies" icon={<FaGlobe />} tone="fuchsia" index="01.2" />
-      <StatCard value="50+" label="Projects" icon={<FaBolt />} tone="amber" index="01.3" />
+      <StatCard
+        value="10+"
+        label="Years"
+        icon={<FaCalendarAlt />}
+        tone="violet"
+        index="01.1"
+      />
+      <StatCard
+        value="6"
+        label="Companies"
+        icon={<FaGlobe />}
+        tone="fuchsia"
+        index="01.2"
+      />
+      <StatCard
+        value="50+"
+        label="Projects"
+        icon={<FaBolt />}
+        tone="amber"
+        index="01.3"
+      />
     </div>
-  ),
+  )
 };
 
 export const SocialListRowDefault: Story = {
@@ -104,7 +157,7 @@ export const SocialListRowDefault: Story = {
       icon={<FaWhatsapp />}
       tone="green"
     />
-  ),
+  )
 };
 
 export const ContactInfoItemDefault: Story = {
@@ -116,5 +169,5 @@ export const ContactInfoItemDefault: Story = {
       value="Tehran, Iran"
       tone="sky"
     />
-  ),
+  )
 };

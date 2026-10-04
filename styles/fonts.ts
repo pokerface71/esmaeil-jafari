@@ -25,7 +25,8 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-/** Persian/Arabic — the file is only fetched once fa/ar text actually renders. */
+/** Persian/Arabic — Vazirmatn is a comprehensive Arabic-Persian designer
+ *  sans-serif covering both scripts, so one family serves fa + ar. */
 const vazirmatn = Vazirmatn({
   subsets: ["arabic", "latin"],
   weight: "variable",

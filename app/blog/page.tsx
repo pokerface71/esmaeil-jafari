@@ -1,11 +1,11 @@
+import { absoluteUrl } from "lib/seo";
+import {
+  getPublishedPostsRaw,
+  isSupabaseConfigured,
+  toPostView
+} from "lib/supabase";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {
-  absoluteUrl,
-  DEFAULT_OG_IMAGE,
-  SITE_NAME,
-} from "lib/seo";
-import { getPublishedPostsRaw, toPostView, isSupabaseConfigured } from "lib/supabase";
 import BlogList from "./BlogList";
 
 const BLOG_DESCRIPTION =
@@ -30,16 +30,16 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Blog | Esmaeil Jafari",
       description: BLOG_DESCRIPTION,
       url: absoluteUrl("/blog"),
-      images: [{ url: "https://esmaeiljafari.dev/favicon-512.png" }],
+      images: [{ url: "https://esmaeiljafari.dev/favicon-512.png" }]
     },
     twitter: {
       card: "summary",
       title: "Blog | Esmaeil Jafari",
-      description: BLOG_DESCRIPTION,
+      description: BLOG_DESCRIPTION
     },
     alternates: {
-      canonical: absoluteUrl("/blog"),
-    },
+      canonical: absoluteUrl("/blog")
+    }
   };
 }
 

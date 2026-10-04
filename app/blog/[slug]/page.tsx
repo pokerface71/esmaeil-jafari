@@ -1,12 +1,13 @@
+import {
+  absoluteUrl,
+  blogPostingJsonLd,
+  lastmod,
+  ogImage,
+  SITE_NAME
+} from "lib/seo";
+import { getPostBySlugRaw, getPublishedSlugs, toPostView } from "lib/supabase";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {
-  getPostBySlugRaw,
-  getPublishedSlugs,
-  toPostView,
-  type Post,
-} from "lib/supabase";
-import { blogPostingJsonLd, absoluteUrl, ogImage, lastmod, SITE_NAME } from "lib/seo";
 import BlogPost from "./BlogPost";
 
 /**
@@ -24,7 +25,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
@@ -36,16 +37,20 @@ export async function generateMetadata({
 
   return {
     title: `${view.title} | Esmaeil Jafari`,
-    description: view.excerpt || "Professional portfolio of Esmaeil Jafari — Frontend Developer specializing in React, Next.js, and modern web technologies.",
+    description:
+      view.excerpt ||
+      "Professional portfolio of Esmaeil Jafari — Frontend Developer specializing in React, Next.js, and modern web technologies.",
     openGraph: {
       type: "article",
       siteName: "Esmaeil Jafari",
       title: view.title,
       description: view.excerpt || "",
       url: absoluteUrl(`/blog/${view.slug}`),
-      images: [{ url: ogImage(view.cover_image_url), width: 1200, height: 630 }],
+      images: [
+        { url: ogImage(view.cover_image_url), width: 1200, height: 630 }
+      ],
       publishedTime: lastmod(view.published_at),
-      authors: [SITE_NAME],
+      authors: [SITE_NAME]
     },
     twitter: {
       card: view.cover_image_url?.startsWith("http")
@@ -53,10 +58,10 @@ export async function generateMetadata({
         : "summary",
       title: view.title,
       description: view.excerpt || "",
-      images: [ogImage(view.cover_image_url)],
+      images: [ogImage(view.cover_image_url)]
     },
     alternates: {
-      canonical: absoluteUrl(`/blog/${view.slug}`),
+      canonical: absoluteUrl(`/blog/${view.slug}`)
     },
     other: {
       "application/ld+json": JSON.stringify(
@@ -65,17 +70,17 @@ export async function generateMetadata({
           excerpt: view.excerpt,
           slug: view.slug,
           cover: view.cover_image_url,
-          publishedAt: view.published_at,
+          publishedAt: view.published_at
         })
-      ),
-    },
+      )
+    }
   };
 }
 
 export const revalidate = 60;
 
 export default async function BlogPostPage({
-  params,
+  params
 }: {
   params: { slug: string };
 }) {

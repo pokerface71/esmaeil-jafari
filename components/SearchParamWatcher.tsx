@@ -22,7 +22,7 @@ function Reader({ onChange }: { onChange: (params: URLSearchParams) => void }) {
  * hydration.
  */
 export default function SearchParamWatcher({
-  onChange,
+  onChange
 }: {
   onChange: (params: URLSearchParams) => void;
 }) {

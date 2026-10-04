@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import { useI18n } from "lib/i18n";
 import {
   Highlight,
   themes,
   type Language,
-  type PrismTheme,
+  type PrismTheme
 } from "prism-react-renderer";
-import { useI18n } from "lib/i18n";
+import { useState } from "react";
 
 /**
  * Syntax-highlighted code block for blog posts.
@@ -29,8 +29,8 @@ const siteTheme: PrismTheme = {
   ...themes.vsDark,
   plain: {
     color: "#e2e8f0",
-    backgroundColor: "transparent",
-  },
+    backgroundColor: "transparent"
+  }
 };
 
 const LANGUAGE_LABELS: Record<string, string> = {
@@ -59,15 +59,37 @@ const LANGUAGE_LABELS: Record<string, string> = {
   java: "Java",
   go: "Go",
   rust: "Rust",
-  diff: "Diff",
+  diff: "Diff"
 };
 
 // Prism needs a language; unknown names fall back to markup so nothing breaks.
 const SUPPORTED = new Set([
-  "js", "jsx", "javascript", "ts", "tsx", "typescript",
-  "html", "css", "scss", "sass", "json", "bash", "shell", "sh",
-  "python", "py", "sql", "yaml", "yml", "md", "markdown", "php",
-  "java", "go", "rust", "diff",
+  "js",
+  "jsx",
+  "javascript",
+  "ts",
+  "tsx",
+  "typescript",
+  "html",
+  "css",
+  "scss",
+  "sass",
+  "json",
+  "bash",
+  "shell",
+  "sh",
+  "python",
+  "py",
+  "sql",
+  "yaml",
+  "yml",
+  "md",
+  "markdown",
+  "php",
+  "java",
+  "go",
+  "rust",
+  "diff"
 ]);
 
 function resolveLanguage(lang: string): Language {

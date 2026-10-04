@@ -8,12 +8,12 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "./Card";
 
 const meta = {
   title: "Design System/Atoms/Text Primitives",
-  parameters: { docs: { autodocs: false } },
+  parameters: { docs: { autodocs: false } }
 } satisfies Meta;
 
 export default meta;
@@ -21,23 +21,25 @@ type Story = StoryObj<typeof meta>;
 
 export const CodeChipDefault: Story = {
   name: "CodeChip",
-  render: () => <CodeChip num="01">About Me</CodeChip>,
+  render: () => <CodeChip num="01">About Me</CodeChip>
 };
 
 export const SkillTagRow: Story = {
   name: "SkillTag",
   render: () => (
     <div className="flex flex-wrap gap-2">
-      {["React", "Next.js", "TypeScript", "Redux", "Tailwind", "Zustand"].map((t) => (
-        <SkillTag key={t}>{t}</SkillTag>
-      ))}
+      {["React", "Next.js", "TypeScript", "Redux", "Tailwind", "Zustand"].map(
+        (t) => (
+          <SkillTag key={t}>{t}</SkillTag>
+        )
+      )}
     </div>
-  ),
+  )
 };
 
 export const GradientTextDefault: Story = {
   name: "GradientText",
-  render: () => <GradientText as="h2">Esmaeil Jafari</GradientText>,
+  render: () => <GradientText as="h2">Esmaeil Jafari</GradientText>
 };
 
 export const CardDefault: Story = {
@@ -57,5 +59,5 @@ export const CardDefault: Story = {
         <SkillTag>Atom</SkillTag>
       </CardFooter>
     </Card>
-  ),
+  )
 };

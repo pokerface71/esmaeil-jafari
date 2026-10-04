@@ -11,7 +11,7 @@ export interface BadgeProps {
 const dotClass: Record<NonNullable<BadgeProps["dot"]>, string> = {
   primary: "bg-violet-300",
   success: "bg-emerald-400",
-  muted: "bg-muted-foreground/50",
+  muted: "bg-muted-foreground/50"
 };
 
 /**
@@ -27,7 +27,12 @@ export const Badge: React.FC<BadgeProps> = ({ children, dot, className }) => (
     {dot && (
       <span className="relative flex h-2 w-2">
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 bg-inherit" />
-        <span className={cn("relative inline-flex h-2 w-2 rounded-full", dotClass[dot])} />
+        <span
+          className={cn(
+            "relative inline-flex h-2 w-2 rounded-full",
+            dotClass[dot]
+          )}
+        />
       </span>
     )}
     {children}

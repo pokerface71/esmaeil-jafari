@@ -4,7 +4,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const meta = {
   title: "Design System/Molecules/Controls",
-  parameters: { docs: { autodocs: false } },
+  parameters: { docs: { autodocs: false } }
 } satisfies Meta;
 
 export default meta;
@@ -16,11 +16,11 @@ export const ThemeToggleDefault: Story = {
     docs: {
       description: {
         story:
-          "Reads/writes ThemeProvider state. Toggle the theme in the Storybook toolbar to see the icon swap (moon in dark, sun in light).",
-      },
-    },
+          "Reads/writes ThemeProvider state. Toggle the theme in the Storybook toolbar to see the icon swap (moon in dark, sun in light)."
+      }
+    }
   },
-  render: () => <ThemeToggle />,
+  render: () => <ThemeToggle />
 };
 
 export const LanguageSwitcherDefault: Story = {
@@ -29,9 +29,9 @@ export const LanguageSwitcherDefault: Story = {
     docs: {
       description: {
         story:
-          "Flag dropdown wired to I18nProvider. Use the Locale toolbar global to preview RTL layouts (fa/ar), or click a flag here.",
-      },
-    },
+          "Flag dropdown wired to I18nProvider. Use the Locale toolbar global to preview RTL layouts (fa/ar), or click a flag here."
+      }
+    }
   },
-  render: () => <LanguageSwitcher />,
+  render: () => <LanguageSwitcher />
 };

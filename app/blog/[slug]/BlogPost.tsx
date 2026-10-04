@@ -1,15 +1,14 @@
 "use client";
+import AuroraBackground from "components/design-system/organisms/AuroraBackground";
+import Footer from "components/design-system/organisms/Footer";
+import Header from "components/design-system/organisms/Header";
+import MarkdownRenderer from "components/design-system/organisms/MarkdownRenderer";
+import { coverArtDataUri } from "lib/coverArt";
+import { useI18n } from "lib/i18n";
+import { toPostView, type Post } from "lib/supabase";
+import { cn } from "lib/utils";
 import Link from "next/link";
 import { FaArrowLeft, FaCalendarAlt, FaTag } from "react-icons/fa";
-import AuroraBackground from "components/design-system/organisms/AuroraBackground";
-import Header from "components/design-system/organisms/Header";
-import Footer from "components/design-system/organisms/Footer";
-import MarkdownRenderer from "components/design-system/organisms/MarkdownRenderer";
-import { useI18n } from "lib/i18n";
-import { getPostBySlugRaw, toPostView, type Post } from "lib/supabase";
-import { coverArtDataUri } from "lib/coverArt";
-import { cn } from "lib/utils";
-import { DEFAULT_DESCRIPTION } from "lib/seo";
 
 /** Props come from the slug route (server): the client only renders. */
 export interface BlogPostProps {
@@ -22,13 +21,13 @@ function formatDate(iso: string | null, locale: string): string {
     return new Date(iso).toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
-      day: "numeric",
+      day: "numeric"
     });
   } catch {
     return new Date(iso).toLocaleDateString("en", {
       year: "numeric",
       month: "long",
-      day: "numeric",
+      day: "numeric"
     });
   }
 }
@@ -56,7 +55,9 @@ export default function BlogPost({ post }: BlogPostProps) {
               dir === "rtl" && "flex-row-reverse"
             )}
           >
-            <FaArrowLeft className={cn("text-xs", dir === "rtl" && "rotate-180")} />
+            <FaArrowLeft
+              className={cn("text-xs", dir === "rtl" && "rotate-180")}
+            />
             {t("blog.back")}
           </Link>
 
@@ -68,7 +69,7 @@ export default function BlogPost({ post }: BlogPostProps) {
               coverArtDataUri({
                 seed: view.id,
                 tags: view.tags,
-                label: view.tags?.[0] ?? view.slug,
+                label: view.tags?.[0] ?? view.slug
               })
             }
             alt={view.title}
@@ -111,7 +112,8 @@ export default function BlogPost({ post }: BlogPostProps) {
             <p
               className={cn(
                 "text-muted-foreground/80 leading-relaxed mb-10 border-s-2 border-violet-400/40 ps-4",
-                dir === "rtl" && "border-s-0 border-e-2 border-e-violet-400/40 ps-0 pe-4 text-right"
+                dir === "rtl" &&
+                  "border-s-0 border-e-2 border-e-violet-400/40 ps-0 pe-4 text-right"
               )}
             >
               {view.excerpt}
@@ -130,7 +132,9 @@ export default function BlogPost({ post }: BlogPostProps) {
                 dir === "rtl" && "flex-row-reverse"
               )}
             >
-              <FaArrowLeft className={cn("text-xs", dir === "rtl" && "rotate-180")} />
+              <FaArrowLeft
+                className={cn("text-xs", dir === "rtl" && "rotate-180")}
+              />
               {t("blog.back")}
             </Link>
           </div>

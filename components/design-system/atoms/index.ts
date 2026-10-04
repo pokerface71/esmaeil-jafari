@@ -18,5 +18,5 @@ export {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
+  CardFooter
 } from "./Card";

@@ -3,17 +3,17 @@ import type { StorybookConfig } from "@storybook/nextjs-vite";
 const config: StorybookConfig = {
   stories: [
     "../docs/**/*.mdx",
-    "../components/design-system/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../components/design-system/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   addons: [
     "@storybook/addon-docs",
     "@storybook/addon-a11y",
     "@storybook/addon-themes",
-    "@chromatic-com/storybook",
+    "@chromatic-com/storybook"
   ],
   framework: {
     name: "@storybook/nextjs-vite",
-    options: {},
+    options: {}
   },
   staticDirs: ["../public"],
   async viteFinal(viteConfig) {
@@ -25,7 +25,10 @@ const config: StorybookConfig = {
       { find: /^styles\//, replacement: `${root}/styles/` },
       { find: /^@components\//, replacement: `${root}/components/` },
       { find: /^@styles\//, replacement: `${root}/styles/` },
-      { find: /^@design-system\//, replacement: `${root}/components/design-system/` },
+      {
+        find: /^@design-system\//,
+        replacement: `${root}/components/design-system/`
+      }
     ];
     const existing = viteConfig.resolve?.alias;
     const existingArray = Array.isArray(existing)
@@ -33,16 +36,16 @@ const config: StorybookConfig = {
       : existing
         ? Object.entries(existing).map(([find, replacement]) => ({
             find,
-            replacement: replacement as string,
+            replacement: replacement as string
           }))
         : [];
     return {
       ...viteConfig,
       resolve: {
         ...viteConfig.resolve,
-        alias: [...bareAliases, ...existingArray],
-      },
+        alias: [...bareAliases, ...existingArray]
+      }
     };
-  },
+  }
 };
 export default config;

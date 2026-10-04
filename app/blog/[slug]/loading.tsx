@@ -1,5 +1,3 @@
-import React from "react";
-
 /**
  * Loading UI for /blog/[slug] (App Router).
  *

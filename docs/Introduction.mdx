@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta name="Design System / Introduction" />
 
@@ -8,15 +8,15 @@ This design system follows **Atomic Design** (Brad Frost) with a Tailwind v4 tok
 
 ## Layers
 
-| Layer | Path | Contains |
-|---|---|---|
-| **Tokens** | `styles/tokens.css` | Raw CSS custom properties: semantic colors (HSL), gradients, glass surfaces, radii. `[data-theme='light']` overrides everything. |
-| **Utilities** | `styles/utilities.css` | Shared visual primitives (`.glass-card`, `.spot-card`, `.code-chip`, `.btn-primary`, `.skill-tag`, effect keyframes). |
-| **Atoms** | `components/design-system/atoms` | Smallest testable units: Button, Badge, IconBox, CodeChip, GlassCard, SkillTag, GradientText, Card. |
-| **Molecules** | `components/design-system/molecules` | Atom compositions: SkillCard, SectionHeader, StatCard, SocialIconLink, ContactInfoItem, ThemeToggle, LanguageSwitcher. |
-| **Organisms** | `components/design-system/organisms` | Self-sufficient sections: Header, Footer, TechMarquee, AuroraBackground, BlogSection, CodeBlock, MarkdownRenderer, effects. |
-| **Templates** | `components/design-system/templates` | Page-level composition (HomeTemplate) plus behavior hooks (reveal, spotlight, parallax, tilt). |
-| **Pages** | `pages/` | Thin wrappers: SEO/head concerns only. |
+| Layer         | Path                                 | Contains                                                                                                                         |
+| ------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Tokens**    | `styles/tokens.css`                  | Raw CSS custom properties: semantic colors (HSL), gradients, glass surfaces, radii. `[data-theme='light']` overrides everything. |
+| **Utilities** | `styles/utilities.css`               | Shared visual primitives (`.glass-card`, `.spot-card`, `.code-chip`, `.btn-primary`, `.skill-tag`, effect keyframes).            |
+| **Atoms**     | `components/design-system/atoms`     | Smallest testable units: Button, Badge, IconBox, CodeChip, GlassCard, SkillTag, GradientText, Card.                              |
+| **Molecules** | `components/design-system/molecules` | Atom compositions: SkillCard, SectionHeader, StatCard, SocialIconLink, ContactInfoItem, ThemeToggle, LanguageSwitcher.           |
+| **Organisms** | `components/design-system/organisms` | Self-sufficient sections: Header, Footer, TechMarquee, AuroraBackground, BlogSection, CodeBlock, MarkdownRenderer, effects.      |
+| **Templates** | `components/design-system/templates` | Page-level composition (HomeTemplate) plus behavior hooks (reveal, spotlight, parallax, tilt).                                   |
+| **Pages**     | `pages/`                             | Thin wrappers: SEO/head concerns only.                                                                                           |
 
 ## Rules
 

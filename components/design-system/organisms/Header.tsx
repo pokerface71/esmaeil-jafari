@@ -1,20 +1,25 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import ResumeModal from "components/design-system/organisms/ResumeModal";
+import { useTheme } from "components/ThemeProvider";
+import { Locale, useI18n } from "lib/i18n";
+import { cn } from "lib/utils";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import { cn } from "lib/utils";
-import { useTheme } from "components/ThemeProvider";
-import { useI18n, Locale } from "lib/i18n";
-import ResumeModal from "components/design-system/organisms/ResumeModal";
+import { useEffect, useState } from "react";
 
 const downloadCvLabel = (locale: string) =>
-  locale === "fa" ? "دانلود رزومه" : locale === "ar" ? "تحميل السيرة الذاتية" : locale === "tr" ? "CV İndir" : "Download CV";
+  locale === "fa"
+    ? "دانلود رزومه"
+    : locale === "ar"
+      ? "تحميل السيرة الذاتية"
+      : locale === "tr"
+        ? "CV İndir"
+        : "Download CV";
 const locales: { code: Locale; label: string; flag: string }[] = [
   { code: "en", label: "English", flag: "🇺🇸" },
   { code: "fa", label: "فارسی", flag: "🇮🇷" },
   { code: "ar", label: "العربية", flag: "🇸🇦" },
-  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
+  { code: "tr", label: "Türkçe", flag: "🇹🇷" }
 ];
 
 export default function Header() {
@@ -39,9 +44,13 @@ export default function Header() {
     { href: "/?scroll=home", label: t("nav.home"), key: "home" },
     { href: "/?scroll=about", label: t("nav.about"), key: "about" },
     { href: "/?scroll=skills", label: t("nav.skills"), key: "skills" },
-    { href: "/?scroll=experience", label: t("nav.experience"), key: "experience" },
+    {
+      href: "/?scroll=experience",
+      label: t("nav.experience"),
+      key: "experience"
+    },
     { href: "/blog", label: t("nav.blog"), key: "blog" },
-    { href: "/?scroll=contact", label: t("nav.contact"), key: "contact" },
+    { href: "/?scroll=contact", label: t("nav.contact"), key: "contact" }
   ];
 
   useEffect(() => {
@@ -78,7 +87,11 @@ export default function Header() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group" aria-label="Esmaeil Jafari — Home">
+            <Link
+              href="/"
+              className="flex items-center gap-3 group"
+              aria-label="Esmaeil Jafari — Home"
+            >
               <div className="relative">
                 <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#6366f1,#8b5cf6_55%,#d946ef)] font-sans text-sm font-black tracking-wide text-white shadow-[0_0_24px_rgba(139,92,246,0.45)] ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-110">
                   EJ
@@ -86,8 +99,12 @@ export default function Header() {
                 <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-md" />
               </div>
               <span className="hidden sm:flex flex-col leading-tight">
-                <span className="text-sm font-bold text-foreground">Esmaeil Jafari</span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.34em] text-violet-300/70">Frontend Dev</span>
+                <span className="text-sm font-bold text-foreground">
+                  Esmaeil Jafari
+                </span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.34em] text-violet-300/70">
+                  Frontend Dev
+                </span>
               </span>
             </Link>
 
@@ -116,7 +133,12 @@ export default function Header() {
             </nav>
 
             {/* Actions */}
-            <div className={cn("flex items-center gap-3", dir === "rtl" && "flex-row-reverse")}>
+            <div
+              className={cn(
+                "flex items-center gap-3",
+                dir === "rtl" && "flex-row-reverse"
+              )}
+            >
               {/* Language Switcher - Minimal Flag */}
               <div className="relative">
                 <button
@@ -189,12 +211,32 @@ export default function Header() {
                 aria-label="Toggle theme"
               >
                 {theme === "dark" ? (
-                  <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                  <svg
+                    className="w-5 h-5 text-gray-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                    />
                   </svg>
                 ) : (
-                  <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                  <svg
+                    className="w-5 h-5 text-indigo-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                    />
                   </svg>
                 )}
               </button>
@@ -235,23 +277,35 @@ export default function Header() {
       <div
         className={cn(
           "fixed inset-0 top-0 z-40 transition-all duration-500 md:hidden",
-          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          isMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         )}
       >
         {/* Backdrop */}
         <div
           className="absolute inset-0 bg-black/60 backdrop-blur-sm"
           onClick={() => setIsMenuOpen(false)}
-        />            {/* Menu Panel */}
+        />{" "}
+        {/* Menu Panel */}
         <div
           className={cn(
             "absolute top-0 h-full glass p-6 pt-20 transition-transform duration-500 ease-out w-64 sm:w-72",
             dir === "rtl" ? "left-0" : "right-0",
-            isMenuOpen ? "translate-x-0" : dir === "rtl" ? "-translate-x-full" : "translate-x-full"
+            isMenuOpen
+              ? "translate-x-0"
+              : dir === "rtl"
+                ? "-translate-x-full"
+                : "translate-x-full"
           )}
         >
           {/* Mobile Language Switcher - Minimal Flags */}
-          <div className={cn("mb-6 flex justify-center gap-3", dir === "rtl" && "flex-row-reverse")}>
+          <div
+            className={cn(
+              "mb-6 flex justify-center gap-3",
+              dir === "rtl" && "flex-row-reverse"
+            )}
+          >
             {locales.map((loc) => (
               <button
                 key={loc.code}
@@ -277,7 +331,11 @@ export default function Header() {
                   style={{
                     transitionDelay: isMenuOpen ? `${index * 80}ms` : "0ms",
                     opacity: isMenuOpen ? 1 : 0,
-                    transform: isMenuOpen ? "translateX(0)" : dir === "rtl" ? "translateX(-20px)" : "translateX(20px)",
+                    transform: isMenuOpen
+                      ? "translateX(0)"
+                      : dir === "rtl"
+                        ? "translateX(-20px)"
+                        : "translateX(20px)"
                   }}
                 >
                   <Link
@@ -292,7 +350,12 @@ export default function Header() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {isActive(item.key) && (
-                      <span className={cn("w-1 h-6 rounded-full bg-gradient-to-b from-indigo-500 to-purple-500", dir === "rtl" ? "mr-3" : "ml-3")} />
+                      <span
+                        className={cn(
+                          "w-1 h-6 rounded-full bg-gradient-to-b from-indigo-500 to-purple-500",
+                          dir === "rtl" ? "mr-3" : "ml-3"
+                        )}
+                      />
                     )}
                     {item.label}
                   </Link>
@@ -307,7 +370,11 @@ export default function Header() {
             style={{
               transitionDelay: isMenuOpen ? "400ms" : "0ms",
               opacity: isMenuOpen ? 1 : 0,
-              transform: isMenuOpen ? "translateX(0)" : dir === "rtl" ? "translateX(-20px)" : "translateX(20px)",
+              transform: isMenuOpen
+                ? "translateX(0)"
+                : dir === "rtl"
+                  ? "translateX(-20px)"
+                  : "translateX(20px)"
             }}
           >
             <button

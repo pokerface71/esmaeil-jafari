@@ -12,7 +12,11 @@ export interface CodeChipProps {
  * Atom: mono uppercase label pill used on section headers.
  * Visuals come from the `.code-chip` design-system utility.
  */
-export const CodeChip: React.FC<CodeChipProps> = ({ children, num, className }) => (
+export const CodeChip: React.FC<CodeChipProps> = ({
+  children,
+  num,
+  className
+}) => (
   <span className={cn("code-chip", className)}>
     {num && <span className="code-chip-num">{num}</span>}
     {children}

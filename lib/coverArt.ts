@@ -40,28 +40,123 @@ interface Palette {
 }
 
 const TAG_PALETTES: Record<string, Palette> = {
-  react: { stops: ["#0c4a6e", "#164e63", "#155e75"], glowA: "#22d3ee", glowB: "#38bdf8", accent: "#67e8f9" },
-  nextjs: { stops: ["#312e81", "#1e1b4b", "#4c1d95"], glowA: "#8b5cf6", glowB: "#d946ef", accent: "#c4b5fd" },
-  next: { stops: ["#312e81", "#1e1b4b", "#4c1d95"], glowA: "#8b5cf6", glowB: "#d946ef", accent: "#c4b5fd" },
-  typescript: { stops: ["#1e3a8a", "#172554", "#1e40af"], glowA: "#60a5fa", glowB: "#818cf8", accent: "#93c5fd" },
-  javascript: { stops: ["#713f12", "#422006", "#854d0e"], glowA: "#facc15", glowB: "#fbbf24", accent: "#fde68a" },
-  css: { stops: ["#1e3a8a", "#0c4a6e", "#1d4ed8"], glowA: "#38bdf8", glowB: "#818cf8", accent: "#7dd3fc" },
-  html: { stops: ["#7c2d12", "#431407", "#9a3412"], glowA: "#fb923c", glowB: "#f87171", accent: "#fdba74" },
-  nodejs: { stops: ["#14532d", "#052e16", "#166534"], glowA: "#4ade80", glowB: "#34d399", accent: "#86efac" },
-  python: { stops: ["#134e4a", "#042f2e", "#115e59"], glowA: "#2dd4bf", glowB: "#38bdf8", accent: "#5eead4" },
-  sql: { stops: ["#312e81", "#1e1b4b", "#1e40af"], glowA: "#818cf8", glowB: "#38bdf8", accent: "#a5b4fc" },
-  git: { stops: ["#7f1d1d", "#450a0a", "#991b1b"], glowA: "#f87171", glowB: "#fb923c", accent: "#fca5a5" },
-  design: { stops: ["#831843", "#500724", "#9d174d"], glowA: "#f472b6", glowB: "#e879f9", accent: "#f9a8d4" },
-  devops: { stops: ["#134e4a", "#1e3a8a", "#312e81"], glowA: "#2dd4bf", glowB: "#818cf8", accent: "#5eead4" },
+  react: {
+    stops: ["#0c4a6e", "#164e63", "#155e75"],
+    glowA: "#22d3ee",
+    glowB: "#38bdf8",
+    accent: "#67e8f9"
+  },
+  nextjs: {
+    stops: ["#312e81", "#1e1b4b", "#4c1d95"],
+    glowA: "#8b5cf6",
+    glowB: "#d946ef",
+    accent: "#c4b5fd"
+  },
+  next: {
+    stops: ["#312e81", "#1e1b4b", "#4c1d95"],
+    glowA: "#8b5cf6",
+    glowB: "#d946ef",
+    accent: "#c4b5fd"
+  },
+  typescript: {
+    stops: ["#1e3a8a", "#172554", "#1e40af"],
+    glowA: "#60a5fa",
+    glowB: "#818cf8",
+    accent: "#93c5fd"
+  },
+  javascript: {
+    stops: ["#713f12", "#422006", "#854d0e"],
+    glowA: "#facc15",
+    glowB: "#fbbf24",
+    accent: "#fde68a"
+  },
+  css: {
+    stops: ["#1e3a8a", "#0c4a6e", "#1d4ed8"],
+    glowA: "#38bdf8",
+    glowB: "#818cf8",
+    accent: "#7dd3fc"
+  },
+  html: {
+    stops: ["#7c2d12", "#431407", "#9a3412"],
+    glowA: "#fb923c",
+    glowB: "#f87171",
+    accent: "#fdba74"
+  },
+  nodejs: {
+    stops: ["#14532d", "#052e16", "#166534"],
+    glowA: "#4ade80",
+    glowB: "#34d399",
+    accent: "#86efac"
+  },
+  python: {
+    stops: ["#134e4a", "#042f2e", "#115e59"],
+    glowA: "#2dd4bf",
+    glowB: "#38bdf8",
+    accent: "#5eead4"
+  },
+  sql: {
+    stops: ["#312e81", "#1e1b4b", "#1e40af"],
+    glowA: "#818cf8",
+    glowB: "#38bdf8",
+    accent: "#a5b4fc"
+  },
+  git: {
+    stops: ["#7f1d1d", "#450a0a", "#991b1b"],
+    glowA: "#f87171",
+    glowB: "#fb923c",
+    accent: "#fca5a5"
+  },
+  design: {
+    stops: ["#831843", "#500724", "#9d174d"],
+    glowA: "#f472b6",
+    glowB: "#e879f9",
+    accent: "#f9a8d4"
+  },
+  devops: {
+    stops: ["#134e4a", "#1e3a8a", "#312e81"],
+    glowA: "#2dd4bf",
+    glowB: "#818cf8",
+    accent: "#5eead4"
+  }
 };
 
 const FALLBACK_PALETTES: Palette[] = [
-  { stops: ["#312e81", "#1e1b4b", "#4c1d95"], glowA: "#8b5cf6", glowB: "#d946ef", accent: "#c4b5fd" },
-  { stops: ["#0c4a6e", "#164e63", "#155e75"], glowA: "#22d3ee", glowB: "#818cf8", accent: "#67e8f9" },
-  { stops: ["#134e4a", "#042f2e", "#115e59"], glowA: "#2dd4bf", glowB: "#34d399", accent: "#5eead4" },
-  { stops: ["#831843", "#500724", "#9d174d"], glowA: "#f472b6", glowB: "#c084fc", accent: "#f9a8d4" },
-  { stops: ["#713f12", "#422006", "#854d0e"], glowA: "#facc15", glowB: "#fb923c", accent: "#fde68a" },
-  { stops: ["#1e3a8a", "#172554", "#1e40af"], glowA: "#60a5fa", glowB: "#38bdf8", accent: "#93c5fd" },
+  {
+    stops: ["#312e81", "#1e1b4b", "#4c1d95"],
+    glowA: "#8b5cf6",
+    glowB: "#d946ef",
+    accent: "#c4b5fd"
+  },
+  {
+    stops: ["#0c4a6e", "#164e63", "#155e75"],
+    glowA: "#22d3ee",
+    glowB: "#818cf8",
+    accent: "#67e8f9"
+  },
+  {
+    stops: ["#134e4a", "#042f2e", "#115e59"],
+    glowA: "#2dd4bf",
+    glowB: "#34d399",
+    accent: "#5eead4"
+  },
+  {
+    stops: ["#831843", "#500724", "#9d174d"],
+    glowA: "#f472b6",
+    glowB: "#c084fc",
+    accent: "#f9a8d4"
+  },
+  {
+    stops: ["#713f12", "#422006", "#854d0e"],
+    glowA: "#facc15",
+    glowB: "#fb923c",
+    accent: "#fde68a"
+  },
+  {
+    stops: ["#1e3a8a", "#172554", "#1e40af"],
+    glowA: "#60a5fa",
+    glowB: "#38bdf8",
+    accent: "#93c5fd"
+  }
 ];
 
 function pickPalette(tags: string[] | null, hash: number): Palette {
@@ -83,24 +178,33 @@ function buildGlyphs(hash: number, accent: string, text: string): GlyphLine[] {
   const lines: GlyphLine[][] = [
     // Brackets style
     [
-      [`<`, accent], [`Component`, `#f0abfc`], [`>`, accent]
+      [`<`, accent],
+      [`Component`, `#f0abfc`],
+      [`>`, accent]
     ],
     // Curly style
     [
-      [`const `, `#6ee7b7`], [`x`, `#93c5fd`], [` = {`, soft]
+      [`const `, `#6ee7b7`],
+      [`x`, `#93c5fd`],
+      [` = {`, soft]
     ],
     // Terminal style
     [
-      [`$ `, `#4ade80`], [text || `npm run dev`, `#e2e8f0`]
+      [`$ `, `#4ade80`],
+      [text || `npm run dev`, `#e2e8f0`]
     ],
     // Arrow style
     [
-      [`const `, `#6ee7b7`], [`go`, `#93c5fd`], [` = () =>`, accent]
+      [`const `, `#6ee7b7`],
+      [`go`, `#93c5fd`],
+      [` = () =>`, accent]
     ],
     // Export style
     [
-      [`export `, `#f0abfc`], [`default `, `#e2e8f0`], [`Post`, accent]
-    ],
+      [`export `, `#f0abfc`],
+      [`default `, `#e2e8f0`],
+      [`Post`, accent]
+    ]
   ];
   return lines[hash % lines.length];
 }
@@ -118,9 +222,9 @@ function esc(s: string): string {
 }
 
 interface BuildOptions {
-  seed: string;          // unique identity of the post (slug or id)
+  seed: string; // unique identity of the post (slug or id)
   tags: string[] | null; // first tag steers the palette
-  label?: string;        // short text shown as the terminal/badge word
+  label?: string; // short text shown as the terminal/badge word
 }
 
 export function buildCoverSvg({ seed, tags, label }: BuildOptions): string {
@@ -134,9 +238,27 @@ export function buildCoverSvg({ seed, tags, label }: BuildOptions): string {
   // NOTE: >>> (unsigned shift) everywhere — plain >> turns the uint32 hash
   // into a negative int32 for some seeds, producing negative offsets.
   const shapes = [
-    { cx: 90 + (h >>> 0) % 40, cy: 70 + ((h >>> 3) % 50), r: 90 + ((h >>> 5) % 60), fill: pal.glowA, op: 0.16 },
-    { cx: 640 + ((h >>> 7) % 80), cy: 340 - ((h >>> 9) % 60), r: 110 + ((h >>> 11) % 50), fill: pal.glowB, op: 0.14 },
-    { cx: 400 + ((h >>> 13) % 100) - 50, cy: 110 + ((h >>> 15) % 40), r: 60 + ((h >>> 17) % 40), fill: pal.accent, op: 0.1 },
+    {
+      cx: 90 + ((h >>> 0) % 40),
+      cy: 70 + ((h >>> 3) % 50),
+      r: 90 + ((h >>> 5) % 60),
+      fill: pal.glowA,
+      op: 0.16
+    },
+    {
+      cx: 640 + ((h >>> 7) % 80),
+      cy: 340 - ((h >>> 9) % 60),
+      r: 110 + ((h >>> 11) % 50),
+      fill: pal.glowB,
+      op: 0.14
+    },
+    {
+      cx: 400 + ((h >>> 13) % 100) - 50,
+      cy: 110 + ((h >>> 15) % 40),
+      r: 60 + ((h >>> 17) % 40),
+      fill: pal.accent,
+      op: 0.1
+    }
   ];
 
   const dots: string[] = [];
@@ -144,12 +266,16 @@ export function buildCoverSvg({ seed, tags, label }: BuildOptions): string {
     for (let gx = 0; gx < 5; gx++) {
       dots.push(
         `<circle cx="${28 + gx * 30}" cy="${28 + gy * 30}" r="1.6"/>` +
-        `<circle cx="${640 + gx * 30}" cy="${350 + gy * 30}" r="1.6"/>`
+          `<circle cx="${640 + gx * 30}" cy="${350 + gy * 30}" r="1.6"/>`
       );
     }
   }
 
-  const glyphs = buildGlyphs(hash >>> 2, pal.accent, (label ?? "").slice(0, 22));
+  const glyphs = buildGlyphs(
+    hash >>> 2,
+    pal.accent,
+    (label ?? "").slice(0, 22)
+  );
   const glyphText = glyphs
     .map(
       ([txt, color], i) =>
@@ -157,8 +283,7 @@ export function buildCoverSvg({ seed, tags, label }: BuildOptions): string {
     )
     .join("");
 
-  const svg =
-`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
 <defs>
 <linearGradient id="g${id}" x1="0" y1="0" x2="800" y2="450" gradientUnits="userSpaceOnUse">
 <stop offset="0" stop-color="${pal.stops[0]}"/>

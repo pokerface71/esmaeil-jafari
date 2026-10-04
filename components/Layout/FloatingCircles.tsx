@@ -7,7 +7,7 @@ interface FloatingCirclesProps {
 
 const FloatingCircles: React.FC<FloatingCirclesProps> = ({
   colors,
-  count = 20,
+  count = 20
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +55,7 @@ const FloatingCircles: React.FC<FloatingCirclesProps> = ({
       ref={containerRef}
       className="absolute inset-0 overflow-hidden pointer-events-none"
       style={{
-        zIndex: 0,
+        zIndex: 0
       }}
     />
   );

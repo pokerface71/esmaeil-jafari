@@ -4,24 +4,24 @@ import { Badge } from "./Badge";
 const meta = {
   title: "Design System/Atoms/Badge",
   component: Badge,
-  tags: ["autodocs"],
+  tags: ["autodocs"]
 } satisfies Meta<typeof Badge>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Plain: Story = {
-  args: { children: "Frontend Developer" },
+  args: { children: "Frontend Developer" }
 };
 
 export const SuccessDot: Story = {
-  args: { dot: "success", children: "Available for new opportunities" },
+  args: { dot: "success", children: "Available for new opportunities" }
 };
 
 export const PrimaryDot: Story = {
-  args: { dot: "primary", children: "Open to work" },
+  args: { dot: "primary", children: "Open to work" }
 };
 
 export const MutedDot: Story = {
-  args: { dot: "muted", children: "Away" },
+  args: { dot: "muted", children: "Away" }
 };

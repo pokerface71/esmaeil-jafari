@@ -16,7 +16,7 @@ const SPOTS = [
   "#exp-3",
   "#github-card",
   "#contact-info",
-  "#contact-social",
+  "#contact-social"
 ];
 
 const AstronautFly: React.FC = () => {
@@ -70,10 +70,7 @@ const AstronautFly: React.FC = () => {
     const setSquash = (sy: number) =>
       root.style.setProperty("--sy", sy.toFixed(3));
 
-    const animate = (
-      dur: number,
-      step: (eased: number, raw: number) => void
-    ) =>
+    const animate = (dur: number, step: (eased: number, raw: number) => void) =>
       new Promise<void>((resolve) => {
         const t0 = performance.now();
         const ease = (t: number) =>
@@ -139,7 +136,7 @@ const AstronautFly: React.FC = () => {
         const arc = -Math.sin(e * Math.PI) * 56;
         pos = {
           x: start.x + (target.x - start.x) * e,
-          y: start.y + (target.y - start.y) * e + arc,
+          y: start.y + (target.y - start.y) * e + arc
         };
         setVars(pos);
         setRot(Math.sin(e * Math.PI) * lean * 0.5);
@@ -220,7 +217,14 @@ const AstronautFly: React.FC = () => {
               opacity="0.75"
             />
             <defs>
-              <linearGradient id="flameGrad" x1="30" y1="4" x2="30" y2="90" gradientUnits="userSpaceOnUse">
+              <linearGradient
+                id="flameGrad"
+                x1="30"
+                y1="4"
+                x2="30"
+                y2="90"
+                gradientUnits="userSpaceOnUse"
+              >
                 <stop stopColor="#fde68a" />
                 <stop offset="0.45" stopColor="#f97316" />
                 <stop offset="1" stopColor="#f43f5e" stopOpacity="0.15" />
@@ -236,22 +240,50 @@ const AstronautFly: React.FC = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              <linearGradient id="suitGrad" x1="70" y1="100" x2="150" y2="230" gradientUnits="userSpaceOnUse">
+              <linearGradient
+                id="suitGrad"
+                x1="70"
+                y1="100"
+                x2="150"
+                y2="230"
+                gradientUnits="userSpaceOnUse"
+              >
                 <stop stopColor="#ffffff" />
                 <stop offset="0.6" stopColor="#eef2ff" />
                 <stop offset="1" stopColor="#c7d2fe" />
               </linearGradient>
-              <linearGradient id="helmetGrad" x1="70" y1="30" x2="150" y2="130" gradientUnits="userSpaceOnUse">
+              <linearGradient
+                id="helmetGrad"
+                x1="70"
+                y1="30"
+                x2="150"
+                y2="130"
+                gradientUnits="userSpaceOnUse"
+              >
                 <stop stopColor="#ffffff" />
                 <stop offset="0.55" stopColor="#eef2ff" />
                 <stop offset="1" stopColor="#cbd5e1" />
               </linearGradient>
-              <linearGradient id="visorGrad" x1="84" y1="58" x2="136" y2="116" gradientUnits="userSpaceOnUse">
+              <linearGradient
+                id="visorGrad"
+                x1="84"
+                y1="58"
+                x2="136"
+                y2="116"
+                gradientUnits="userSpaceOnUse"
+              >
                 <stop stopColor="#a5f3fc" />
                 <stop offset="0.5" stopColor="#60a5fa" />
                 <stop offset="1" stopColor="#8b5cf6" />
               </linearGradient>
-              <linearGradient id="packGrad" x1="66" y1="90" x2="156" y2="180" gradientUnits="userSpaceOnUse">
+              <linearGradient
+                id="packGrad"
+                x1="66"
+                y1="90"
+                x2="156"
+                y2="180"
+                gradientUnits="userSpaceOnUse"
+              >
                 <stop stopColor="#a5b4fc" />
                 <stop offset="0.5" stopColor="#818cf8" />
                 <stop offset="1" stopColor="#6366f1" />
@@ -259,17 +291,74 @@ const AstronautFly: React.FC = () => {
             </defs>
 
             {/* Life-support backpack */}
-            <rect x="60" y="96" width="100" height="84" rx="24" fill="url(#packGrad)" />
-            <rect x="72" y="104" width="20" height="46" rx="10" fill="#c7d2fe" opacity="0.55" />
-            <rect x="128" y="104" width="20" height="46" rx="10" fill="#c7d2fe" opacity="0.55" />
-            <rect x="74" y="152" width="72" height="12" rx="6" fill="#e0e7ff" opacity="0.7" />
+            <rect
+              x="60"
+              y="96"
+              width="100"
+              height="84"
+              rx="24"
+              fill="url(#packGrad)"
+            />
+            <rect
+              x="72"
+              y="104"
+              width="20"
+              height="46"
+              rx="10"
+              fill="#c7d2fe"
+              opacity="0.55"
+            />
+            <rect
+              x="128"
+              y="104"
+              width="20"
+              height="46"
+              rx="10"
+              fill="#c7d2fe"
+              opacity="0.55"
+            />
+            <rect
+              x="74"
+              y="152"
+              width="72"
+              height="12"
+              rx="6"
+              fill="#e0e7ff"
+              opacity="0.7"
+            />
 
             {/* Legs / boots (tucked) */}
             <g>
-              <ellipse cx="98" cy="208" rx="16" ry="15" fill="url(#suitGrad)" stroke="#3a3564" strokeWidth="5" />
-              <ellipse cx="122" cy="208" rx="16" ry="15" fill="url(#suitGrad)" stroke="#3a3564" strokeWidth="5" />
-              <path d="M84 207 h8 M112 207 h8" stroke="#3a3564" strokeWidth="5" strokeLinecap="round" />
-              <path d="M96 194 l6 10 M118 194 l6 10" stroke="#cbd5e1" strokeWidth="7" strokeLinecap="round" />
+              <ellipse
+                cx="98"
+                cy="208"
+                rx="16"
+                ry="15"
+                fill="url(#suitGrad)"
+                stroke="#3a3564"
+                strokeWidth="5"
+              />
+              <ellipse
+                cx="122"
+                cy="208"
+                rx="16"
+                ry="15"
+                fill="url(#suitGrad)"
+                stroke="#3a3564"
+                strokeWidth="5"
+              />
+              <path
+                d="M84 207 h8 M112 207 h8"
+                stroke="#3a3564"
+                strokeWidth="5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M96 194 l6 10 M118 194 l6 10"
+                stroke="#cbd5e1"
+                strokeWidth="7"
+                strokeLinecap="round"
+              />
             </g>
 
             {/* Torso */}
@@ -279,17 +368,69 @@ const AstronautFly: React.FC = () => {
               stroke="#3a3564"
               strokeWidth="5.5"
             />
-            <rect x="76" y="158" width="68" height="14" rx="7" fill="#e0e7ff" stroke="#3a3564" strokeWidth="4" />
-            <rect x="100" y="158" width="20" height="14" rx="4" fill="#a5b4fc" />
-            <rect x="96" y="124" width="28" height="20" rx="6" fill="#dbeafe" stroke="#3a3564" strokeWidth="3.5" />
+            <rect
+              x="76"
+              y="158"
+              width="68"
+              height="14"
+              rx="7"
+              fill="#e0e7ff"
+              stroke="#3a3564"
+              strokeWidth="4"
+            />
+            <rect
+              x="100"
+              y="158"
+              width="20"
+              height="14"
+              rx="4"
+              fill="#a5b4fc"
+            />
+            <rect
+              x="96"
+              y="124"
+              width="28"
+              height="20"
+              rx="6"
+              fill="#dbeafe"
+              stroke="#3a3564"
+              strokeWidth="3.5"
+            />
             <circle cx="105" cy="134" r="2.6" fill="#22d3ee" />
             <circle cx="115" cy="134" r="2.6" fill="#f472b6" />
-            <rect x="98" y="178" width="24" height="8" rx="4" fill="#c7d2fe" opacity="0.8" />
+            <rect
+              x="98"
+              y="178"
+              width="24"
+              height="8"
+              rx="4"
+              fill="#c7d2fe"
+              opacity="0.8"
+            />
 
             {/* Helmet */}
-            <circle cx="110" cy="82" r="50" fill="url(#helmetGrad)" stroke="#3a3564" strokeWidth="5.5" />
-            <path d="M110 34 L116 16" stroke="#3a3564" strokeWidth="4" strokeLinecap="round" />
-            <circle cx="117" cy="14" r="5.5" fill="#f472b6" stroke="#3a3564" strokeWidth="2.5" />
+            <circle
+              cx="110"
+              cy="82"
+              r="50"
+              fill="url(#helmetGrad)"
+              stroke="#3a3564"
+              strokeWidth="5.5"
+            />
+            <path
+              d="M110 34 L116 16"
+              stroke="#3a3564"
+              strokeWidth="4"
+              strokeLinecap="round"
+            />
+            <circle
+              cx="117"
+              cy="14"
+              r="5.5"
+              fill="#f472b6"
+              stroke="#3a3564"
+              strokeWidth="2.5"
+            />
 
             {/* Visor */}
             <path
@@ -298,8 +439,20 @@ const AstronautFly: React.FC = () => {
               stroke="#3a3564"
               strokeWidth="5"
             />
-            <path d="M94 60 C104 56 116 58 126 64" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" opacity="0.85" />
-            <path d="M102 93 q8 7 18 0" stroke="#3a3564" strokeWidth="3.4" strokeLinecap="round" fill="none" />
+            <path
+              d="M94 60 C104 56 116 58 126 64"
+              stroke="#ffffff"
+              strokeWidth="6"
+              strokeLinecap="round"
+              opacity="0.85"
+            />
+            <path
+              d="M102 93 q8 7 18 0"
+              stroke="#3a3564"
+              strokeWidth="3.4"
+              strokeLinecap="round"
+              fill="none"
+            />
 
             {/* Face (grouped so we can blink) */}
             <g className="a-eyes">
@@ -311,26 +464,89 @@ const AstronautFly: React.FC = () => {
 
             {/* Left arm (static) */}
             <g>
-              <path d="M86 140 C74 122 68 106 58 92" stroke="#3a3564" strokeWidth="26" strokeLinecap="round" />
-              <path d="M86 140 C74 122 68 106 58 92" stroke="url(#suitGrad)" strokeWidth="19" strokeLinecap="round" />
-              <path d="M86 140 C78 126 72 112 66 100" stroke="#cbd5e1" strokeWidth="6" strokeLinecap="round" opacity="0.7" />
-              <circle cx="52" cy="86" r="13" fill="#e0e7ff" stroke="#3a3564" strokeWidth="5" />
+              <path
+                d="M86 140 C74 122 68 106 58 92"
+                stroke="#3a3564"
+                strokeWidth="26"
+                strokeLinecap="round"
+              />
+              <path
+                d="M86 140 C74 122 68 106 58 92"
+                stroke="url(#suitGrad)"
+                strokeWidth="19"
+                strokeLinecap="round"
+              />
+              <path
+                d="M86 140 C78 126 72 112 66 100"
+                stroke="#cbd5e1"
+                strokeWidth="6"
+                strokeLinecap="round"
+                opacity="0.7"
+              />
+              <circle
+                cx="52"
+                cy="86"
+                r="13"
+                fill="#e0e7ff"
+                stroke="#3a3564"
+                strokeWidth="5"
+              />
             </g>
 
             {/* Right arm (waves) */}
             <g
               className="a-arm-r"
-              style={{ transformBox: "view-box", transformOrigin: "140px 138px" }}
+              style={{
+                transformBox: "view-box",
+                transformOrigin: "140px 138px"
+              }}
             >
-              <path d="M134 140 C146 122 152 106 162 92" stroke="#3a3564" strokeWidth="26" strokeLinecap="round" />
-              <path d="M134 140 C146 122 152 106 162 92" stroke="url(#suitGrad)" strokeWidth="19" strokeLinecap="round" />
-              <path d="M134 140 C142 126 148 112 154 100" stroke="#cbd5e1" strokeWidth="6" strokeLinecap="round" opacity="0.7" />
-              <circle cx="168" cy="86" r="13" fill="#e0e7ff" stroke="#3a3564" strokeWidth="5" />
+              <path
+                d="M134 140 C146 122 152 106 162 92"
+                stroke="#3a3564"
+                strokeWidth="26"
+                strokeLinecap="round"
+              />
+              <path
+                d="M134 140 C146 122 152 106 162 92"
+                stroke="url(#suitGrad)"
+                strokeWidth="19"
+                strokeLinecap="round"
+              />
+              <path
+                d="M134 140 C142 126 148 112 154 100"
+                stroke="#cbd5e1"
+                strokeWidth="6"
+                strokeLinecap="round"
+                opacity="0.7"
+              />
+              <circle
+                cx="168"
+                cy="86"
+                r="13"
+                fill="#e0e7ff"
+                stroke="#3a3564"
+                strokeWidth="5"
+              />
             </g>
 
             {/* Shoulder puffs */}
-            <circle cx="88" cy="136" r="15" fill="url(#helmetGrad)" stroke="#3a3564" strokeWidth="5" />
-            <circle cx="132" cy="136" r="15" fill="url(#helmetGrad)" stroke="#3a3564" strokeWidth="5" />
+            <circle
+              cx="88"
+              cy="136"
+              r="15"
+              fill="url(#helmetGrad)"
+              stroke="#3a3564"
+              strokeWidth="5"
+            />
+            <circle
+              cx="132"
+              cy="136"
+              r="15"
+              fill="url(#helmetGrad)"
+              stroke="#3a3564"
+              strokeWidth="5"
+            />
           </svg>
         </div>
       </div>

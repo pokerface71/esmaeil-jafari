@@ -1,26 +1,16 @@
 "use client";
+import AuroraBackground from "components/design-system/organisms/AuroraBackground";
+import Footer from "components/design-system/organisms/Footer";
+import Header from "components/design-system/organisms/Header";
+import { coverArtDataUri } from "lib/coverArt";
+import { useI18n } from "lib/i18n";
+import { DEFAULT_OG_IMAGE, SITE_NAME, absoluteUrl } from "lib/seo";
+import { isSupabaseConfigured, toPostView, type Post } from "lib/supabase";
+import { cn } from "lib/utils";
 import Link from "next/link";
 import { FaArrowRight, FaCalendarAlt } from "react-icons/fa";
-import AuroraBackground from "components/design-system/organisms/AuroraBackground";
-import Header from "components/design-system/organisms/Header";
-import Footer from "components/design-system/organisms/Footer";
-import { useI18n } from "lib/i18n";
-import {
-  getPublishedPostsRaw,
-  toPostView,
-  isSupabaseConfigured,
-  type Post,
-} from "lib/supabase";
-import { coverArtDataUri } from "lib/coverArt";
-import { cn } from "lib/utils";
-import {
-  DEFAULT_OG_IMAGE,
-  SITE_NAME,
-  absoluteUrl,
-} from "lib/seo";
 
-const BLOG_DESCRIPTION =
-  `Articles on frontend development, React, Next.js and modern web technologies by ${SITE_NAME}.`;
+const BLOG_DESCRIPTION = `Articles on frontend development, React, Next.js and modern web technologies by ${SITE_NAME}.`;
 
 /**
  * Blog list route data (App Router equivalent of pages/blog/index.tsx).
@@ -39,16 +29,16 @@ export async function generateMetadata(): Promise<import("next").Metadata> {
       title: "Blog | Esmaeil Jafari",
       description: BLOG_DESCRIPTION,
       url: absoluteUrl("/blog"),
-      images: [{ url: DEFAULT_OG_IMAGE }],
+      images: [{ url: DEFAULT_OG_IMAGE }]
     },
     twitter: {
       card: "summary",
       title: "Blog | Esmaeil Jafari",
-      description: BLOG_DESCRIPTION,
+      description: BLOG_DESCRIPTION
     },
     alternates: {
-      canonical: absoluteUrl("/blog"),
-    },
+      canonical: absoluteUrl("/blog")
+    }
   };
 }
 
@@ -64,13 +54,13 @@ function formatDate(iso: string | null, locale: string): string {
     return new Date(iso).toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
-      day: "numeric",
+      day: "numeric"
     });
   } catch {
     return new Date(iso).toLocaleDateString("en", {
       year: "numeric",
       month: "long",
-      day: "numeric",
+      day: "numeric"
     });
   }
 }
@@ -96,7 +86,8 @@ export default function BlogList({ posts }: BlogListProps) {
               {t("blog.label")}
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.06]">
-              {t("blog.title")} <span className="gradient-text">{t("blog.title.highlight")}</span>
+              {t("blog.title")}{" "}
+              <span className="gradient-text">{t("blog.title.highlight")}</span>
             </h1>
           </div>
 
@@ -127,7 +118,7 @@ export default function BlogList({ posts }: BlogListProps) {
                     coverArtDataUri({
                       seed: post.id,
                       tags: post.tags,
-                      label: post.tags?.[0] ?? post.slug,
+                      label: post.tags?.[0] ?? post.slug
                     })
                   }
                   alt={post.title}

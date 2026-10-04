@@ -20,7 +20,7 @@ export const ContactInfoItem: React.FC<ContactInfoItemProps> = ({
   category,
   value,
   tone = "violet",
-  className,
+  className
 }) => (
   <div
     className={cn(

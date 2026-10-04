@@ -28,7 +28,8 @@ const BackToTop: React.FC = () => {
       )}
       style={{
         background: "linear-gradient(135deg, #6366f1, #8b5cf6 60%, #d946ef)",
-        boxShadow: "0 8px 30px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255,255,255,0.25)",
+        boxShadow:
+          "0 8px 30px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255,255,255,0.25)"
       }}
     >
       <FaArrowUp className="text-sm" />

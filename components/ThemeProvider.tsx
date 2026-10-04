@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode
+} from "react";
 
 type Theme = "dark" | "light";
 
@@ -9,7 +15,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType>({
   theme: "dark",
-  toggleTheme: () => {},
+  toggleTheme: () => {}
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

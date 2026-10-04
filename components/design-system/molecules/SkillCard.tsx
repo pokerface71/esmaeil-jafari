@@ -32,7 +32,7 @@ export const SkillCard: React.FC<SkillCardProps> = ({
   ring,
   delay = "0s",
   isVisible = true,
-  id,
+  id
 }) => (
   <div
     data-spot
@@ -62,7 +62,10 @@ export const SkillCard: React.FC<SkillCardProps> = ({
           ring
         )}
       >
-        <Icon size={30} className={cn(color, "transition-transform duration-500")} />
+        <Icon
+          size={30}
+          className={cn(color, "transition-transform duration-500")}
+        />
       </div>
     </div>
 

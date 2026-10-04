@@ -13,5 +13,5 @@ export interface GradientTextProps {
 export const GradientText: React.FC<GradientTextProps> = ({
   as: Tag = "span",
   children,
-  className,
+  className
 }) => <Tag className={cn("gradient-text", className)}>{children}</Tag>;

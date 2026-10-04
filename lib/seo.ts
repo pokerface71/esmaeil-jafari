@@ -46,8 +46,8 @@ export const personJsonLd = {
   sameAs: [
     "https://github.com/pokerface71",
     "https://www.linkedin.com/in/esmaeil-jafari1992/",
-    "https://instagram.com/esmaeil_jafari_official",
-  ],
+    "https://instagram.com/esmaeil_jafari_official"
+  ]
 };
 
 /** schema.org BlogPosting for a single article. */
@@ -69,16 +69,16 @@ export function blogPostingJsonLd(post: {
     author: {
       "@type": "Person",
       name: SITE_NAME,
-      url: `${SITE_URL}/`,
+      url: `${SITE_URL}/`
     },
     publisher: {
       "@type": "Person",
       name: SITE_NAME,
-      url: `${SITE_URL}/`,
+      url: `${SITE_URL}/`
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": absoluteUrl(`/blog/${post.slug}`),
-    },
+      "@id": absoluteUrl(`/blog/${post.slug}`)
+    }
   };
 }

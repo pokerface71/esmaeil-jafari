@@ -8,13 +8,13 @@ import {
   DiNodejs,
   DiReact,
   DiSass,
-  DiWordpress,
+  DiWordpress
 } from "react-icons/di";
 import {
   SiNextdotjs,
   SiRedux,
   SiTailwindcss,
-  SiTypescript,
+  SiTypescript
 } from "react-icons/si";
 
 interface MarqueeItem {
@@ -36,7 +36,7 @@ const items: MarqueeItem[] = [
   { Icon: DiNodejs, name: "Node.js", className: "text-green-400" },
   { Icon: DiGit, name: "Git", className: "text-orange-300" },
   { Icon: DiBootstrap, name: "Bootstrap", className: "text-violet-400" },
-  { Icon: DiWordpress, name: "WordPress", className: "text-blue-300" },
+  { Icon: DiWordpress, name: "WordPress", className: "text-blue-300" }
 ];
 
 const Group: React.FC<{ ariaHidden?: boolean }> = ({ ariaHidden }) => (

@@ -2,7 +2,7 @@ import React from "react";
 
 const MuiIcon: React.FC<{ size?: string | number; className?: string }> = ({
   size = 24,
-  className = "",
+  className = ""
 }) => {
   return (
     <svg

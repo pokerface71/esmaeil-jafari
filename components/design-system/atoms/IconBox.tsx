@@ -16,13 +16,13 @@ const tones: Record<NonNullable<IconBoxProps["tone"]>, string> = {
   amber: "bg-amber-400/10 border-amber-300/25 text-amber-300",
   green: "bg-green-500/15 border-green-400/20 text-green-300",
   blue: "bg-blue-500/15 border-blue-400/20 text-blue-300",
-  pink: "bg-pink-500/15 border-pink-400/20 text-pink-300",
+  pink: "bg-pink-500/15 border-pink-400/20 text-pink-300"
 };
 
 const sizes: Record<NonNullable<IconBoxProps["size"]>, string> = {
   sm: "h-8 w-8 rounded-lg [&_svg]:w-3.5 [&_svg]:h-3.5",
   md: "h-11 w-11 rounded-xl [&_svg]:w-[17px] [&_svg]:h-[17px]",
-  lg: "h-14 w-14 rounded-2xl [&_svg]:w-6 [&_svg]:h-6",
+  lg: "h-14 w-14 rounded-2xl [&_svg]:w-6 [&_svg]:h-6"
 };
 
 /**
@@ -33,7 +33,7 @@ export const IconBox: React.FC<IconBoxProps> = ({
   icon,
   tone = "violet",
   size = "md",
-  className,
+  className
 }) => (
   <span
     className={cn(

@@ -11,7 +11,7 @@ const semanticColors = [
   { name: "--accent", css: "hsl(var(--accent))" },
   { name: "--destructive", css: "hsl(var(--destructive))" },
   { name: "--border", css: "hsl(var(--border))" },
-  { name: "--ring", css: "hsl(var(--ring))" },
+  { name: "--ring", css: "hsl(var(--ring))" }
 ];
 
 const gradients = [
@@ -19,22 +19,27 @@ const gradients = [
   { name: "--gradient-cta", css: "var(--gradient-cta)" },
   { name: "--gradient-accent", css: "var(--gradient-accent)" },
   { name: "--gradient-warm", css: "var(--gradient-warm)" },
-  { name: "--gradient-cool", css: "var(--gradient-cool)" },
+  { name: "--gradient-cool", css: "var(--gradient-cool)" }
 ];
 
 const radii = [
   { name: "--radius-sm", css: "calc(var(--radius) - 4px)" },
   { name: "--radius-md", css: "calc(var(--radius) - 2px)" },
-  { name: "--radius-lg", css: "var(--radius)" },
+  { name: "--radius-lg", css: "var(--radius)" }
 ];
 
-const Swatch: React.FC<{ color: string; label: string }> = ({ color, label }) => (
+const Swatch: React.FC<{ color: string; label: string }> = ({
+  color,
+  label
+}) => (
   <div className="flex flex-col items-center gap-2 w-24">
     <div
       className="w-20 h-20 rounded-2xl border border-white/10"
       style={{ background: color }}
     />
-    <code className="text-[10px] text-muted-foreground text-center">{label}</code>
+    <code className="text-[10px] text-muted-foreground text-center">
+      {label}
+    </code>
   </div>
 );
 
@@ -45,10 +50,10 @@ const meta = {
     docs: {
       description: {
         component:
-          "Single source of truth from `styles/tokens.css`. Semantic colors are HSL triplets swapped by the `[data-theme='light']` override — switch the theme in the toolbar to see every swatch react. Nothing in the design system may hardcode a color; everything consumes these tokens.",
-      },
-    },
-  },
+          "Single source of truth from `styles/tokens.css`. Semantic colors are HSL triplets swapped by the `[data-theme='light']` override — switch the theme in the toolbar to see every swatch react. Nothing in the design system may hardcode a color; everything consumes these tokens."
+      }
+    }
+  }
 } satisfies Meta;
 
 export default meta;
@@ -82,7 +87,9 @@ export const Overview: Story = {
                 className="w-36 h-16 rounded-2xl border border-white/10"
                 style={{ background: g.css }}
               />
-              <code className="text-[10px] text-muted-foreground">{g.name}</code>
+              <code className="text-[10px] text-muted-foreground">
+                {g.name}
+              </code>
             </div>
           ))}
         </div>
@@ -97,7 +104,9 @@ export const Overview: Story = {
                 className="w-20 h-16 border border-white/15 bg-white/5"
                 style={{ borderRadius: r.css }}
               />
-              <code className="text-[10px] text-muted-foreground">{r.name}</code>
+              <code className="text-[10px] text-muted-foreground">
+                {r.name}
+              </code>
             </div>
           ))}
         </div>
@@ -110,12 +119,15 @@ export const Overview: Story = {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {["glass", "glass-light", "glass-card"].map((cls) => (
-            <div key={cls} className={`${cls} rounded-3xl p-6 h-28 flex items-center`}>
+            <div
+              key={cls}
+              className={`${cls} rounded-3xl p-6 h-28 flex items-center`}
+            >
               <code className="text-xs text-muted-foreground">.{cls}</code>
             </div>
           ))}
         </div>
       </section>
     </div>
-  ),
+  )
 };

@@ -16,8 +16,7 @@ export function useRevealOnScroll(): Record<string, boolean> {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const id =
-              (entry.target as HTMLElement).dataset.animate ||
-              entry.target.id;
+              (entry.target as HTMLElement).dataset.animate || entry.target.id;
             if (id) {
               setVisible((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
             }

@@ -1,6 +1,6 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { getPublishedPostsRaw } from "lib/supabase";
 import { absoluteUrl, lastmod } from "lib/seo";
+import { getPublishedPostsRaw } from "lib/supabase";
+import { type NextRequest, NextResponse } from "next/server";
 
 /**
  * Dynamic sitemap at `/sitemap.xml`.
@@ -12,9 +12,7 @@ import { absoluteUrl, lastmod } from "lib/seo";
  * stays accurate for up to a minute).
  */
 function urlEntry(loc: string, modified?: string): string {
-  const last = modified
-    ? `\n    <lastmod>${modified}</lastmod>`
-    : "";
+  const last = modified ? `\n    <lastmod>${modified}</lastmod>` : "";
   return `  <url>\n    <loc>${loc}</loc>${last}\n  </url>`;
 }
 
@@ -30,7 +28,7 @@ export async function GET(request: NextRequest) {
         absoluteUrl(`/blog/${post.slug}`),
         lastmod(post.updated_at || post.published_at)
       )
-    ),
+    )
   ];
 
   const xml = [
@@ -38,13 +36,13 @@ export async function GET(request: NextRequest) {
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
     ...entries,
     `</urlset>`,
-    ``,
+    ``
   ].join("\n");
 
   return new NextResponse(xml, {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
-      "Cache-Control": "public, max-age=0, s-maxage=3600",
-    },
+      "Cache-Control": "public, max-age=0, s-maxage=3600"
+    }
   });
 }

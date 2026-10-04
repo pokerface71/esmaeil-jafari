@@ -5,14 +5,14 @@ import {
   FaArrowRight,
   FaCalendarAlt,
   FaChevronLeft,
-  FaChevronRight,
+  FaChevronRight
 } from "react-icons/fa";
 import AuroraBackground from "components/design-system/organisms/AuroraBackground";
 import { useI18n } from "lib/i18n";
 import {
   getPublishedPosts,
   isSupabaseConfigured,
-  type PostView,
+  type PostView
 } from "lib/supabase";
 import { coverArtDataUri } from "lib/coverArt";
 import { cn } from "lib/utils";
@@ -23,13 +23,13 @@ function formatDate(iso: string | null, locale: string): string {
     return new Date(iso).toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
-      day: "numeric",
+      day: "numeric"
     });
   } catch {
     return new Date(iso).toLocaleDateString("en", {
       year: "numeric",
       month: "long",
-      day: "numeric",
+      day: "numeric"
     });
   }
 }
@@ -286,7 +286,7 @@ export default function BlogSection() {
                   transform: translate,
                   transition: dragging
                     ? "none"
-                    : "transform 650ms cubic-bezier(0.22, 1, 0.36, 1)",
+                    : "transform 650ms cubic-bezier(0.22, 1, 0.36, 1)"
                 }}
               >
                 {posts.map((post) => (
@@ -315,7 +315,7 @@ export default function BlogSection() {
                           coverArtDataUri({
                             seed: post.id,
                             tags: post.tags,
-                            label: post.tags?.[0] ?? post.slug,
+                            label: post.tags?.[0] ?? post.slug
                           })
                         }
                         alt={post.title}
@@ -409,9 +409,7 @@ export default function BlogSection() {
               className="btn-ghost inline-flex items-center gap-2.5 rounded-xl px-7 py-3 text-sm font-semibold"
             >
               {t("blog.view_all")}
-              <FaArrowRight
-                className={cn("text-xs", rtl && "rotate-180")}
-              />
+              <FaArrowRight className={cn("text-xs", rtl && "rotate-180")} />
             </Link>
           </div>
         )}

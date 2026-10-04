@@ -1,22 +1,8 @@
 "use client";
-import React, { useRef } from "react";
+import { cn } from "lib/utils";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { cn } from "lib/utils";
-import {
-  FaEnvelope,
-  FaInstagram,
-  FaLinkedin,
-  FaMapMarkerAlt,
-  FaPhone,
-  FaWhatsapp,
-  FaCalendarAlt,
-  FaCode,
-  FaRocket,
-  FaGlobe,
-  FaBolt,
-  FaArrowRight,
-} from "react-icons/fa";
+import React, { useRef } from "react";
 import {
   DiBootstrap,
   DiCss3,
@@ -27,68 +13,201 @@ import {
   DiPhotoshop,
   DiReact,
   DiSass,
-  DiWordpress,
+  DiWordpress
 } from "react-icons/di";
+import {
+  FaArrowRight,
+  FaBolt,
+  FaCalendarAlt,
+  FaCode,
+  FaEnvelope,
+  FaGlobe,
+  FaInstagram,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaRocket,
+  FaWhatsapp
+} from "react-icons/fa";
 import {
   SiNextdotjs,
   SiRedux,
   SiTailwindcss,
-  SiTypescript,
+  SiTypescript
 } from "react-icons/si";
 
-import MuiIcon from "components/design-system/atoms/MuiIcon";
 import {
   Badge,
   Button,
   GlassCard,
   GradientText,
-  IconBox,
+  IconBox
 } from "components/design-system/atoms";
-import { SocialIconLink } from "components/design-system/molecules/SocialIconLink";
+import MuiIcon from "components/design-system/atoms/MuiIcon";
 import {
-  SkillCard,
-  SectionHeader,
-  StatCard,
-  SocialListRow,
-  ContactInfoItem,
-} from "components/design-system/molecules";
-import {
-  AuroraBackground,
-  AnimatedRays,
-  TechMarquee,
-  Footer,
-  BackToTop,
-  AstronautFly,
-  BlogSection,
-} from "components/design-system/organisms";
-import Header from "components/design-system/organisms/Header";
-import { useI18n } from "lib/i18n";
-import ScrollProgress from "components/design-system/organisms/ScrollProgress";
-import {
+  useParallax,
   useRevealOnScroll,
   useSpotlight,
-  useParallax,
-  useTilt,
+  useTilt
 } from "components/design-system/hooks";
-import { experienceTranslations } from "lib/i18n";
+import {
+  ContactInfoItem,
+  SectionHeader,
+  SkillCard,
+  SocialListRow,
+  StatCard
+} from "components/design-system/molecules";
+import { SocialIconLink } from "components/design-system/molecules/SocialIconLink";
+import {
+  AnimatedRays,
+  AstronautFly,
+  AuroraBackground,
+  BackToTop,
+  BlogSection,
+  Footer,
+  TechMarquee
+} from "components/design-system/organisms";
+import Header from "components/design-system/organisms/Header";
+import ScrollProgress from "components/design-system/organisms/ScrollProgress";
+import { experienceTranslations, useI18n } from "lib/i18n";
 import ProfileImage from "../../../assets/Images/esmaeiljafari.jpg";
 
 const skills = [
-  { Icon: DiHtml5, name: "HTML5", color: "text-orange-400", tile: "bg-orange-500/10", glow: "bg-orange-500", ring: "border-orange-400/25", delay: "0.05s" },
-  { Icon: DiCss3, name: "CSS3", color: "text-blue-400", tile: "bg-blue-500/10", glow: "bg-blue-500", ring: "border-blue-400/25", delay: "0.1s" },
-  { Icon: DiSass, name: "SASS", color: "text-pink-400", tile: "bg-pink-500/10", glow: "bg-pink-500", ring: "border-pink-400/25", delay: "0.15s" },
-  { Icon: DiJavascript1, name: "JavaScript", color: "text-yellow-300", tile: "bg-yellow-400/10", glow: "bg-yellow-400", ring: "border-yellow-300/25", delay: "0.2s" },
-  { Icon: DiReact, name: "React", color: "text-cyan-400", tile: "bg-cyan-500/10", glow: "bg-cyan-400", ring: "border-cyan-400/25", delay: "0.25s" },
-  { Icon: SiNextdotjs, name: "Next.js", color: "text-slate-200", tile: "bg-slate-400/10", glow: "bg-slate-300", ring: "border-slate-300/20", delay: "0.3s" },
-  { Icon: SiTypescript, name: "TypeScript", color: "text-blue-300", tile: "bg-blue-400/10", glow: "bg-blue-400", ring: "border-blue-300/25", delay: "0.35s" },
-  { Icon: SiTailwindcss, name: "Tailwind", color: "text-sky-300", tile: "bg-sky-400/10", glow: "bg-sky-400", ring: "border-sky-300/25", delay: "0.4s" },
-  { Icon: SiRedux, name: "Redux", color: "text-purple-400", tile: "bg-purple-500/10", glow: "bg-purple-500", ring: "border-purple-400/25", delay: "0.45s" },
-  { Icon: DiNodejs, name: "Node.js", color: "text-green-400", tile: "bg-green-500/10", glow: "bg-green-500", ring: "border-green-400/25", delay: "0.5s" },
-  { Icon: DiGit, name: "Git", color: "text-orange-400", tile: "bg-orange-400/10", glow: "bg-orange-400", ring: "border-orange-300/25", delay: "0.55s" },
-  { Icon: DiBootstrap, name: "Bootstrap", color: "text-violet-400", tile: "bg-violet-500/10", glow: "bg-violet-500", ring: "border-violet-400/25", delay: "0.6s" },
-  { Icon: DiWordpress, name: "WordPress", color: "text-blue-400", tile: "bg-blue-400/10", glow: "bg-blue-400", ring: "border-blue-300/25", delay: "0.65s" },
-  { Icon: DiPhotoshop, name: "Photoshop", color: "text-sky-400", tile: "bg-sky-400/10", glow: "bg-sky-400", ring: "border-sky-300/25", delay: "0.7s" },
-  { Icon: MuiIcon, name: "MUI", color: "text-blue-400", tile: "bg-blue-500/10", glow: "bg-blue-500", ring: "border-blue-400/25", delay: "0.75s" },
+  {
+    Icon: DiHtml5,
+    name: "HTML5",
+    color: "text-orange-400",
+    tile: "bg-orange-500/10",
+    glow: "bg-orange-500",
+    ring: "border-orange-400/25",
+    delay: "0.05s"
+  },
+  {
+    Icon: DiCss3,
+    name: "CSS3",
+    color: "text-blue-400",
+    tile: "bg-blue-500/10",
+    glow: "bg-blue-500",
+    ring: "border-blue-400/25",
+    delay: "0.1s"
+  },
+  {
+    Icon: DiSass,
+    name: "SASS",
+    color: "text-pink-400",
+    tile: "bg-pink-500/10",
+    glow: "bg-pink-500",
+    ring: "border-pink-400/25",
+    delay: "0.15s"
+  },
+  {
+    Icon: DiJavascript1,
+    name: "JavaScript",
+    color: "text-yellow-300",
+    tile: "bg-yellow-400/10",
+    glow: "bg-yellow-400",
+    ring: "border-yellow-300/25",
+    delay: "0.2s"
+  },
+  {
+    Icon: DiReact,
+    name: "React",
+    color: "text-cyan-400",
+    tile: "bg-cyan-500/10",
+    glow: "bg-cyan-400",
+    ring: "border-cyan-400/25",
+    delay: "0.25s"
+  },
+  {
+    Icon: SiNextdotjs,
+    name: "Next.js",
+    color: "text-slate-200",
+    tile: "bg-slate-400/10",
+    glow: "bg-slate-300",
+    ring: "border-slate-300/20",
+    delay: "0.3s"
+  },
+  {
+    Icon: SiTypescript,
+    name: "TypeScript",
+    color: "text-blue-300",
+    tile: "bg-blue-400/10",
+    glow: "bg-blue-400",
+    ring: "border-blue-300/25",
+    delay: "0.35s"
+  },
+  {
+    Icon: SiTailwindcss,
+    name: "Tailwind",
+    color: "text-sky-300",
+    tile: "bg-sky-400/10",
+    glow: "bg-sky-400",
+    ring: "border-sky-300/25",
+    delay: "0.4s"
+  },
+  {
+    Icon: SiRedux,
+    name: "Redux",
+    color: "text-purple-400",
+    tile: "bg-purple-500/10",
+    glow: "bg-purple-500",
+    ring: "border-purple-400/25",
+    delay: "0.45s"
+  },
+  {
+    Icon: DiNodejs,
+    name: "Node.js",
+    color: "text-green-400",
+    tile: "bg-green-500/10",
+    glow: "bg-green-500",
+    ring: "border-green-400/25",
+    delay: "0.5s"
+  },
+  {
+    Icon: DiGit,
+    name: "Git",
+    color: "text-orange-400",
+    tile: "bg-orange-400/10",
+    glow: "bg-orange-400",
+    ring: "border-orange-300/25",
+    delay: "0.55s"
+  },
+  {
+    Icon: DiBootstrap,
+    name: "Bootstrap",
+    color: "text-violet-400",
+    tile: "bg-violet-500/10",
+    glow: "bg-violet-500",
+    ring: "border-violet-400/25",
+    delay: "0.6s"
+  },
+  {
+    Icon: DiWordpress,
+    name: "WordPress",
+    color: "text-blue-400",
+    tile: "bg-blue-400/10",
+    glow: "bg-blue-400",
+    ring: "border-blue-300/25",
+    delay: "0.65s"
+  },
+  {
+    Icon: DiPhotoshop,
+    name: "Photoshop",
+    color: "text-sky-400",
+    tile: "bg-sky-400/10",
+    glow: "bg-sky-400",
+    ring: "border-sky-300/25",
+    delay: "0.7s"
+  },
+  {
+    Icon: MuiIcon,
+    name: "MUI",
+    color: "text-blue-400",
+    tile: "bg-blue-500/10",
+    glow: "bg-blue-500",
+    ring: "border-blue-400/25",
+    delay: "0.75s"
+  }
 ];
 
 const socials = [
@@ -96,20 +215,23 @@ const socials = [
     href: "https://www.linkedin.com/in/esmaeil-jafari1992/",
     icon: FaLinkedin,
     label: "LinkedIn",
-    color: "hover:text-blue-400 hover:border-blue-400/40 hover:shadow-blue-500/10",
+    color:
+      "hover:text-blue-400 hover:border-blue-400/40 hover:shadow-blue-500/10"
   },
   {
     href: "https://instagram.com/esmaeil_jafari_official",
     icon: FaInstagram,
     label: "Instagram",
-    color: "hover:text-pink-400 hover:border-pink-400/40 hover:shadow-pink-500/10",
+    color:
+      "hover:text-pink-400 hover:border-pink-400/40 hover:shadow-pink-500/10"
   },
   {
     href: "https://api.whatsapp.com/send?phone=989035954105",
     icon: FaWhatsapp,
     label: "WhatsApp",
-    color: "hover:text-green-400 hover:border-green-400/40 hover:shadow-green-500/10",
-  },
+    color:
+      "hover:text-green-400 hover:border-green-400/40 hover:shadow-green-500/10"
+  }
 ];
 
 export interface HomeTemplateProps {
@@ -135,18 +257,22 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
   useTilt();
   const { t, locale, dir } = useI18n();
 
-  const experiences = experienceTranslations[locale] ?? experienceTranslations.en;
+  const experiences =
+    experienceTranslations[locale] ?? experienceTranslations.en;
 
   const refs = {
     home: useRef<HTMLDivElement>(null),
     about: useRef<HTMLDivElement>(null),
     skills: useRef<HTMLDivElement>(null),
     experience: useRef<HTMLDivElement>(null),
-    contact: useRef<HTMLDivElement>(null),
+    contact: useRef<HTMLDivElement>(null)
   };
 
   React.useEffect(() => {
-    const scrollOptions: ScrollIntoViewOptions = { behavior: "smooth", block: "start" };
+    const scrollOptions: ScrollIntoViewOptions = {
+      behavior: "smooth",
+      block: "start"
+    };
     const target =
       scroll === "experience"
         ? refs.experience.current
@@ -246,11 +372,23 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
                 id="hero-cta"
                 style={{ animationDelay: "0.4s" }}
               >
-                <Button variant="primary" onClick={() => { window.location.href = "/?scroll=experience"; }}>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    window.location.href = "/?scroll=experience";
+                  }}
+                >
                   {t("hero.cta.experience")}
-                  <FaArrowRight className={cn("text-xs", dir === "rtl" && "rotate-180")} />
+                  <FaArrowRight
+                    className={cn("text-xs", dir === "rtl" && "rotate-180")}
+                  />
                 </Button>
-                <Button variant="secondary" onClick={() => { window.location.href = "/?scroll=contact"; }}>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    window.location.href = "/?scroll=contact";
+                  }}
+                >
                   {t("hero.cta.contact")}
                 </Button>
               </div>
@@ -280,7 +418,9 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
             <div
               data-animate="hero-image"
               className={`relative shrink-0 ${
-                isVisible["hero-image"] ? "animate-scale-in" : "opacity-0 scale-90"
+                isVisible["hero-image"]
+                  ? "animate-scale-in"
+                  : "opacity-0 scale-90"
               }`}
               id="hero-image"
               style={{ animationDelay: "0.2s" }}
@@ -299,7 +439,10 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
                       />
                     </defs>
                     <text style={{ fontSize: "6px", letterSpacing: "0.24em" }}>
-                      <textPath href="#hero-orbit-text" className="fill-violet-200/70">
+                      <textPath
+                        href="#hero-orbit-text"
+                        className="fill-violet-200/70"
+                      >
                         ESMAEIL JAFARI • FRONTEND DEVELOPER • REACT • NEXT.JS
                       </textPath>
                     </text>
@@ -643,7 +786,8 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
                         <FaArrowRight
                           className={cn(
                             "text-[10px] transition-transform duration-300 group-hover:translate-x-1",
-                            dir === "rtl" && "rotate-180 group-hover:-translate-x-1"
+                            dir === "rtl" &&
+                              "rotate-180 group-hover:-translate-x-1"
                           )}
                         />
                       </a>
@@ -747,7 +891,11 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
               )}
             >
               <div className="flex items-center gap-3 mb-7">
-                <IconBox tone="violet" icon={<FaEnvelope className="text-sm" />} className="h-9 w-9 rounded-xl" />
+                <IconBox
+                  tone="violet"
+                  icon={<FaEnvelope className="text-sm" />}
+                  className="h-9 w-9 rounded-xl"
+                />
                 <h3 className="text-lg font-bold tracking-tight">
                   {t("contact.info.title")}
                 </h3>
@@ -790,7 +938,11 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
               )}
             >
               <div className="flex items-center gap-3 mb-7">
-                <IconBox tone="fuchsia" icon={<FaInstagram className="text-sm" />} className="h-9 w-9 rounded-xl" />
+                <IconBox
+                  tone="fuchsia"
+                  icon={<FaInstagram className="text-sm" />}
+                  className="h-9 w-9 rounded-xl"
+                />
                 <h3 className="text-lg font-bold tracking-tight">
                   {t("contact.social.title")}
                 </h3>

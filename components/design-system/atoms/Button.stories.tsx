@@ -6,34 +6,34 @@ const meta = {
   title: "Design System/Atoms/Button",
   component: Button,
   tags: ["autodocs"],
-  args: { children: "Get In Touch" },
+  args: { children: "Get In Touch" }
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: { variant: "primary", children: "View Experience" },
+  args: { variant: "primary", children: "View Experience" }
 };
 
 export const Secondary: Story = {
-  args: { variant: "secondary", children: "Get In Touch" },
+  args: { variant: "secondary", children: "Get In Touch" }
 };
 
 export const Default: Story = {
-  args: { variant: "default" },
+  args: { variant: "default" }
 };
 
 export const Outline: Story = {
-  args: { variant: "outline" },
+  args: { variant: "outline" }
 };
 
 export const Destructive: Story = {
-  args: { variant: "destructive" },
+  args: { variant: "destructive" }
 };
 
 export const Ghost: Story = {
-  args: { variant: "ghost" },
+  args: { variant: "ghost" }
 };
 
 export const WithIcon: Story = {
@@ -43,10 +43,10 @@ export const WithIcon: Story = {
       <>
         Next <FaArrowRight className="text-xs" />
       </>
-    ),
-  },
+    )
+  }
 };
 
 export const Disabled: Story = {
-  args: { variant: "primary", disabled: true },
+  args: { variant: "primary", disabled: true }
 };

@@ -44,7 +44,7 @@ const emptyDraft = (): Draft => ({
   cover_image_url: "",
   tags: "",
   published: false,
-  translations: [{ language: "fa", title: "", excerpt: "", content: "" }],
+  translations: [{ language: "fa", title: "", excerpt: "", content: "" }]
 });
 
 function draftFromPost(post: Post): Draft {
@@ -58,8 +58,8 @@ function draftFromPost(post: Post): Draft {
       language: tr.language,
       title: tr.title,
       excerpt: tr.excerpt,
-      content: tr.content,
-    })),
+      content: tr.content
+    }))
   };
 }
 
@@ -106,7 +106,7 @@ export default function AdminPage() {
     setError(null);
     const { error: err } = await client.auth.signInWithPassword({
       email,
-      password,
+      password
     });
     if (err) setError(err.message);
     setSaving(false);
@@ -160,7 +160,7 @@ export default function AdminPage() {
           .map((s) => s.trim())
           .filter(Boolean),
         published: draft.published,
-        published_at: draft.published ? new Date().toISOString() : null,
+        published_at: draft.published ? new Date().toISOString() : null
       };
 
       let postId = draft.id;
@@ -182,17 +182,15 @@ export default function AdminPage() {
       }
 
       // Upsert translations
-      const { error: trErr } = await client
-        .from("post_translations")
-        .upsert(
-          validTranslations.map((tr) => ({
-            post_id: postId,
-            language: tr.language,
-            title: tr.title.trim(),
-            excerpt: tr.excerpt.trim(),
-            content: tr.content,
-          }))
-        );
+      const { error: trErr } = await client.from("post_translations").upsert(
+        validTranslations.map((tr) => ({
+          post_id: postId,
+          language: tr.language,
+          title: tr.title.trim(),
+          excerpt: tr.excerpt.trim(),
+          content: tr.content
+        }))
+      );
       if (trErr) throw trErr;
 
       setDraft(null);
@@ -311,9 +309,7 @@ export default function AdminPage() {
                 </button>
               </div>
 
-              {error && (
-                <p className="text-sm text-red-400 mb-4">{error}</p>
-              )}
+              {error && <p className="text-sm text-red-400 mb-4">{error}</p>}
 
               {/* Editor */}
               {draft && (
@@ -344,7 +340,10 @@ export default function AdminPage() {
                       <input
                         value={draft.cover_image_url}
                         onChange={(e) =>
-                          setDraft({ ...draft, cover_image_url: e.target.value })
+                          setDraft({
+                            ...draft,
+                            cover_image_url: e.target.value
+                          })
                         }
                         placeholder="https://…"
                         className={inputCls}
@@ -392,7 +391,7 @@ export default function AdminPage() {
                               const next = [...draft.translations];
                               next[idx] = {
                                 ...tr,
-                                language: e.target.value as Lang,
+                                language: e.target.value as Lang
                               };
                               setDraft({ ...draft, translations: next });
                             }}
@@ -411,7 +410,7 @@ export default function AdminPage() {
                                   ...draft,
                                   translations: draft.translations.filter(
                                     (_, i) => i !== idx
-                                  ),
+                                  )
                                 })
                               }
                               className="text-muted-foreground hover:text-red-400 transition-colors"
@@ -470,14 +469,12 @@ export default function AdminPage() {
                               language: free,
                               title: "",
                               excerpt: "",
-                              content: "",
-                            },
-                          ],
+                              content: ""
+                            }
+                          ]
                         });
                       }}
-                      disabled={
-                        draft.translations.length >= LANGUAGES.length
-                      }
+                      disabled={draft.translations.length >= LANGUAGES.length}
                       className="text-sm text-violet-300 hover:text-violet-200 transition-colors disabled:opacity-40"
                     >
                       + {t("admin.add_translation")}
@@ -519,10 +516,11 @@ export default function AdminPage() {
                         className="glass-card rounded-2xl p-4 flex items-center justify-between gap-3 flex-wrap"
                       >
                         <div className="min-w-0">
-                          <p className="font-semibold truncate">
-                            {firstTitle}
-                          </p>
-                          <p className="text-xs text-muted-foreground font-mono" dir="ltr">
+                          <p className="font-semibold truncate">{firstTitle}</p>
+                          <p
+                            className="text-xs text-muted-foreground font-mono"
+                            dir="ltr"
+                          >
                             /blog/{post.slug} ·{" "}
                             {post.published ? "● published" : "○ draft"}
                           </p>

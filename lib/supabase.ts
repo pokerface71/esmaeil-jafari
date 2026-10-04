@@ -66,7 +66,7 @@ function getClient() {
   }
   if (!supabaseInstance) {
     supabaseInstance = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: { persistSession: false, autoRefreshToken: false },
+      auth: { persistSession: false, autoRefreshToken: false }
     });
   }
   return supabaseInstance;
@@ -121,7 +121,7 @@ export function toPostView(post: Post, locale: string): PostView | null {
     published: post.published,
     published_at: post.published_at,
     updated_at: post.updated_at,
-    language: tr.language,
+    language: tr.language
   };
 }
 
@@ -163,7 +163,7 @@ function isBuildPhase(): boolean {
 async function probeSupabase(): Promise<string> {
   try {
     const res = await fetch(`${SUPABASE_URL.replace(/\/+$/, "")}/rest/v1/`, {
-      method: "GET",
+      method: "GET"
     });
     return `probe → HTTP ${res.status} from ${SUPABASE_URL}`;
   } catch (e) {
@@ -319,7 +319,7 @@ function createAdminClient() {
     );
   }
   return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    auth: { persistSession: true, autoRefreshToken: true },
+    auth: { persistSession: true, autoRefreshToken: true }
   });
 }
 

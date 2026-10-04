@@ -11,7 +11,10 @@ interface AnimatedRaysProps {
  * emerging from the top-center of the parent (which must be relative + overflow-hidden).
  * Purely decorative; aria-hidden.
  */
-const AnimatedRays: React.FC<AnimatedRaysProps> = ({ muted = false, className }) => {
+const AnimatedRays: React.FC<AnimatedRaysProps> = ({
+  muted = false,
+  className
+}) => {
   return (
     <div
       aria-hidden="true"

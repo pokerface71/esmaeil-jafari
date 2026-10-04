@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useCallback } from "react";
-import { createPortal } from "react-dom";
-import { cn } from "lib/utils";
 import { useI18n } from "lib/i18n";
+import { cn } from "lib/utils";
+import { useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const RESUME_PDF = "/Esmaeil_jafari-Resume.pdf";
 
@@ -16,12 +16,32 @@ export default function ResumeModal({ open, onClose }: ResumeModalProps) {
 
   const labels =
     locale === "fa"
-      ? { title: "رزومه", download: "دانلود", openTab: "تب جدید", close: "بستن" }
+      ? {
+          title: "رزومه",
+          download: "دانلود",
+          openTab: "تب جدید",
+          close: "بستن"
+        }
       : locale === "ar"
-        ? { title: "السيرة الذاتية", download: "تحميل", openTab: "تب جديد", close: "إغلاق" }
+        ? {
+            title: "السيرة الذاتية",
+            download: "تحميل",
+            openTab: "تب جديد",
+            close: "إغلاق"
+          }
         : locale === "tr"
-          ? { title: "Özgeçmiş", download: "İndir", openTab: "Yeni sekme", close: "Kapat" }
-          : { title: "Resume", download: "Download", openTab: "New tab", close: "Close" };
+          ? {
+              title: "Özgeçmiş",
+              download: "İndir",
+              openTab: "Yeni sekme",
+              close: "Kapat"
+            }
+          : {
+              title: "Resume",
+              download: "Download",
+              openTab: "New tab",
+              close: "Close"
+            };
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -68,13 +88,23 @@ export default function ResumeModal({ open, onClose }: ResumeModalProps) {
         {/* Header */}
         <div className="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-b border-white/10 shrink-0">
           <h2 className="text-sm font-bold text-foreground">{labels.title}</h2>
-          <div className={cn("flex items-center gap-2", dir === "rtl" && "flex-row-reverse")}>
+          <div
+            className={cn(
+              "flex items-center gap-2",
+              dir === "rtl" && "flex-row-reverse"
+            )}
+          >
             <a
               href={RESUME_PDF}
               download
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 transition-all duration-300"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -97,8 +127,18 @@ export default function ResumeModal({ open, onClose }: ResumeModalProps) {
               className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 transition-all duration-200"
               aria-label={labels.close}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>

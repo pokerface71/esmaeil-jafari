@@ -21,7 +21,7 @@ export const SocialIconLink: React.FC<SocialIconLinkProps> = ({
   icon,
   hoverColor,
   size = 44,
-  className,
+  className
 }) => (
   <a
     href={href}
@@ -55,7 +55,7 @@ const rowTones: Record<NonNullable<SocialListRowProps["tone"]>, string> = {
   amber: "bg-amber-400/10 border-amber-300/25 text-amber-300",
   green: "bg-green-500/10 border-green-400/20 text-green-400",
   blue: "bg-blue-500/10 border-blue-400/20 text-blue-400",
-  pink: "bg-pink-500/10 border-pink-400/20 text-pink-400",
+  pink: "bg-pink-500/10 border-pink-400/20 text-pink-400"
 };
 
 /**
@@ -68,7 +68,7 @@ export const SocialListRow: React.FC<SocialListRowProps> = ({
   sublabel,
   icon,
   tone = "violet",
-  className,
+  className
 }) => (
   <a
     href={href}
@@ -86,7 +86,9 @@ export const SocialListRow: React.FC<SocialListRowProps> = ({
     />
     <div className="flex-1 min-w-0">
       <p className="text-sm font-semibold text-foreground">{label}</p>
-      {sublabel && <p className="text-xs text-muted-foreground truncate">{sublabel}</p>}
+      {sublabel && (
+        <p className="text-xs text-muted-foreground truncate">{sublabel}</p>
+      )}
     </div>
     <svg
       className="w-3 h-3 text-muted-foreground/30 group-hover:text-muted-foreground group-hover:translate-x-1 transition-all duration-300 shrink-0 rtl:rotate-180"
@@ -95,7 +97,12 @@ export const SocialListRow: React.FC<SocialListRowProps> = ({
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 5l7 7-7 7"
+      />
     </svg>
   </a>
 );

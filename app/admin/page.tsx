@@ -12,14 +12,14 @@ export const metadata: Metadata = {
   title: "Blog Admin | Esmaeil Jafari",
   robots: {
     index: false,
-    follow: false,
+    follow: false
   },
   openGraph: {
-    title: "Blog Admin | Esmaeil Jafari",
+    title: "Blog Admin | Esmaeil Jafari"
   },
   alternates: {
-    canonical: absoluteUrl("/admin"),
-  },
+    canonical: absoluteUrl("/admin")
+  }
 };
 
 export default function AdminRoute() {

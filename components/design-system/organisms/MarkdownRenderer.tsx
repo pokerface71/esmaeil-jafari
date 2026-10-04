@@ -1,5 +1,5 @@
-import React from "react";
 import CodeBlock from "components/design-system/organisms/CodeBlock";
+import React from "react";
 
 /**
  * Minimal, safe markdown-ish renderer for blog post content.
@@ -81,7 +81,10 @@ function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
       }
     } else if (token.startsWith("**")) {
       nodes.push(
-        <strong key={`${keyPrefix}-b-${i}`} className="font-bold text-foreground">
+        <strong
+          key={`${keyPrefix}-b-${i}`}
+          className="font-bold text-foreground"
+        >
           {token.slice(2, -2)}
         </strong>
       );
@@ -95,9 +98,7 @@ function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
         </code>
       );
     } else if (token.startsWith("*")) {
-      nodes.push(
-        <em key={`${keyPrefix}-i-${i}`}>{token.slice(1, -1)}</em>
-      );
+      nodes.push(<em key={`${keyPrefix}-i-${i}`}>{token.slice(1, -1)}</em>);
     }
 
     lastIndex = match.index + token.length;
@@ -156,7 +157,7 @@ function parseBlocks(markdown: string): Block[] {
       const level = heading[1].length;
       blocks.push({
         type: level === 1 ? "h1" : level === 2 ? "h2" : "h3",
-        lines: [heading[2]],
+        lines: [heading[2]]
       });
       i++;
       continue;
@@ -286,7 +287,10 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             );
           case "ul":
             return (
-              <ul key={key} className="my-4 space-y-2 ps-5 list-disc marker:text-violet-400/70">
+              <ul
+                key={key}
+                className="my-4 space-y-2 ps-5 list-disc marker:text-violet-400/70"
+              >
                 {block.lines.map((l, li) => (
                   <li key={`${key}-${li}`} className="leading-relaxed">
                     {renderInline(l, `${key}-${li}`)}
@@ -296,7 +300,10 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             );
           case "ol":
             return (
-              <ol key={key} className="my-4 space-y-2 ps-5 list-decimal marker:text-violet-400/70">
+              <ol
+                key={key}
+                className="my-4 space-y-2 ps-5 list-decimal marker:text-violet-400/70"
+              >
                 {block.lines.map((l, li) => (
                   <li key={`${key}-${li}`} className="leading-relaxed">
                     {renderInline(l, `${key}-${li}`)}
@@ -305,9 +312,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               </ol>
             );
           case "hr":
-            return (
-              <hr key={key} className="my-8 border-white/10" />
-            );
+            return <hr key={key} className="my-8 border-white/10" />;
           case "p":
           default:
             return (

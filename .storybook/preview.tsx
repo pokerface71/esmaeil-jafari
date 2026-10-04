@@ -1,6 +1,6 @@
-import React from "react";
-import type { Preview } from "@storybook/nextjs-vite";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
+import type { Preview } from "@storybook/nextjs-vite";
+import React from "react";
 import { themes } from "storybook/theming";
 import { I18nProvider } from "../lib/i18n";
 import "../styles/globals.css";
@@ -8,7 +8,7 @@ import "../styles/globals.css";
 /** RTL/LTR wrapper driven by the `locale` global (toolbar selector). */
 const WithI18n = ({
   children,
-  locale,
+  locale
 }: {
   children: React.ReactNode;
   locale?: string;
@@ -26,28 +26,28 @@ const preview: Preview = {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/i,
-      },
+        date: /Date$/i
+      }
     },
     layout: "centered",
     backgrounds: {
       options: {
         dark: { name: "dark", value: "#06060b" },
-        light: { name: "light", value: "#f7f8fb" },
+        light: { name: "light", value: "#f7f8fb" }
       },
-      default: "dark",
+      default: "dark"
     },
     docs: {
-      theme: themes.dark,
+      theme: themes.dark
     },
     a11y: {
       config: {
         rules: [
           // Decorative effect layers intentionally have low contrast.
-          { id: "color-contrast", enabled: false },
-        ],
-      },
-    },
+          { id: "color-contrast", enabled: false }
+        ]
+      }
+    }
   },
   globalTypes: {
     locale: {
@@ -59,28 +59,28 @@ const preview: Preview = {
           { value: "en", title: "English (LTR)" },
           { value: "fa", title: "فارسی (RTL)" },
           { value: "ar", title: "العربية (RTL)" },
-          { value: "tr", title: "Türkçe (LTR)" },
+          { value: "tr", title: "Türkçe (LTR)" }
         ],
-        dynamicTitle: true,
-      },
-    },
+        dynamicTitle: true
+      }
+    }
   },
   initialGlobals: {
-    locale: "en",
+    locale: "en"
   },
   decorators: [
     // Theme switch via data-theme attribute (also used by the app itself).
     withThemeByDataAttribute({
       themes: { dark: "dark", light: "light" },
       defaultTheme: "dark",
-      attributeName: "data-theme",
+      attributeName: "data-theme"
     }),
     (Story, context) => (
       <WithI18n locale={context.globals.locale}>
         <Story />
       </WithI18n>
-    ),
-  ],
+    )
+  ]
 };
 
 export default preview;

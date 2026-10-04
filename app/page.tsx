@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
+import HomeTemplate from "components/design-system/templates/HomeTemplate";
 import {
-  DEFAULT_TITLE,
   DEFAULT_DESCRIPTION,
   DEFAULT_OG_IMAGE,
+  DEFAULT_TITLE,
   SITE_NAME,
-  SITE_URL,
   absoluteUrl,
-  personJsonLd,
+  personJsonLd
 } from "lib/seo";
-import HomeTemplate from "components/design-system/templates/HomeTemplate";
+import type { Metadata } from "next";
 
 /**
  * Home route: App Router equivalent of pages/index.tsx.
@@ -29,20 +28,20 @@ export async function generateMetadata(): Promise<Metadata> {
       description: DEFAULT_DESCRIPTION,
       url: absoluteUrl("/"),
       images: [{ url: DEFAULT_OG_IMAGE, width: 512, height: 512 }],
-      locale: "en_US",
+      locale: "en_US"
     },
     twitter: {
       card: "summary",
       title: DEFAULT_TITLE,
       description: DEFAULT_DESCRIPTION,
-      images: [DEFAULT_OG_IMAGE],
+      images: [DEFAULT_OG_IMAGE]
     },
     alternates: {
-      canonical: absoluteUrl("/"),
+      canonical: absoluteUrl("/")
     },
     other: {
-      "application/ld+json": JSON.stringify(personJsonLd),
-    },
+      "application/ld+json": JSON.stringify(personJsonLd)
+    }
   };
 }
 
