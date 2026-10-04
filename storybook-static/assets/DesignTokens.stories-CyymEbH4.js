@@ -21,7 +21,9 @@ import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{t}from"./jsx-runtime-C
               <div className="w-36 h-16 rounded-2xl border border-white/10" style={{
             background: g.css
           }} />\r
-              <code className="text-[10px] text-muted-foreground">{g.name}</code>\r
+              <code className="text-[10px] text-muted-foreground">\r
+                {g.name}\r
+              </code>\r
             </div>)}\r
         </div>\r
       </section>\r
@@ -33,7 +35,9 @@ import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{t}from"./jsx-runtime-C
               <div className="w-20 h-16 border border-white/15 bg-white/5" style={{
             borderRadius: r.css
           }} />\r
-              <code className="text-[10px] text-muted-foreground">{r.name}</code>\r
+              <code className="text-[10px] text-muted-foreground">\r
+                {r.name}\r
+              </code>\r
             </div>)}\r
         </div>\r
       </section>\r

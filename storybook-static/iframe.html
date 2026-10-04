@@ -519,20 +519,32 @@
     console.warn('unable to connect to top frame for connecting dev tools');
   }
 </script>
+<!--
+  Storybook renders inside its own iframe and never runs pages/_document.tsx,
+  so it cannot pick up the app's self-hosted next/font setup. Keep the Google
+  Fonts link here so stories use the same typefaces as the real site; the app
+  itself loads fonts through next/font (styles/fonts.ts).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+/>
 
-    <script type="module" crossorigin src="./assets/iframe-Vs11xptc.js"></script>
+    <script type="module" crossorigin src="./assets/iframe-BfgamLQL.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-CsOFd3vK.js">
     <link rel="modulepreload" crossorigin href="./assets/preload-helper-BC2WaYri.js">
-    <link rel="modulepreload" crossorigin href="./assets/react-0r6B6o6q.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-Z7gd5LxR.js">
     <link rel="modulepreload" crossorigin href="./assets/chunk-7PIQR4A3-B40WzkBd.js">
     <link rel="modulepreload" crossorigin href="./assets/chunk-DRQKCCAG-AZtVmtpX.js">
     <link rel="modulepreload" crossorigin href="./assets/esm-BqDfCfXY.js">
     <link rel="modulepreload" crossorigin href="./assets/jsx-runtime-CadfrxEJ.js">
-    <link rel="modulepreload" crossorigin href="./assets/react-dom-Dkcx-S41.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-dom-BATYhv6i.js">
     <link rel="modulepreload" crossorigin href="./assets/chunk-UAWMPV5J-CIktlBml.js">
-    <link rel="modulepreload" crossorigin href="./assets/theming-DnrR9Y_R.js">
-    <link rel="modulepreload" crossorigin href="./assets/iframe-DzdkXuDb.js">
-    <link rel="stylesheet" crossorigin href="./assets/iframe-CRndL1jX.css">
+    <link rel="modulepreload" crossorigin href="./assets/theming-j-7xzqeS.js">
+    <link rel="modulepreload" crossorigin href="./assets/iframe-B9hJgbls.js">
+    <link rel="stylesheet" crossorigin href="./assets/iframe-BF-bKHS4.css">
   </head>
 
   <body>

@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{n as t,t as n}from"./Badge-CBorRSeJ.js";var r,i,a,o,s,c;function l(){return(l=e((()=>{t(),r={title:`Design System/Atoms/Badge`,component:n,tags:[`autodocs`]},i={args:{children:`Frontend Developer`}},a={args:{dot:`success`,children:`Available for new opportunities`}},o={args:{dot:`primary`,children:`Open to work`}},s={args:{dot:`muted`,children:`Away`}},c=[`Plain`,`SuccessDot`,`PrimaryDot`,`MutedDot`],i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
+import{n as e}from"./rolldown-runtime-CsOFd3vK.js";import{n as t,t as n}from"./Badge-CjTctUbw.js";var r,i,a,o,s,c;function l(){return(l=e((()=>{t(),r={title:`Design System/Atoms/Badge`,component:n,tags:[`autodocs`]},i={args:{children:`Frontend Developer`}},a={args:{dot:`success`,children:`Available for new opportunities`}},o={args:{dot:`primary`,children:`Open to work`}},s={args:{dot:`muted`,children:`Away`}},c=[`Plain`,`SuccessDot`,`PrimaryDot`,`MutedDot`],i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
   args: {
     children: "Frontend Developer"
   }
