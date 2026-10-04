@@ -3,6 +3,7 @@
   "version": "0.5.0",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "export": "next export",
@@ -47,7 +48,10 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.1",
     "@vitest/coverage-v8": "^5.0.3",
+    "husky": "^9.1.7",
     "jsdom": "^29.1.1",
+    "lint-diff": "^1.2.1",
+    "lint-staged": "^16.4.0",
     "storybook": "^10.6.1",
     "typescript": "^7.0.2",
     "vitest": "^5.0.3"
