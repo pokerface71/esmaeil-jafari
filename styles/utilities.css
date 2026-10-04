@@ -770,6 +770,7 @@ body::after {
   font-family: var(--font-vazirmatn, 'Vazirmatn'), var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
   letter-spacing: 0;
 }
+
 [dir='tr'] body {
   font-family: var(--font-poppins, 'Poppins'), var(--font-inter, 'Inter'), system-ui, -apple-system, sans-serif;
   letter-spacing: -0.01em;
