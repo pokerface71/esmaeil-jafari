@@ -81,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={fontClasses}>
+    <html lang="fa" className={fontClasses}>
       <head>
         <meta
           name="theme-color"
