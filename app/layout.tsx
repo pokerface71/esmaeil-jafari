@@ -15,14 +15,14 @@ const inter = Inter({
 const vazirmatn = Vazirmatn({
   subsets: ["arabic", "latin"],
   weight: "variable",
-  display: "swap",
+  display: "block",
   variable: "--font-vazirmatn",
-  preload: false
+  preload: true
 });
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
-  display: "swap",
+  display: "block",
   variable: "--font-poppins",
   preload: false
 });
@@ -81,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" className={fontClasses}>
+    <html lang="fa" dir="rtl" className={fontClasses}>
       <head>
         <meta
           name="theme-color"

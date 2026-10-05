@@ -22,12 +22,29 @@ const withPWA = require('next-pwa')({
   // - Everything else: short HTTP-cache on HTML so ISR revalidation stays
   //   effective while static assets stay fast offline.
   headers: [
+    // Self-hosted fonts (next/font): immutable, cache forever so mobile
+    // doesn't re-download them on every visit.
+    {
+      source: '/_next/static/media/(.*)',
+      headers: [
+        { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }
+      ]
+    },
+    // Next.js server chunks: immutable, cache forever.
     {
       source: '/_next/static/(.*)',
       headers: [
         { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }
       ]
     },
+    // Next.js server chunks: immutable, cache forever.
+    {
+      source: '/_next/chunks/(.*)',
+      headers: [
+        { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }
+      ]
+    },
+    // HTML pages: short HTTP-cache so ISR revalidation stays effective.
     {
       source: '/(.*)',
       has: [
