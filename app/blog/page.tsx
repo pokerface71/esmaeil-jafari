@@ -1,9 +1,6 @@
 import { absoluteUrl } from "lib/seo";
-import {
-  getPublishedPostsRaw,
-  isSupabaseConfigured,
-  toPostView
-} from "lib/supabase";
+import { getPublishedPostsRaw } from "lib/data";
+import { isSupabaseConfigured, toPostView } from "lib/supabase";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BlogList from "./BlogList";

@@ -6,7 +6,7 @@ const { mockGetPublishedPostsRaw } = vi.hoisted(() => ({
   mockGetPublishedPostsRaw: vi.fn(),
 }));
 
-vi.mock("lib/supabase", () => ({
+vi.mock("lib/data", () => ({
   getPublishedPostsRaw: mockGetPublishedPostsRaw,
 }));
 

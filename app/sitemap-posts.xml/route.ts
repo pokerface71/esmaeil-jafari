@@ -1,5 +1,5 @@
 import { lastmod } from "lib/seo";
-import { getPublishedPostsRaw } from "lib/supabase";
+import { getPublishedPostsRaw } from "lib/data";
 import { NextResponse } from "next/server";
 
 /**

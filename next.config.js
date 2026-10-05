@@ -81,6 +81,11 @@ const nextConfig = {
   turbopack: {
     resolveAlias: {
       "@styles": "./styles",
+      // server-only@0.0.1 ships with a react-server conditional export
+      // ("./empty.js") but Turbopack dev mode doesn't always set that
+      // condition, resolving to index.js which throws at import time.
+      // Force the empty variant so server-only modules load correctly in dev.
+      "server-only": "./node_modules/server-only/empty.js",
     },
   },
 };

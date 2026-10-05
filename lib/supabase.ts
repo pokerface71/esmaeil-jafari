@@ -208,26 +208,18 @@ async function runPublicQuery<T>(
   );
 }
 
-/** Published posts for the public site, newest first. */
+/**
+ * Published posts for the public site, newest first.
+ * Queries Supabase only — for the merged version that also includes local
+ * markdown posts, use the same function from `lib/data` (server-only).
+ */
 export async function getPublishedPosts(
   locale: string,
   limit?: number
 ): Promise<PostView[]> {
-  if (!isSupabaseConfigured) return [];
-
-  const rows = await runPublicQuery<Post[]>("posts (published)", () => {
-    let query = getClient()
-      .from("posts")
-      .select("*, translations:post_translations(*)")
-      .eq("published", true)
-      .order("published_at", { ascending: false, nullsFirst: false });
-
-    if (limit != null) query = query.limit(limit);
-    return query;
-  });
-
-  return (rows ?? [])
-    .map((row) => toPostView(row as unknown as Post, locale))
+  const raw = await getPublishedPostsRaw(limit);
+  return raw
+    .map((row) => toPostView(row, locale))
     .filter((p): p is PostView => p !== null);
 }
 
@@ -236,19 +228,9 @@ export async function getPostBySlug(
   slug: string,
   locale: string
 ): Promise<PostView | null> {
-  if (!isSupabaseConfigured) return null;
-
-  const data = await runPublicQuery<Post>("post by slug", () =>
-    getClient()
-      .from("posts")
-      .select("*, translations:post_translations(*)")
-      .eq("slug", slug)
-      .eq("published", true)
-      .maybeSingle()
-  );
-
-  if (!data) return null;
-  return toPostView(data as unknown as Post, locale);
+  const post = await getPostBySlugRaw(slug);
+  if (!post) return null;
+  return toPostView(post, locale);
 }
 
 // ---------------------------------------------------------------------------
@@ -260,7 +242,6 @@ export async function getPostBySlug(
 /** All published posts, any locale, newest first (raw rows). */
 export async function getPublishedPostsRaw(limit?: number): Promise<Post[]> {
   if (!isSupabaseConfigured) return [];
-
   const rows = await runPublicQuery<Post[]>("posts (published, raw)", () => {
     let query = getClient()
       .from("posts")
@@ -294,10 +275,11 @@ export async function getPostBySlugRaw(slug: string): Promise<Post | null> {
 /** All published slugs (for getStaticPaths). */
 export async function getPublishedSlugs(): Promise<string[]> {
   if (!isSupabaseConfigured) return [];
-
-  const rows = await runPublicQuery<{ slug: string }[]>(
-    "slugs (published)",
-    () => getClient().from("posts").select("slug").eq("published", true)
+  const rows = await runPublicQuery<{ slug: string }[]>("slugs (published)", () =>
+    getClient()
+      .from("posts")
+      .select("slug")
+      .eq("published", true)
   );
 
   return (rows ?? []).map((r) => r.slug);

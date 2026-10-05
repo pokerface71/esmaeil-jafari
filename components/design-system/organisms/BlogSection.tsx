@@ -65,16 +65,24 @@ export default function BlogSection() {
   // ------------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    // Dynamic import: @supabase/supabase-js is large and not needed for
-    // first paint — loading it after mount keeps it out of the initial JS
-    // bundle (Lighthouse: "Reduce unused JavaScript").
-    import("lib/supabase")
-      .then(async ({ getPublishedPosts, isSupabaseConfigured }) => {
-        if (cancelled) return;
-        setSupabaseConfigured(isSupabaseConfigured);
-        const data = await getPublishedPosts(locale, 9);
-        if (!cancelled) setPosts(data);
-      })
+    // Fetch from the server API so @supabase/supabase-js stays out of the
+    // client bundle entirely — the route handler in lib/data merges local
+    // markdown posts with Supabase and resolves the requested locale.
+    fetch(`/api/posts?locale=${locale}&limit=9`)
+      .then((res) =>
+        res.ok ? res.json() : { posts: [], isSupabaseConfigured: false }
+      )
+      .then(
+        ({ posts, isSupabaseConfigured }: {
+          posts: PostView[];
+          isSupabaseConfigured: boolean;
+        }) => {
+          if (!cancelled) {
+            setPosts(posts);
+            setSupabaseConfigured(isSupabaseConfigured);
+          }
+        }
+      )
       .catch(() => {
         /* leave empty on failure */
       })

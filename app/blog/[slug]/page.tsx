@@ -5,7 +5,8 @@ import {
   ogImage,
   SITE_NAME
 } from "lib/seo";
-import { getPostBySlugRaw, getPublishedSlugs, toPostView } from "lib/supabase";
+import { getPostBySlugRaw, getPublishedSlugs } from "lib/data";
+import { toPostView } from "lib/supabase";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BlogPost from "./BlogPost";
