@@ -1,6 +1,6 @@
-# https://esmaeiljafari.dev/robots.txt
+# https://esmaeil-jafari.netlify.app/robots.txt
 User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://esmaeiljafari.dev/sitemap.xml
+Sitemap: https://esmaeil-jafari.netlify.app/sitemap.xml
