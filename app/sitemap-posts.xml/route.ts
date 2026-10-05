@@ -27,7 +27,21 @@ function urlEntry(loc: string, modified?: string): string {
 }
 
 export async function GET() {
-  const posts = await getPublishedPostsRaw();
+  // A sitemap must NEVER 500: `runPublicQuery` throws at runtime once its
+  // retries are exhausted (Supabase down / env missing / network hiccup), and
+  // Search Console reports the whole index as "could not be read" when a
+  // child sitemap fails. Fall back to the static pages so we always return
+  // valid XML; posts reappear on the next successful fetch.
+  let posts: Awaited<ReturnType<typeof getPublishedPostsRaw>> = [];
+  try {
+    posts = await getPublishedPostsRaw();
+  } catch (e) {
+    console.warn(
+      `[sitemap-posts] falling back to static pages: ${
+        e instanceof Error ? e.message : String(e)
+      }`
+    );
+  }
   const now = lastmod(new Date().toISOString());
 
   const entries = [
