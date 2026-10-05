@@ -141,6 +141,15 @@ const translations: Record<Locale, Record<string, string>> = {
     "blog.copy_code": "Copy code",
     "blog.copied_code": "Copied!",
 
+    // 404
+    "notfound.label": "Error 404",
+    "notfound.title": "Page",
+    "notfound.title.highlight": "Not Found",
+    "notfound.desc":
+      "The page you're looking for doesn't exist or has been moved.",
+    "notfound.home": "Back to Home",
+    "notfound.blog": "Browse the Blog",
+
     // Admin
     "admin.title": "Blog Admin",
     "admin.login_hint":
@@ -298,6 +307,14 @@ const translations: Record<Locale, Record<string, string>> = {
     "blog.back": "بازگشت به مقالات",
     "blog.copy_code": "کپی کد",
     "blog.copied_code": "کپی شد!",
+
+    // 404
+    "notfound.label": "خطای 404",
+    "notfound.title": "صفحه",
+    "notfound.title.highlight": "پیدا نشد",
+    "notfound.desc": "صفحه‌ای که دنبال آن هستید وجود ندارد یا جابه‌جا شده است.",
+    "notfound.home": "بازگشت به خانه",
+    "notfound.blog": "مشاهده وبلاگ",
 
     // Admin
     "admin.title": "مدیریت مقالات",
@@ -457,6 +474,14 @@ const translations: Record<Locale, Record<string, string>> = {
     "blog.copy_code": "نسخ الكود",
     "blog.copied_code": "تم النسخ!",
 
+    // 404
+    "notfound.label": "خطأ 404",
+    "notfound.title": "الصفحة",
+    "notfound.title.highlight": "غير موجودة",
+    "notfound.desc": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "notfound.home": "العودة إلى الرئيسية",
+    "notfound.blog": "تصفح المدونة",
+
     // Admin
     "admin.title": "إدارة المدونة",
     "admin.login_hint": "سجّل الدخول بحساب Supabase الخاص بك لإدارة المقالات.",
@@ -614,6 +639,14 @@ const translations: Record<Locale, Record<string, string>> = {
     "blog.back": "Bloğa dön",
     "blog.copy_code": "Kodu kopyala",
     "blog.copied_code": "Kopyalandı!",
+
+    // 404
+    "notfound.label": "Hata 404",
+    "notfound.title": "Sayfa",
+    "notfound.title.highlight": "Bulunamadı",
+    "notfound.desc": "Aradığınız sayfa mevcut değil veya taşındı.",
+    "notfound.home": "Ana Sayfaya Dön",
+    "notfound.blog": "Bloğa Göz At",
 
     // Admin
     "admin.title": "Blog Yönetimi",
