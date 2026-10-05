@@ -9,11 +9,7 @@ import {
 } from "react-icons/fa";
 import AuroraBackground from "components/design-system/organisms/AuroraBackground";
 import { useI18n } from "lib/i18n";
-import {
-  getPublishedPosts,
-  isSupabaseConfigured,
-  type PostView
-} from "lib/supabase";
+import type { PostView } from "lib/supabase";
 import { coverArtDataUri } from "lib/coverArt";
 import { cn } from "lib/utils";
 
@@ -43,6 +39,7 @@ export default function BlogSection() {
 
   const [posts, setPosts] = useState<PostView[]>([]);
   const [loading, setLoading] = useState(true);
+  const [supabaseConfigured, setSupabaseConfigured] = useState(false);
 
   // ------------------------------------------------------------------
   // Slider state
@@ -68,8 +65,14 @@ export default function BlogSection() {
   // ------------------------------------------------------------------
   useEffect(() => {
     let cancelled = false;
-    getPublishedPosts(locale, 9)
-      .then((data) => {
+    // Dynamic import: @supabase/supabase-js is large and not needed for
+    // first paint — loading it after mount keeps it out of the initial JS
+    // bundle (Lighthouse: "Reduce unused JavaScript").
+    import("lib/supabase")
+      .then(async ({ getPublishedPosts, isSupabaseConfigured }) => {
+        if (cancelled) return;
+        setSupabaseConfigured(isSupabaseConfigured);
+        const data = await getPublishedPosts(locale, 9);
         if (!cancelled) setPosts(data);
       })
       .catch(() => {
@@ -220,13 +223,13 @@ export default function BlogSection() {
           </div>
         )}
 
-        {!loading && !isSupabaseConfigured && (
+        {!loading && !supabaseConfigured && (
           <div className="glass-card rounded-3xl p-8 text-center text-muted-foreground max-w-xl mx-auto">
             {t("blog.not_configured")}
           </div>
         )}
 
-        {!loading && isSupabaseConfigured && posts.length === 0 && (
+        {!loading && supabaseConfigured && posts.length === 0 && (
           <div className="glass-card rounded-3xl p-8 text-center text-muted-foreground max-w-xl mx-auto">
             {t("blog.empty")}
           </div>

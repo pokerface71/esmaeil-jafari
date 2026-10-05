@@ -4,8 +4,8 @@ import { useTheme } from "components/ThemeProvider";
 import { Locale, useI18n } from "lib/i18n";
 import { cn } from "lib/utils";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import SearchParamWatcher from "components/SearchParamWatcher";
 
 const downloadCvLabel = (locale: string) =>
   locale === "fa"
@@ -23,8 +23,12 @@ const locales: { code: Locale; label: string; flag: string }[] = [
 ];
 
 export default function Header() {
-  const searchParams = useSearchParams();
-  const scrollParam = (searchParams.get("scroll") as string) || "home";
+  // Scoped through SearchParamWatcher so the static prerender keeps its
+  // HTML (a direct useSearchParams() would bail the page out to CSR).
+  const [scrollParam, setScrollParam] = useState("home");
+  const handleSearchParams = useCallback((params: URLSearchParams) => {
+    setScrollParam((params.get("scroll") as string) || "home");
+  }, []);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
@@ -76,6 +80,7 @@ export default function Header() {
 
   return (
     <>
+      <SearchParamWatcher onChange={handleSearchParams} />
       <header
         className={cn(
           "fixed top-0 left-0 z-50 w-full transition-all duration-500 backdrop-blur-xl",

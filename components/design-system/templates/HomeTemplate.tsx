@@ -1,8 +1,8 @@
 "use client";
 import { cn } from "lib/utils";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import React, { useRef } from "react";
+import SearchParamWatcher from "components/SearchParamWatcher";
+import React, { useCallback, useRef, useState } from "react";
 import {
   DiBootstrap,
   DiCss3,
@@ -249,8 +249,13 @@ export interface HomeTemplateProps {
  * every visual unit is an atom/molecule/organism from the design system.
  */
 const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
-  const searchParams = useSearchParams();
-  const scroll = (searchParams.get("scroll") as string) || "home";
+  // Read ?scroll=… via SearchParamWatcher (its own Suspense boundary):
+  // a direct useSearchParams() call here would bail the whole page out to
+  // client-side rendering, shipping empty HTML and wrecking Speed Index.
+  const [scroll, setScroll] = useState("home");
+  const handleSearchParams = useCallback((params: URLSearchParams) => {
+    setScroll((params.get("scroll") as string) || "home");
+  }, []);
   const isVisible = useRevealOnScroll();
   useSpotlight();
   useParallax();
@@ -289,6 +294,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
 
   return (
     <div className="min-h-screen text-foreground">
+      <SearchParamWatcher onChange={handleSearchParams} />
       <Header />
       <ScrollProgress />
 
@@ -321,19 +327,14 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
                 data-animate="hero-badge"
                 id="hero-badge"
                 style={{ animationDelay: "0s" }}
-                className={cn(
-                  "mb-7 inline-flex",
-                  isVisible["hero-badge"] ? "animate-fade-in-up" : "opacity-0"
-                )}
+                className={cn("mb-7 inline-flex", "animate-fade-in-up")}
               >
                 <Badge dot="success">{t("hero.badge")}</Badge>
               </div>
 
               <p
                 data-animate="hero-eyebrow"
-                className={`font-mono text-[11px] sm:text-xs uppercase tracking-[0.3em] text-violet-300/70 mb-4 ${
-                  isVisible["hero-eyebrow"] ? "animate-fade-in-up" : "opacity-0"
-                }`}
+                className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.3em] text-violet-300/70 mb-4 animate-fade-in-up"
                 id="hero-eyebrow"
                 style={{ animationDelay: "0.05s" }}
               >
@@ -342,9 +343,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
 
               <h1
                 data-animate="hero-title"
-                className={`text-5xl sm:text-6xl lg:text-7xl font-black mb-5 tracking-[-0.03em] leading-[1.05] ${
-                  isVisible["hero-title"] ? "animate-fade-in-down" : "opacity-0"
-                }`}
+                className="text-5xl sm:text-6xl lg:text-7xl font-black mb-5 tracking-[-0.03em] leading-[1.05] animate-fade-in-down"
                 id="hero-title"
               >
                 {t("hero.title.greeting")} <GradientText>Esmaeil</GradientText>
@@ -354,9 +353,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
 
               <p
                 data-animate="hero-desc"
-                className={`text-base sm:text-lg text-muted-foreground/80 max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed ${
-                  isVisible["hero-desc"] ? "animate-fade-in-up" : "opacity-0"
-                }`}
+                className="text-base sm:text-lg text-muted-foreground/80 max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed animate-fade-in-up"
                 id="hero-desc"
                 style={{ animationDelay: "0.25s" }}
               >
@@ -368,7 +365,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
                 data-animate="hero-cta"
                 className={`flex flex-wrap gap-4 justify-center ${
                   dir === "rtl" ? "lg:justify-end" : "lg:justify-start"
-                } ${isVisible["hero-cta"] ? "animate-fade-in-up" : "opacity-0"}`}
+                } animate-fade-in-up`}
                 id="hero-cta"
                 style={{ animationDelay: "0.4s" }}
               >
@@ -398,7 +395,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
                 data-animate="hero-social"
                 className={`flex gap-3 mt-11 justify-center ${
                   dir === "rtl" ? "lg:justify-end" : "lg:justify-start"
-                } ${isVisible["hero-social"] ? "animate-fade-in-up" : "opacity-0"}`}
+                } animate-fade-in-up`}
                 id="hero-social"
                 style={{ animationDelay: "0.55s" }}
               >
@@ -417,18 +414,14 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ withHead = true }) => {
             {/* Profile Image */}
             <div
               data-animate="hero-image"
-              className={`relative shrink-0 ${
-                isVisible["hero-image"]
-                  ? "animate-scale-in"
-                  : "opacity-0 scale-90"
-              }`}
+              className="relative shrink-0 animate-scale-in"
               id="hero-image"
               style={{ animationDelay: "0.2s" }}
             >
               <div data-parallax="-0.04" className="portrait-parallax relative">
                 <div className="profile-glow" />
 
-                {/* Rotating circular text ring */}
+                {/* Rotating circular text ring (aria-hidden, no rendering impact) */}
                 <div className="ring-text" aria-hidden="true">
                   <svg viewBox="0 0 100 100" className="h-full w-full">
                     <defs>

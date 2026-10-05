@@ -16,7 +16,8 @@ export function useRevealOnScroll(): Record<string, boolean> {
   const pendingRef = useRef<HTMLElement[]>([]);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const reducedRef = useRef(
-    typeof window.matchMedia === "function" &&
+    typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
 

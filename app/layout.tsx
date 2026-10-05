@@ -65,14 +65,22 @@ export const metadata = {
     apple: "/apple-touch-icon.png"
   },
   manifest: "/site.webmanifest",
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#06060b" },
-    { media: "(prefers-color-scheme: light)", color: "#f7f8fb" }
-  ],
   appleWebApp: {
     title: "Esmaeil Jafari",
     status: "enabled"
   }
+};
+
+/**
+ * Next 16 requires themeColor in the `viewport` export (it warns when it
+ * lives in `metadata`). The manual <meta name="theme-color"> tags in the
+ * root <head> above keep the same values for the initial paint.
+ */
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#06060b" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f8fb" }
+  ]
 };
 
 export default function RootLayout({
