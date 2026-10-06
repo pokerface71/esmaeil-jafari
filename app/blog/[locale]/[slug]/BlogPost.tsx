@@ -5,14 +5,15 @@ import Header from "components/design-system/organisms/Header";
 import MarkdownRenderer from "components/design-system/organisms/MarkdownRenderer";
 import { coverArtDataUri } from "lib/coverArt";
 import { useI18n } from "lib/i18n";
-import { toPostView, type Post } from "lib/supabase";
+import { type PostView } from "lib/supabase";
 import { cn } from "lib/utils";
 import Link from "next/link";
 import { FaArrowLeft, FaCalendarAlt, FaTag } from "react-icons/fa";
 
 /** Props come from the slug route (server): the client only renders. */
 export interface BlogPostProps {
-  post: Post;
+  post: PostView;
+  locale: string;
 }
 
 function formatDate(iso: string | null, locale: string): string {
@@ -32,12 +33,8 @@ function formatDate(iso: string | null, locale: string): string {
   }
 }
 
-export default function BlogPost({ post }: BlogPostProps) {
-  const { t, locale, dir } = useI18n();
-
-  // Server pre-rendered the post; `view` is never null here.
-  const view = toPostView(post, locale);
-  if (!view) return null;
+export default function BlogPost({ post, locale }: BlogPostProps) {
+  const { t, dir } = useI18n();
 
   return (
     <div className="min-h-screen text-foreground">
@@ -49,7 +46,7 @@ export default function BlogPost({ post }: BlogPostProps) {
         <div className="relative z-10 max-w-3xl mx-auto px-6">
           {/* Back link */}
           <Link
-            href="/blog"
+            href={`/${locale}/blog`}
             className={cn(
               "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8",
               dir === "rtl" && "flex-row-reverse"
@@ -65,14 +62,14 @@ export default function BlogPost({ post }: BlogPostProps) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={
-              view.cover_image_url ||
+              post.cover_image_url ||
               coverArtDataUri({
-                seed: view.id,
-                tags: view.tags,
-                label: view.tags?.[0] ?? view.slug
+                seed: post.id,
+                tags: post.tags,
+                label: post.tags?.[0] ?? post.slug
               })
             }
-            alt={view.title}
+            alt={post.title}
             width={1200}
             height={630}
             decoding="async"
@@ -86,16 +83,16 @@ export default function BlogPost({ post }: BlogPostProps) {
               dir === "rtl" && "flex-row-reverse"
             )}
           >
-            {view.published_at && (
+            {post.published_at && (
               <span className="inline-flex items-center gap-1.5">
                 <FaCalendarAlt className="text-violet-300/70" />
-                {formatDate(view.published_at, locale)}
+                {formatDate(post.published_at, locale)}
               </span>
             )}
-            {view.tags && view.tags.length > 0 && (
+            {post.tags && post.tags.length > 0 && (
               <span className="inline-flex items-center gap-1.5 flex-wrap">
                 <FaTag className="text-fuchsia-300/70" />
-                {view.tags.map((tag) => (
+                {post.tags.map((tag) => (
                   <span key={tag} className="skill-tag">
                     {tag}
                   </span>
@@ -106,9 +103,9 @@ export default function BlogPost({ post }: BlogPostProps) {
 
           {/* Title + excerpt */}
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] mb-4">
-            {view.title}
+            {post.title}
           </h1>
-          {view.excerpt && (
+          {post.excerpt && (
             <p
               className={cn(
                 "text-muted-foreground/80 leading-relaxed mb-10 border-s-2 border-violet-400/40 ps-4",
@@ -116,17 +113,17 @@ export default function BlogPost({ post }: BlogPostProps) {
                   "border-s-0 border-e-2 border-e-violet-400/40 ps-0 pe-4 text-right"
               )}
             >
-              {view.excerpt}
+              {post.excerpt}
             </p>
           )}
 
           {/* Content */}
-          <MarkdownRenderer content={view.content} />
+          <MarkdownRenderer content={post.content} />
 
           {/* Footer of article */}
           <div className="mt-14 pt-8 border-t border-white/10">
             <Link
-              href="/blog"
+              href={`/${locale}/blog`}
               className={cn(
                 "inline-flex items-center gap-2 text-sm font-semibold text-violet-300 hover:text-violet-200 transition-colors",
                 dir === "rtl" && "flex-row-reverse"

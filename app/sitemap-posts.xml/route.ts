@@ -44,13 +44,16 @@ export async function GET() {
   }
   const now = lastmod(new Date().toISOString());
 
+  const LOCALES = ["en", "fa", "ar", "tr"];
   const entries = [
     urlEntry(siteUrl("/"), now),
     urlEntry(siteUrl("/blog"), now),
-    ...posts.map((post) =>
-      urlEntry(
-        siteUrl(`/blog/${post.slug}`),
-        lastmod(post.updated_at || post.published_at)
+    ...posts.flatMap((post) =>
+      LOCALES.map((locale) =>
+        urlEntry(
+          siteUrl(`/${locale}/blog/${post.slug}`),
+          lastmod(post.updated_at || post.published_at)
+        )
       )
     )
   ];

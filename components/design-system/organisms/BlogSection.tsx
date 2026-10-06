@@ -315,7 +315,7 @@ export default function BlogSection() {
                   >
                     {/* Cover */}
                     <Link
-                      href={`/blog/${post.slug}`}
+                      href={`/${locale}/blog/${post.slug}`}
                       className="relative block h-44 overflow-hidden"
                       draggable={false}
                     >
@@ -371,7 +371,7 @@ export default function BlogSection() {
                       </p>
 
                       <Link
-                        href={`/blog/${post.slug}`}
+                        href={`/${locale}/blog/${post.slug}`}
                         className={cn(
                           "inline-flex items-center gap-2 text-sm font-semibold text-violet-300 hover:text-violet-200 transition-colors",
                           rtl && "flex-row-reverse"
@@ -416,7 +416,7 @@ export default function BlogSection() {
         {hasPosts && (
           <div className="text-center mt-10">
             <Link
-              href="/blog"
+              href={`/${locale}/blog`}
               className="btn-ghost inline-flex items-center gap-2.5 rounded-xl px-7 py-3 text-sm font-semibold"
             >
               {t("blog.view_all")}

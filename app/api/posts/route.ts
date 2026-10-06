@@ -1,4 +1,4 @@
-import { getPublishedPosts, isSupabaseConfigured } from "lib/data";
+import { getPublishedPosts, getPublishedPostsRaw, isSupabaseConfigured } from "lib/data";
 import { NextResponse } from "next/server";
 
 /**
@@ -16,10 +16,16 @@ export async function GET(request: Request) {
   const locale = searchParams.get("locale") ?? "en";
   const limit = searchParams.get("limit");
 
+  // Debug: also return raw posts and slugs
+  const rawPosts = await getPublishedPostsRaw();
+  console.log(`[API] locale=${locale}, rawPosts=${rawPosts.length}, slugs=${rawPosts.map(p => p.slug)}`);
+
   const posts = await getPublishedPosts(
     locale,
     limit ? Number(limit) : undefined
   );
 
-  return NextResponse.json({ posts, isSupabaseConfigured });
+  console.log(`[API] resolved ${posts.length} posts for locale ${locale}`);
+
+  return NextResponse.json({ posts, isSupabaseConfigured, rawSlugs: rawPosts.map(p => p.slug) });
 }

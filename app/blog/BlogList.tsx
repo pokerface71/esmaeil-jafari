@@ -5,7 +5,7 @@ import Header from "components/design-system/organisms/Header";
 import { coverArtDataUri } from "lib/coverArt";
 import { useI18n } from "lib/i18n";
 import { DEFAULT_OG_IMAGE, SITE_NAME, absoluteUrl } from "lib/seo";
-import { isSupabaseConfigured, toPostView, type Post } from "lib/supabase";
+import { isSupabaseConfigured, type PostView } from "lib/supabase";
 import { cn } from "lib/utils";
 import Link from "next/link";
 import { FaArrowRight, FaCalendarAlt } from "react-icons/fa";
@@ -45,7 +45,8 @@ export async function generateMetadata(): Promise<import("next").Metadata> {
 export const revalidate = 60; // ISR: refresh at most every 60s
 
 interface BlogListProps {
-  posts: Post[];
+  posts: PostView[];
+  locale: string;
 }
 
 function formatDate(iso: string | null, locale: string): string {
@@ -65,14 +66,8 @@ function formatDate(iso: string | null, locale: string): string {
   }
 }
 
-export default function BlogList({ posts }: BlogListProps) {
-  const { t, locale, dir } = useI18n();
-
-  // Resolve the best translation per post for the active locale (client-side,
-  // because the visitor's language is chosen at runtime).
-  const views = posts
-    .map((p) => toPostView(p, locale))
-    .filter((p): p is NonNullable<typeof p> => p !== null);
+export default function BlogList({ posts, locale }: BlogListProps) {
+  const { t, dir } = useI18n();
 
   return (
     <div className="min-h-screen text-foreground">
@@ -97,14 +92,14 @@ export default function BlogList({ posts }: BlogListProps) {
             </div>
           )}
 
-          {isSupabaseConfigured && views.length === 0 && (
+          {isSupabaseConfigured && posts.length === 0 && (
             <div className="glass-card rounded-3xl p-8 text-center text-muted-foreground">
               {t("blog.empty")}
             </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {views.map((post, index) => (
+            {posts.map((post, index) => (
               <article
                 key={post.id}
                 data-spot
@@ -160,7 +155,7 @@ export default function BlogList({ posts }: BlogListProps) {
                   </p>
 
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={`/${locale}/blog/${post.slug}`}
                     className={cn(
                       "inline-flex items-center gap-2 text-sm font-semibold text-violet-300 hover:text-violet-200 transition-colors",
                       dir === "rtl" && "flex-row-reverse"

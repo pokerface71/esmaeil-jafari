@@ -61,6 +61,7 @@ describe("dynamic posts sitemap (/sitemap-posts.xml)", () => {
     expect(res.headers.get("Content-Type")).toContain("application/xml");
 
     const locs = parseLocs(await res.text());
+    // When Supabase fails, only the static pages are included (no posts)
     expect(locs).toEqual([`${SITE}/`, `${SITE}/blog`]);
     expect(warn).toHaveBeenCalledOnce();
   });
@@ -75,12 +76,17 @@ describe("dynamic posts sitemap (/sitemap-posts.xml)", () => {
 
     expect(res.status).toBe(200);
     const locs = parseLocs(await res.text());
-    expect(locs).toEqual([
+    const expectedPosts = ["hello-world", "nextjs-tips"];
+    const expected = [
       `${SITE}/`,
       `${SITE}/blog`,
-      `${SITE}/blog/hello-world`,
-      `${SITE}/blog/nextjs-tips`,
-    ]);
+      ...expectedPosts.flatMap((slug) =>
+        ["en", "fa", "ar", "tr"].map((locale) =>
+          `${SITE}/${locale}/blog/${slug}`
+        )
+      ),
+    ];
+    expect(locs).toEqual(expected);
     expect(locs.every((loc) => loc.startsWith(SITE))).toBe(true);
   });
 });

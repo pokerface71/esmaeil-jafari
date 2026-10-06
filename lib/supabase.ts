@@ -20,6 +20,7 @@ export interface Post {
   created_at: string;
   updated_at: string;
   tags: string[] | null;
+  categories: string[] | null;
   translations: PostTranslation[];
 }
 
@@ -32,6 +33,7 @@ export interface PostView {
   content: string;
   cover_image_url: string | null;
   tags: string[] | null;
+  categories: string[] | null;
   published: boolean;
   published_at: string | null;
   updated_at: string;
@@ -118,6 +120,7 @@ export function toPostView(post: Post, locale: string): PostView | null {
     content: tr.content,
     cover_image_url: post.cover_image_url,
     tags: post.tags,
+    categories: post.categories,
     published: post.published,
     published_at: post.published_at,
     updated_at: post.updated_at,

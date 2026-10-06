@@ -31,6 +31,7 @@ interface LocalFrontmatter {
   title: string;
   excerpt: string;
   tags?: string[];
+  categories?: string[];
   published: boolean;
   published_at?: string | null;
   cover_image_url?: string | null;
@@ -111,6 +112,7 @@ export function localPostFromFile(
     created_at: frontmatter.published_at ?? new Date().toISOString(),
     updated_at: new Date().toISOString(),
     tags: frontmatter.tags ?? [],
+    categories: frontmatter.categories ?? null,
     translations,
   };
 }

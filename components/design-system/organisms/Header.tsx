@@ -53,7 +53,7 @@ export default function Header() {
       label: t("nav.experience"),
       key: "experience"
     },
-    { href: "/blog", label: t("nav.blog"), key: "blog" },
+    { href: "/en/blog", label: t("nav.blog"), key: "blog" },
     { href: "/?scroll=contact", label: t("nav.contact"), key: "contact" }
   ];
 

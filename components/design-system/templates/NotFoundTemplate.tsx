@@ -16,7 +16,7 @@ import { FaHome, FaNewspaper } from "react-icons/fa";
  * `.btn-primary` / `.btn-ghost` utilities, matching BlogSection/AdminPanel.
  */
 export default function NotFoundTemplate() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
   return (
     <div className="min-h-screen text-foreground">
@@ -52,7 +52,7 @@ export default function NotFoundTemplate() {
               {t("notfound.home")}
             </Link>
             <Link
-              href="/blog"
+              href={`/${locale}/blog`}
               className="btn-ghost inline-flex items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               <FaNewspaper aria-hidden="true" />

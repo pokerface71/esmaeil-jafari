@@ -29,7 +29,7 @@ describe("NotFoundTemplate", () => {
     expect(home).toHaveAttribute("href", "/");
 
     const blog = screen.getByRole("link", { name: "Browse the Blog" });
-    expect(blog).toHaveAttribute("href", "/blog");
+    expect(blog).toHaveAttribute("href", "/en/blog");
   });
 
   it("keeps the site shell (header nav + footer)", () => {
@@ -51,6 +51,6 @@ describe("NotFoundTemplate", () => {
     ).toHaveAttribute("href", "/");
     expect(
       screen.getByRole("link", { name: "مشاهده وبلاگ" })
-    ).toHaveAttribute("href", "/blog");
+    ).toHaveAttribute("href", "/fa/blog");
   });
 });

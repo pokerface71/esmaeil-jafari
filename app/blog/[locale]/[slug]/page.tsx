@@ -11,29 +11,29 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BlogPost from "./BlogPost";
 
-/**
- * Slug route: App Router equivalent of pages/blog/[slug].tsx.
- *
- * - `generateStaticParams` enumerates all published slugs (replacement for
- *   getStaticPaths with fallback: blocking — the loading state was deleted).
- * - `generateMetadata` moved the next/head block (title/description/OG/Twitter
- *   + BlogPosting JSON-LD).
- * - `revalidate: 60` keeps ISR for newly published articles.
- */
+const LOCALES = ["en", "fa", "ar", "tr"] as const;
+
 export async function generateStaticParams() {
   const slugs = await getPublishedSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const params: { locale: string; slug: string }[] = [];
+  for (const slug of slugs) {
+    for (const locale of LOCALES) {
+      params.push({ locale, slug });
+    }
+  }
+  return params;
 }
 
 export async function generateMetadata({
   params
 }: {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }): Promise<Metadata> {
-  const post = await getPostBySlugRaw(params.slug);
+  const { locale, slug } = params;
+  const post = await getPostBySlugRaw(slug);
   if (!post) notFound();
 
-  const view = toPostView(post, "en");
+  const view = toPostView(post, locale);
   if (!view) notFound();
 
   return {
@@ -46,7 +46,7 @@ export async function generateMetadata({
       siteName: "Esmaeil Jafari",
       title: view.title,
       description: view.excerpt || "",
-      url: absoluteUrl(`/blog/${view.slug}`),
+      url: absoluteUrl(`/${locale}/blog/${view.slug}`),
       images: [
         { url: ogImage(view.cover_image_url), width: 1200, height: 630 }
       ],
@@ -62,7 +62,10 @@ export async function generateMetadata({
       images: [ogImage(view.cover_image_url)]
     },
     alternates: {
-      canonical: absoluteUrl(`/blog/${view.slug}`)
+      canonical: absoluteUrl(`/${locale}/blog/${view.slug}`),
+     languages: Object.fromEntries(
+        LOCALES.map((l) => [`/${l}/blog/${view.slug}`, l])
+      )
     },
     other: {
       "application/ld+json": JSON.stringify(
@@ -83,15 +86,23 @@ export const revalidate = 60;
 export default async function BlogPostPage({
   params
 }: {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }) {
-  const post = await getPostBySlugRaw(params.slug);
-  if (!post) notFound();
+  const { locale, slug } = params;
+  console.log('[BlogPostPage] params:', { locale, slug });
+  const post = await getPostBySlugRaw(slug);
+  console.log('[BlogPostPage] post:', post ? { slug: post.slug, id: post.id } : null);
+  if (!post) {
+    console.log('[BlogPostPage] post not found, calling notFound()');
+    notFound();
+  }
 
-  // Resolve the best translation per post for the active locale. The
-  // client renders it; the slug route is the data source.
-  const view = toPostView(post, "en");
-  if (!view) notFound();
+  const view = toPostView(post, locale);
+  console.log('[BlogPostPage] view:', view ? { slug: view.slug, title: view.title } : null);
+  if (!view) {
+    console.log('[BlogPostPage] view is null, calling notFound()');
+    notFound();
+  }
 
-  return <BlogPost post={post} />;
+  return <BlogPost post={view} locale={locale} />;
 }
